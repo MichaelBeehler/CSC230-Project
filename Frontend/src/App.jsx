@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import UploadPage from "./pages/UploadPage"; 
 import ReviewPage from "./pages/ReviewPage";
 import Register from "./pages/Register";
+import StudentProfilePage from "./pages/StudentProfilePage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
@@ -39,16 +40,19 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage setUserRole={setUserRole} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<StudentProfilePage />} />
 
           {/* Student protected routes */}
           <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
             <Route path="/upload-pdf" element={<UploadPage type="pdf" />} />
             <Route path="/upload-poster" element={<UploadPage type="poster" />} />
+            <Route path="/profile" element={<StudentProfilePage />} />
           </Route>
 
           {/* Faculty protected route */}
           <Route element={<ProtectedRoute allowedRoles={["faculty"]} />}>
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/profile" element={<StudentProfilePage />} />
           </Route>
         </Routes>
       </main>

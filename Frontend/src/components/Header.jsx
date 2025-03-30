@@ -58,6 +58,13 @@ function Header({ userRole, setUserRole }) {
           {/* Login */}
           {!userRole && <li><Link to="/login">Login</Link></li>}
 
+          {/* Profile */}
+          {userRole && (
+            <li>
+              <Link to="/profile">My Profile</Link>
+            </li>
+          )}
+
           {/* Logout */}
           {userRole && (
             <li>
