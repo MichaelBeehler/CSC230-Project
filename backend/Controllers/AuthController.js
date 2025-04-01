@@ -4,26 +4,37 @@ import bcrypt from "bcrypt";
 
 export const Signup = async (req, res, next) => {
     try {
-        const {email, password, role, createdAt} = req.body;
-        const existingUser = await User.findOne({email});
+        const { firstName, lastName, email, password, role, createdAt } = req.body;
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.json({message: "User already exists!"});
+            return res.json({ message: "User already exists!" });
         }
-        const user = await User.create({email, password, role, createdAt});
+
+        // Create new user with first and last name
+        const user = await User.create({ firstName, lastName, email, password, role, createdAt });
+
+        // Generate authentication token
         const token = generateToken(user._id);
         res.cookie("token", token, {
             withCredentials: true,
             httpOnly: false,
         });
-        res
-            .status(201)
-            .json({message: "User signed in successfully", success: true, user});
+
+        res.status(201).json({
+            message: "User signed up successfully",
+            success: true,
+            user
+        });
+
         next();
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error);
+        res.status(500).json({ message: "Server error", error });
     }
-}
+};
+
 
 export const Login = async (req, res, next) => {
     try {
@@ -52,3 +63,16 @@ export const Login = async (req, res, next) => {
         res.status(500).json({message: "Server error", success: false});
     }
 }
+
+
+export const getProfile = async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id).select("-password"); // Exclude password
+      if (!user) return res.status(404).json({ message: "User not found" });
+      
+      res.json({ user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  };

@@ -1,58 +1,59 @@
 import React, { useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState ({
+  const [inputValue, setInputValue] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
   });
 
-  const {email, password, role} = inputValue;
+  const { firstName, lastName, email, password, role } = inputValue;
+
   const handleOnChange = (e) => {
-    const {name, value} = e.target;
-    setInputValue ({
+    const { name, value } = e.target;
+    setInputValue({
       ...inputValue,
       [name]: value,
     });
   };
 
   const handleError = (err) =>
-    toast.error(err, {position: "bottom-left"});
+    toast.error(err, { position: "bottom-left" });
 
-  const handleSuccess = (msg) => 
-    toast.success (msg, {position: "bottom-left"});
+  const handleSuccess = (msg) =>
+    toast.success(msg, { position: "bottom-left" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data} = await axios.post (
+      const { data } = await axios.post(
         "http://localhost:4000/signup",
         {
           ...inputValue,
         },
-        {withCredentials: true}
+        { withCredentials: true }
       );
-      const {success, message} = data;
+      const { success, message } = data;
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
           navigate("/");
-        }, 1000)
-      }
-      else {
+        }, 1000);
+      } else {
         handleError(message);
       }
-    }
-    catch(error) {
+    } catch (error) {
       console.log(error);
-
     }
     setInputValue({
-      ...inputValue,
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       role: "",
@@ -63,6 +64,26 @@ const Register = () => {
     <div className="form_container">
       <h2>Signup Account</h2>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            value={firstName}
+            placeholder="Enter your first name"
+            onChange={handleOnChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            value={lastName}
+            placeholder="Enter your last name"
+            onChange={handleOnChange}
+          />
+        </div>
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -101,7 +122,6 @@ const Register = () => {
       <ToastContainer />
     </div>
   );
-
-}
+};
 
 export default Register;
