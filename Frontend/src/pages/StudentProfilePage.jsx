@@ -1,53 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./StudentProfilePage.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [uploads, setUploads] = useState([]);
-  const [message, setMessage] = useState("");
 
-  // Fetch the user's profile data and uploaded PDFs
   useEffect(() => {
-    fetchUserData();
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:4000/profile", {
+          withCredentials: true, 
+        });
+        setUser(data.user); 
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // get uploaded PDFs
+    const fetchUploads = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:4000/api/pdf/my-pdfs", {
+          withCredentials: true, 
+        });
+        setUploads(data); 
+      } catch (error) {
+        console.error("Error fetching uploaded PDFs:", error);
+      }
+    };
+
+    fetchUser();
     fetchUploads();
   }, []);
 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/profile", {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await response.json();
-      if (data.success) {
-        setUser(data.user);  // Assuming the user data is returned in 'data.user'
-      } else {
-        setMessage("Error loading user data.");
-      }
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-      setMessage("Error fetching user data.");
-    }
-  };
-
-  const fetchUploads = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/pdf/my-pdfs", {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await response.json();
-      setUploads(data || []);
-    } catch (err) {
-      console.error("Error fetching uploads:", err);
-      setMessage("Error fetching uploads.");
-    }
-  };
-
   return (
-    <div style={{ textAlign: "center", padding: "20px", color: "black" }}>
+    <div style={{ textAlign: "left", padding: "20px", color: "black" }}>
       <h2>Your Profile</h2>
-      {message && <p>{message}</p>}
-
       {user ? (
         <>
           <p>Welcome, {user.firstName} {user.lastName}!</p>
