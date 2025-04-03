@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./ReviewPage.css"; // Ensure styles are applied
+import "./ReviewPage.css";
 
 function ReviewPage() {
   const [submissions, setSubmissions] = useState([]);
@@ -10,7 +10,7 @@ function ReviewPage() {
     fetch("http://localhost:4000/api/pdf/all", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
-        const formattedSubmissions = data.map(pdf => ({
+        const formattedSubmissions = data.map((pdf) => ({
           id: pdf._id,
           title: pdf.filename,
           description: "Student-submitted research paper.",
@@ -35,9 +35,11 @@ function ReviewPage() {
       });
 
       if (response.ok) {
-        setSubmissions(submissions.map(sub =>
-          sub.id === id ? { ...sub, status: newStatus, comment } : sub
-        ));
+        setSubmissions((prev) =>
+          prev.map((sub) =>
+            sub.id === id ? { ...sub, status: newStatus, comment } : sub
+          )
+        );
       } else {
         console.error("❌ Error updating status.");
       }
@@ -46,37 +48,76 @@ function ReviewPage() {
     }
   };
 
+  const pendingSubmissions = submissions.filter((sub) => sub.status === "Pending");
+
   return (
     <div className="review-container">
       <h2>Review Submissions</h2>
 
-      {submissions.length === 0 ? <p>No submissions found.</p> : (
-        submissions.map((submission) => (
-          <div key={submission.id} className="review-card">
-            <h3>{submission.title}</h3>
-            <p>{submission.description}</p>
-            <p>Status: <span className={`status ${submission.status.toLowerCase()}`}>{submission.status}</span></p>
+      {pendingSubmissions.length === 0 ? (
+        <p>No submissions found.</p>
+      ) : (
+        <div className="card-grid">
+          {pendingSubmissions.map((submission) => (
+            <div key={submission.id} className="review-card">
+              <h3>{submission.title}</h3>
+              <p>{submission.description}</p>
+              <p>
+                Status:{" "}
+                <span className={`status ${submission.status.toLowerCase()}`}>
+                  {submission.status}
+                </span>
+              </p>
 
-            <textarea
-              placeholder="Enter comments..."
-              value={comments[submission.id] || ""}
-              onChange={(e) => setComments({ ...comments, [submission.id]: e.target.value })}
-            ></textarea>
+              <textarea
+                placeholder="Enter comments..."
+                value={comments[submission.id] || ""}
+                onChange={(e) =>
+                  setComments({ ...comments, [submission.id]: e.target.value })
+                }
+              ></textarea>
 
-            <div className="button-group">
-              <a href={`http://localhost:4000/api/pdf/view/${submission.id}`} target="_blank" rel="noopener noreferrer">
-                View PDF
-              </a>
-              <button className="approve-btn" onClick={() => handleAction(submission.id, "Approved")}>Approve</button>
-              <button className="reject-btn" onClick={() => handleAction(submission.id, "Rejected")}>Reject</button>
+              <div className="button-group">
+                <a
+                  href={`http://localhost:4000/api/pdf/view/${submission.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PDF
+                </a>
+
+                <button
+                  className="approve-btn"
+                  onClick={() => {
+                    if (
+                      window.confirm("Are you sure you want to approve this submission?")
+                    ) {
+                      handleAction(submission.id, "Approved");
+                    }
+                  }}
+                >
+                  Approve
+                </button>
+
+                <button
+                  className="reject-btn"
+                  onClick={() => {
+                    if (
+                      window.confirm("Are you sure you want to reject this submission?")
+                    ) {
+                      handleAction(submission.id, "Rejected");
+                    }
+                  }}
+                >
+                  Reject
+                </button>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );
 }
 
 export default ReviewPage;
-
-

@@ -10,6 +10,7 @@ import UploadPage from "./pages/UploadPage";
 import ReviewPage from "./pages/ReviewPage";
 import Register from "./pages/Register";
 import StudentProfilePage from "./pages/StudentProfilePage";
+import SearchResultsPage from "./pages/SearchResultsPage"; // ✅ Added this
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
@@ -41,6 +42,9 @@ function App() {
           <Route path="/login" element={<LoginPage setUserRole={setUserRole} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<StudentProfilePage />} />
+
+          {/* 🔍 Public search route */}
+          <Route path="/search" element={<SearchResultsPage />} /> {/* ✅ Added */}
 
           {/* Student protected routes */}
           <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
