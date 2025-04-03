@@ -26,28 +26,43 @@ header {
   margin: 0;
 }
 
+/* CIRT Banner */
+.main-banner {
+  padding: 20px 0;
+  background: linear-gradient(to right, rgb(150, 10, 30), rgb(200, 16, 46));
+  margin: 0;
+}
+
 /* Large CIRT Title */
 .cirt-title {
   font-size: 42px;
   font-family: "Univers LT Std", "57 Condensed";
-  font-style: italic;
   font-weight: bold;
-  background: linear-gradient(to right, rgb(150, 10, 30), rgb(200, 16, 46));
   color: white;
   margin: 0;
-  padding: 5px 34px;
-  display: block;
+  line-height: 1.1;
 }
 
 /* Subtitle below CIRT */
 .cirt-subtitle {
-  font-size: 22px;
-  margin: 0;
-  background: linear-gradient(to right, rgb(150, 10, 30), rgb(200, 16, 46));
+  font-size: 16px;
+  font-style: italic;
+  font-weight: normal;
   color: white;
-  padding: 5px 3px;
-  font-family: "Univers Condensed", Arial, sans-serif;
-  display: block;
+  font-family: "Univers LT Std", "57 Condensed";
+  margin-top: 4px;
+  margin-bottom: 0;
+  line-height: 1.2;
+  padding-left: 3px;
+}
+
+.cirt-wrapper {
+  padding-left: 32px; /* aligns with .top-banner's left padding */
+}
+
+.light-symbol {
+  font-weight: lighter;
+  font-size: 12px;
 }
 
 /* Navigation banner */

@@ -41,7 +41,7 @@ const ProfilePage = () => {
         <>
           <p>Welcome, {user.firstName} {user.lastName}!</p>
           <p>Email: {user.email}</p>
-          <p>Role: {user.role}</p>
+          <p>Role: {user.role.charAt(0).toUpperCase() + user.role.slice(1)}</p>
         </>
       ) : (
         <p>Loading user data...</p>

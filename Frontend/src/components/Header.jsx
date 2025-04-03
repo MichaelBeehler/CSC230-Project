@@ -17,15 +17,25 @@ function Header({ userRole, setUserRole }) {
       {/* Top banner */}
       <div className="top-banner">
         <img src={logo} alt="University Logo" />
-        <h2>The University of Tampa</h2>
+        <a
+          href="https://www.ut.edu"
+          className="ut-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          University of Tampa
+        </a>
       </div>
 
       {/* Middle banner */}
       <div className="main-banner">
-        <h1 className="cirt-title">
-          Criminology Institute for Research and Training <br />
-        </h1>
+        <div className="cirt-wrapper">
+          <h1 className="cirt-title">Criminology Institute for Research and Training</h1>
+          <p className="cirt-subtitle">
+            College of Social Sciences, Mathematics, and Education <span className="light-symbol">&gt;</span> B.S. in Criminology and Criminal Justice 
+          </p>
       </div>
+    </div>
 
       {/* Nav */}
       <nav className="nav-banner">
