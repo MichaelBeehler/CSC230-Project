@@ -16,6 +16,7 @@ function Header({ userRole, setUserRole }) {
     <header>
       {/* Top banner */}
       <div className="top-banner">
+        <div className="top-left">
         <img src={logo} alt="University Logo" />
         <a
           href="https://www.ut.edu"
@@ -27,12 +28,42 @@ function Header({ userRole, setUserRole }) {
         </a>
       </div>
 
+      <a
+        href="https://www.ut.edu/about-utampa/university-services/information-technology-and-security/myutampa"
+        className="myutampa-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        MyUTampa
+      </a>
+    </div>
+
+
+
       {/* Middle banner */}
       <div className="main-banner">
         <div className="cirt-wrapper">
-          <h1 className="cirt-title">Criminology Institute for Research and Training</h1>
+          <Link to="/" className="cirt-title">
+            Criminology Institute for Research and Training
+            </Link>
           <p className="cirt-subtitle">
-            College of Social Sciences, Mathematics, and Education <span className="light-symbol">&gt;</span> B.S. in Criminology and Criminal Justice 
+            <a
+              href="https://www.ut.edu/academics/college-of-social-sciences-mathematics-and-education"
+              className="cirt-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              College of Social Sciences, Mathematics, and Education
+            </a>
+            <span className="light-symbol">&nbsp;&gt;&nbsp;</span>
+            <a
+              href="https://www.ut.edu/academics/college-of-social-sciences-mathematics-and-education/criminology-and-criminal-justice-degrees"
+              className="cirt-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              B.S. in Criminology and Criminal Justice
+            </a>
           </p>
       </div>
     </div>

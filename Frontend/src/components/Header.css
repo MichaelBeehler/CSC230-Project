@@ -11,7 +11,77 @@ header {
   display: flex;
   align-items: center;
   padding: 5px 20px;
+  justify-content: space-between;
 }
+
+/* Left-aligned logo + link */
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* MyUTampa Button */
+.myutampa-button {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  background-color: rgb(200, 16, 46);
+  padding: 8px 14px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  background-color: transparent;
+}
+
+.myutampa-button:hover {
+  background-color: #a00000;
+  color: white;
+}
+
+/* ===HEADER LINKING UPGRADES START=== */
+
+/* Top banner link */
+.ut-link {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+.ut-link:hover {
+  text-decoration: underline;
+  color: #ccc;
+}
+
+/* CIRT title link (styled like the original heading) */
+.cirt-title {
+  font-size: 42px;
+  font-family: "Univers LT Std", "57 Condensed";
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  line-height: 1.1;
+  text-decoration: none;
+  display: inline-block;
+}
+.cirt-title:hover {
+  text-decoration: underline;
+  color: #ccc;
+}
+
+/* CIRT subtitle links */
+.cirt-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.cirt-link:hover {
+  text-decoration: underline;
+  color: #ddd;
+}
+
+/* ===HEADER LINKING UPGRADES END=== */
+
 
 /* University Logo */
 .top-banner img {
