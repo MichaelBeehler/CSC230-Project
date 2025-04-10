@@ -71,8 +71,6 @@ function Header({ userRole, setUserRole }) {
       {/* Nav */}
       <nav className="nav-banner">
         <ul>
-          <li><Link to="/">Home</Link></li>
-
           {/* Dropdown About */}
           <li className="dropdown">
             <span>About Us ▼</span>
@@ -93,23 +91,27 @@ function Header({ userRole, setUserRole }) {
             </li>
           )}
 
-          {/* Faculty */}
-          {userRole === "faculty" && <li><Link to="/review">Review Submissions</Link></li>}
+          {/* Faculty Research Dropdown */}
+          {userRole === "faculty" && (
+            <li className="dropdown">
+              <span>Research ▼</span>
+              <ul className="dropdown-content">
+                <li><Link to="/review">Review Submissions</Link></li>
+              </ul>
+            </li>
+          )}
 
           {/* Login */}
           {!userRole && <li><Link to="/login">Login</Link></li>}
 
-          {/* Profile */}
+          {/* My Profile Dropdown */}
           {userRole && (
-            <li>
-              <Link to="/profile">My Profile</Link>
-            </li>
-          )}
-
-          {/* Logout */}
-          {userRole && (
-            <li>
-              <span onClick={handleLogout} className="logout-button">Logout</span>
+            <li className="dropdown">
+              <span>My Profile ▼</span>
+              <ul className="dropdown-content">
+                <li><Link to="/profile">My Profile</Link></li>
+                <li><span onClick={handleLogout} className="logout-button">Logout</span></li>
+              </ul>
             </li>
           )}
         </ul>

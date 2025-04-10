@@ -182,34 +182,50 @@ header {
   list-style: none;
   padding: 0;
   margin: 0;
-  min-width: 150px;
+  min-width: 190px;
   top: 100%;
   left: 0;
   border: 1px solid #444;
   z-index: 999;
 }
 
-.dropdown-content li {
+.dropdown-content li a,
+.dropdown-content li .logout-button {
   display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: normal;
+  border-radius: 0;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  box-sizing: border-box;
+}
+
+.dropdown-content li .logout-button:hover {
+  background-color: rgb(200, 16, 46);
+  color: white;
 }
 
 .dropdown-content a {
   display: block;
-  padding: 10px;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Logout button styling */
+/* Logout button styling
 .logout-button {
   background: none;
   border: none;
   color: white;
   font-size: 18px;
-  padding: 12px 18px;
-  border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
@@ -218,6 +234,8 @@ header {
   background-color: rgb(200, 16, 46);
   color: white;
 }
+*/
+
 
 /* Mobile responsiveness */
 @media screen and (max-width: 768px) {
@@ -233,7 +251,7 @@ header {
     gap: 15px;
   }
 
-  .nav-banner a, .nav-banner span, .logout-button {
+  .nav-banner a, .nav-banner span {
     display: block;
     width: 100%;
   }

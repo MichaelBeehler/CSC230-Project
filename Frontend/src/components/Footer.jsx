@@ -9,8 +9,9 @@ function Footer() {
         {/* Left Section */}
         <div className="footer-left">
           <h3>UNIVERSITY OF TAMPA</h3>
-          <p>401 W Kennedy Blvd, Tampa, FL 33606</p>
-          <p>Main Office: 813-253-3333</p>
+          <p>401 W. Kennedy Blvd</p>
+          <p>Tampa, FL 33606-1490</p>
+          <p>(813) 253-3333</p>
           <div className="footer-socials">
             <a href="#"><i className="fab fa-x-twitter"></i></a>
             <a href="#"><i className="fab fa-youtube"></i></a>
