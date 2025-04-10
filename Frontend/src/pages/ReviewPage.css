@@ -1,7 +1,8 @@
 .review-container {
   padding: 20px;
   text-align: center;
-  color: white;
+  color: black;
+  margin-bottom: 20px;
 }
 
 .card-grid {
@@ -52,6 +53,8 @@ textarea {
 
 .button-group {
   margin-top: 10px;
+  gap: 10px;
+  color: white;
 }
 
 .approve-btn,
@@ -61,6 +64,7 @@ textarea {
   border: 1px solid white;
   padding: 5px 10px;
   cursor: pointer;
+  margin-left: 10px;
   margin-right: 5px;
   border-radius: 5px;
 }

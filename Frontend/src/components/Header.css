@@ -1,12 +1,58 @@
+/* IMPORT FONTS - NOTE: call each with 'Univers LT Std', differentiate with font-weights & styles (700, 500, 300; normal, italic) */
+
+/* 67 Bold Condensed - Use for titles */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-BoldCn.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* 57 Condensed - Use for subtitles & buttons */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-Cn.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* 57 Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-CnObl.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* 47 Light Condensed - Use for body text */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCn.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* 47 Light Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCnObl.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+
 /* General header styling */
 header {
-  font-family: Arial, sans-serif;
+  font-family: "Univers LT Std";
+  font-style: normal;
+  font-weight: 700;
 }
 
 /* Top banner (University Name & Logo) */
 .top-banner {
   background-color: black;
-  font-family: "Univers LT Std", "57 Condensed";
+  font-family: "Univers LT Std";
+  font-weight: 700;
   color: white;
   display: flex;
   align-items: center;
@@ -24,7 +70,7 @@ header {
 /* MyUTampa Button */
 .myutampa-button {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
   text-decoration: none;
   background-color: rgb(200, 16, 46);
@@ -56,8 +102,8 @@ header {
 /* CIRT title link (styled like the original heading) */
 .cirt-title {
   font-size: 42px;
-  font-family: "Univers LT Std", "57 Condensed";
-  font-weight: bold;
+  font-family: "Univers LT Std";
+  font-weight: 700;
   color: white;
   margin: 0;
   line-height: 1.1;
@@ -82,7 +128,6 @@ header {
 
 /* ===HEADER LINKING UPGRADES END=== */
 
-
 /* University Logo */
 .top-banner img {
   height: 40px;
@@ -92,7 +137,8 @@ header {
 /* University Name (Left-aligned) */
 .top-banner h2 {
   font-size: 16px;
-  font-weight: bold;
+  font-family: "Univers LT Std";
+  font-weight: 700;
   margin: 0;
 }
 
@@ -106,8 +152,8 @@ header {
 /* Large CIRT Title */
 .cirt-title {
   font-size: 42px;
-  font-family: "Univers LT Std", "57 Condensed";
-  font-weight: bold;
+  font-family: "Univers LT Std";
+  font-weight: 700;
   color: white;
   margin: 0;
   line-height: 1.1;
@@ -115,11 +161,11 @@ header {
 
 /* Subtitle below CIRT */
 .cirt-subtitle {
+  font-family: "Univers LT Std";
+  font-weight: 500;
   font-size: 16px;
   font-style: italic;
-  font-weight: normal;
   color: white;
-  font-family: "Univers LT Std", "57 Condensed";
   margin-top: 4px;
   margin-bottom: 0;
   line-height: 1.2;
@@ -146,6 +192,8 @@ header {
 /* Navigation links */
 .nav-banner > ul {
   list-style-type: none;
+  font-family: "Univers LT Std";
+  font-weight: 700;
   padding: 0;
   margin: 0;
   display: flex;

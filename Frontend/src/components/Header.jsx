@@ -73,7 +73,7 @@ function Header({ userRole, setUserRole }) {
         <ul>
           {/* Dropdown About */}
           <li className="dropdown">
-            <span>About Us ▼</span>
+            <span>ABOUT US ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
@@ -94,7 +94,7 @@ function Header({ userRole, setUserRole }) {
           {/* Faculty Research Dropdown */}
           {userRole === "faculty" && (
             <li className="dropdown">
-              <span>Research ▼</span>
+              <span>RESEARCH ▾</span>
               <ul className="dropdown-content">
                 <li><Link to="/review">Review Submissions</Link></li>
               </ul>
@@ -107,7 +107,7 @@ function Header({ userRole, setUserRole }) {
           {/* My Profile Dropdown */}
           {userRole && (
             <li className="dropdown">
-              <span>My Profile ▼</span>
+              <span>MY PROFILE ▾</span>
               <ul className="dropdown-content">
                 <li><Link to="/profile">My Profile</Link></li>
                 <li><span onClick={handleLogout} className="logout-button">Logout</span></li>
