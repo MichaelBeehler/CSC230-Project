@@ -167,7 +167,6 @@ router.get("/my-pdfs", authenticateUser, async (req, res) => {
   }
 });
 
-
 // Fetch Posters uploaded by the logged-in student
 router.get("/my-posters", authenticateUser, async (req, res) => {
   try {
@@ -187,9 +186,8 @@ router.get("/my-posters", authenticateUser, async (req, res) => {
   }
 });
 
-
-// Stream a specific PDF by file ID
-router.get("/view/:fileId", authenticateUser, async (req, res) => {
+// ✅ Stream a specific PDF by file ID (public if approved)
+router.get("/view/:fileId", async (req, res) => {
   try {
     const fileId = new mongoose.Types.ObjectId(req.params.fileId);
     const file = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
@@ -198,8 +196,32 @@ router.get("/view/:fileId", authenticateUser, async (req, res) => {
       return res.status(404).json({ error: "File not found" });
     }
 
-    if (req.user.role === "student" && file.metadata.uploadedBy.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: "Access denied. You can only view your own PDFs." });
+    const isApproved = file.metadata.status === "Approved";
+
+    // ✅ If approved, skip all authentication
+    if (!isApproved) {
+      const token = req.cookies?.token;
+      if (!token) {
+        return res.status(403).json({ error: "Access denied. PDF not approved and no login." });
+      }
+
+      try {
+        const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+        const user = await User.findById(decoded.id);
+        if (!user) {
+          return res.status(403).json({ error: "Access denied. Invalid user." });
+        }
+
+        const isOwner = file.metadata.uploadedBy.toString() === user._id.toString();
+        const isFaculty = user.role === "faculty";
+
+        if (!isOwner && !isFaculty) {
+          return res.status(403).json({ error: "Access denied. Not your PDF." });
+        }
+      } catch (err) {
+        console.error("❌ JWT Verification Failed:", err.message);
+        return res.status(403).json({ error: "Access denied. Invalid or expired login." });
+      }
     }
 
     res.set("Content-Type", "application/pdf");
@@ -236,8 +258,6 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
       return res.status(404).json({ error: "File not found or status unchanged." });
     }
 
-  
-
     if (status === "Approved") {
       const file = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
       await conn.db.collection("approved_pdfs").insertOne({
@@ -245,11 +265,9 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
         filename: file.filename,
         uploadedBy: file.metadata.uploadedBy,
         comment,
-        approvedDate: new Date() // ✅ add approval timestamp
+        approvedDate: new Date()
       });
     }
-    
-
 
     res.json({ message: `PDF marked as ${status} with comment.` });
   } catch (error) {
@@ -263,13 +281,14 @@ router.get("/search", async (req, res) => {
   const { query } = req.query;
   const searchResults = await conn.db.collection("approved_pdfs")
     .find({ filename: { $regex: query, $options: "i" } })
-    .sort({ approvedDate: -1 }) // ✅ Sort by most recent approval
+    .sort({ approvedDate: -1 })
     .limit(3)
     .toArray();
 
   res.json(searchResults);
 });
 
-
 export default router;
+
+
 
