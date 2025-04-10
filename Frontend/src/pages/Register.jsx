@@ -10,10 +10,10 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
-    role: "",
+    //role: "",
   });
 
-  const { firstName, lastName, email, password, role } = inputValue;
+  const { firstName, lastName, email, password} = inputValue; //role } = inputValue;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +56,7 @@ const Register = () => {
       lastName: "",
       email: "",
       password: "",
-      role: "",
+      //role: "",
     });
   };
 
@@ -94,16 +94,7 @@ const Register = () => {
             onChange={handleOnChange}
           />
         </div>
-        <div>
-          <label htmlFor="role">Role</label>
-          <input
-            type="text"
-            name="role"
-            value={role}
-            placeholder="Enter your role"
-            onChange={handleOnChange}
-          />
-        </div>
+        
         <div>
           <label htmlFor="password">Password</label>
           <input

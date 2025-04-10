@@ -2,15 +2,29 @@ import User from "../Models/UserModel.js";
 import {generateToken} from "../util/generateToken.js";
 import bcrypt from "bcrypt";
 
+// Function that assigns a role based on the user's email (student / faculty / guest).
+function assignRole (email) {
+    if (email.endsWith("@spartans.ut.edu")) {
+        return "student";
+    }
+    if (email.endsWith("@ut.edu")) {
+        return "faculty";
+    }
+    return "guest"
+}
+
 export const Signup = async (req, res, next) => {
     try {
-        const { firstName, lastName, email, password, role, createdAt } = req.body;
+        const { firstName, lastName, email, password, createdAt } = req.body;
+        const role = assignRole(email);
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.json({ message: "User already exists!" });
         }
+
+    
 
         // Create new user with first and last name
         const user = await User.create({ firstName, lastName, email, password, role, createdAt });
