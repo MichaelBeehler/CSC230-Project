@@ -10,7 +10,7 @@ import UploadPage from "./pages/UploadPage";
 import ReviewPage from "./pages/ReviewPage";
 import Register from "./pages/Register";
 import StudentProfilePage from "./pages/StudentProfilePage";
-import SearchResultsPage from "./pages/SearchResultsPage"; // ✅ Added this
+import SearchResultsPage from "./pages/SearchResultsPage"; 
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
