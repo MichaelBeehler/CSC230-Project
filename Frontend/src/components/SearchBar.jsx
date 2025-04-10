@@ -1,43 +1,43 @@
-import { useState } from "react";
+// components/SearchBar.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  // State to hold search input
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
-  // Dummy data for testing (to be replaced with database results)
-  const publications = [
-    "The Evolution of Criminal Law",
-    "Hog 2.6 and its Broader Implications on Society",
-    "Juvenile Delinquency Trends",
-    "Understanding Forensic Psychology",
-  ];
-
-  // Filter publications based on user input
-  const filteredPublications = publications.filter((pub) =>
-    pub.toLowerCase().includes(query.toLowerCase())
-  );
+  const handleSearch = () => {
+    if (query.trim()) {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    }
+  };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
+    <div style={{ marginBottom: "20px" }}>
       <input
         type="text"
-        placeholder="Search publications..."
+        placeholder="Search by title..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         style={{
           padding: "10px",
           width: "300px",
           borderRadius: "5px",
-          border: "1px solid #ccc",
+          marginRight: "10px",
         }}
       />
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {filteredPublications.map((pub, index) => (
-          <li key={index} style={{ marginTop: "10px" }}>
-            {pub}
-          </li>
-        ))}
-      </ul>
+      <button
+        onClick={handleSearch}
+        style={{
+          padding: "10px 20px",
+          borderRadius: "5px",
+          backgroundColor: "black",
+          color: "white",
+          border: "none",
+        }}
+      >
+        Search
+      </button>
     </div>
   );
 };

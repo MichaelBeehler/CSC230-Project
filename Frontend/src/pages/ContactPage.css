@@ -23,7 +23,7 @@
   
   .sidebar li {
     margin-bottom: 10px;
-    color: #00703c;
+    color: #990000;
     cursor: pointer;
   }
   
@@ -42,14 +42,14 @@
   }
   
   section h4 {
-    color: #00703c;
+    color: #990000;
     margin-bottom: 10px;
   }
   
   section button {
     background: none;
     border: none;
-    color: #00703c;
+    color: #990000;
     cursor: pointer;
     font-weight: bold;
     margin-top: 5px;
@@ -60,7 +60,7 @@
   }
   
   a {
-    color: #00703c;
+    color: #990000;
     text-decoration: none;
   }
   

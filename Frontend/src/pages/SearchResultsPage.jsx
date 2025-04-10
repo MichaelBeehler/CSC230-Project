@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -24,9 +25,14 @@ const SearchResultsPage = () => {
 
   return (
     <div style={{ padding: "40px 60px", fontFamily: "Georgia, serif" }}>
+      <div style={{ marginBottom: "30px" }}>
+        <SearchBar />
+      </div>
+
       <h2 style={{ textAlign: "left" }}>
         Search Results for: <em>{query}</em>
       </h2>
+
       {results.length > 0 ? (
         results.map((pdf) => (
           <div
@@ -36,7 +42,7 @@ const SearchResultsPage = () => {
               padding: "20px 0",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "flex-start",
+              alignItems: "center",
               gap: "20px"
             }}
           >
@@ -58,7 +64,6 @@ const SearchResultsPage = () => {
                 {pdf.filename}
               </a>
               <p style={{ fontStyle: "italic", margin: "5px 0" }}>
-                {/* Replace with actual author and source info if available */}
                 John Doe — University of Tampa, 2025
               </p>
               <p>
@@ -84,33 +89,6 @@ const SearchResultsPage = () => {
               >
                 ⬇️ Download
               </a>
-              <button
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "6px",
-                  marginBottom: "6px",
-                  backgroundColor: "#f5f5f5",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  cursor: "pointer"
-                }}
-              >
-                🔖 Save
-              </button>
-              <button
-                style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "6px",
-                  backgroundColor: "#f5f5f5",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  cursor: "pointer"
-                }}
-              >
-                📄 Cite
-              </button>
             </div>
           </div>
         ))
