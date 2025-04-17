@@ -48,57 +48,6 @@ header {
   font-weight: 700;
 }
 
-/* Top banner (University Name & Logo) */
-.top-banner {
-  background-color: black;
-  font-family: "Univers LT Std";
-  font-weight: 700;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 5px 20px;
-  justify-content: space-between;
-}
-
-/* Left-aligned logo + link */
-.top-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* MyUTampa Button */
-.myutampa-button {
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  background-color: rgb(200, 16, 46);
-  padding: 8px 14px;
-  border-radius: 5px;
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-  background-color: transparent;
-}
-
-.myutampa-button:hover {
-  background-color: #a00000;
-  color: white;
-}
-
-/* ===HEADER LINKING UPGRADES START=== */
-
-/* Top banner link */
-.ut-link {
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-}
-.ut-link:hover {
-  text-decoration: underline;
-  color: #ccc;
-}
-
 /* CIRT title link (styled like the original heading) */
 .cirt-title {
   font-size: 42px;
@@ -135,23 +84,22 @@ header {
 }
 
 /* University Name (Left-aligned) */
-.top-banner h2 {
-  font-size: 16px;
-  font-family: "Univers LT Std";
-  font-weight: 700;
-  margin: 0;
-}
 
 /* CIRT Banner */
 .main-banner {
   padding: 20px 0;
   background: linear-gradient(to right, rgb(150, 10, 30), rgb(200, 16, 46));
-  margin: 0;
+  display: flex;
+}
+
+.main-banner img {
+  height: 60px;
+  margin-right: 10px;
 }
 
 /* Large CIRT Title */
 .cirt-title {
-  font-size: 42px;
+  font-size: 45px;
   font-family: "Univers LT Std";
   font-weight: 700;
   color: white;
@@ -287,12 +235,6 @@ header {
 
 /* Mobile responsiveness */
 @media screen and (max-width: 768px) {
-  .top-banner {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
   .nav-banner ul {
     flex-direction: column;
     text-align: center;

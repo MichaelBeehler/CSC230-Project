@@ -38,7 +38,7 @@ const ForgotPassword = () => {
                 toast.success("If we have your information, we'll send you a link to reset your password", {position: "bottom-left"});
                 setTimeout(() => {
                     navigate("/");
-                }, 1000);
+                }, 2000);
             }
             else {
                 toast.error("An error has occurred. Please try again", {position: "bottom-left"});

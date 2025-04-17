@@ -12,11 +12,12 @@
   }
   
   .submission-card {
-    background: white;
+    background-color: rgba(0,0,0,0.6);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
+    text-align: center;
   }
   
   .submission-card:hover {

@@ -1,16 +1,23 @@
 import React from "react";
 import RecentSubmissions from "../components/RecentSubmissions";
 import SearchBar from "../components/SearchBar";
+import "./HomePage.css";
 
 const HomePage = () => {
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Welcome to the Academic Journal</h1>
-      <p>Search for approved publications below:</p>
+    <div className="homepage">
+      <div className="background-image" />
+        <div className="home-content">
+          <div style={{ textAlign: "center", padding: "20px"}}>
+          <h1>Welcome to the Academic Journal</h1>
+          <p>Search for approved publications below:</p>
 
-      <SearchBar />
+          <SearchBar />
 
-      <RecentSubmissions />
+          <RecentSubmissions />
+
+          </div>
+      </div>
     </div>
   );
 };
