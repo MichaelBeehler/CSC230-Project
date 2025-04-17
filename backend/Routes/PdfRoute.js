@@ -133,7 +133,7 @@ router.post("/upload-poster", authenticateUser, upload.single("pdf"), async (req
 // Fetch all PDFs (Faculty Only)
 router.get("/all", authenticateUser, async (req, res) => {
   try {
-    if (req.user.role !== "faculty") {
+    if (req.user.role !== "faculty" && req.user.role !== "editor") {
       return res.status(403).json({ error: "Access denied. Faculty only." });
     }
 
@@ -213,7 +213,7 @@ router.get("/view/:fileId", async (req, res) => {
         }
 
         const isOwner = file.metadata.uploadedBy.toString() === user._id.toString();
-        const isFaculty = user.role === "faculty";
+        const isFaculty = user.role === "faculty" || user.role === "editor";
 
         if (!isOwner && !isFaculty) {
           return res.status(403).json({ error: "Access denied. Not your PDF." });
@@ -238,7 +238,7 @@ router.get("/view/:fileId", async (req, res) => {
 // Faculty Approval/Rejection with Comments
 router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
   try {
-    if (req.user.role !== "faculty") {
+    if (req.user.role !== "faculty" && req.user.role !== "editor") {
       return res.status(403).json({ error: "Access denied. Faculty only." });
     }
 

@@ -85,6 +85,15 @@ function Header({ userRole, setUserRole }) {
             </li>
           )}
 
+          {userRole === "editor" && (
+            <li className="dropdown">
+              <span>Assign & Review ▾</span>
+              <ul className="dropdown-content">
+                <li><Link to="/editor">Review Submissions</Link></li>
+              </ul>
+            </li>
+          )}
+
           {/* Login */}
           {!userRole && <li><Link to="/login">Login</Link></li>}
 
