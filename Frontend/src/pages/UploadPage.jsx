@@ -8,7 +8,7 @@ function UploadPage({ type }) {
   const [message, setMessage] = useState("");
   const [uploads, setUploads] = useState([]);
 
-  const title = type === "pdf" ? "PDF" : "Poster";
+  const title = type === "pdf" ? "Article" : "Poster";
   const uploadUrl = type === "pdf"
     ? "http://localhost:4000/api/pdf/upload-pdf"
     : "http://localhost:4000/api/pdf/upload-poster";
@@ -82,7 +82,7 @@ function UploadPage({ type }) {
 
   return (
     <div className="upload-container">
-      <h2>Upload a {title}</h2>
+      <h2>Upload {title}</h2>
 
       {/* Drag & Drop Box */}
       <div 

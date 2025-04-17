@@ -67,10 +67,10 @@ function Header({ userRole, setUserRole }) {
           {/* Student Dropdown */}
           {userRole === "student" && (
             <li className="dropdown">
-              <span>Upload ▼</span>
+              <span>Upload ▾</span>
               <ul className="dropdown-content">
                 <li><Link to="/upload-poster">Upload Poster</Link></li>
-                <li><Link to="/upload-pdf">Upload PDF</Link></li>
+                <li><Link to="/upload-pdf">Upload Article</Link></li>
               </ul>
             </li>
           )}

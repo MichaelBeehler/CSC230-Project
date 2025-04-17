@@ -1,0 +1,60 @@
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    color: black;
+  }
+  
+  .profile-card {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .profile-card p {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .uploads-section {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .uploads-section h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .pdf-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pdf-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .pdf-list a {
+    text-decoration: none;
+    color: darkred;
+    transition: color 0.3s;
+  }
+  
+  .pdf-list a:hover {
+    color: #a00000;
+    text-decoration: underline;
+  }
+  
