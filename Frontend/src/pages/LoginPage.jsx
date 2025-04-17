@@ -82,47 +82,47 @@ const LoginPage = ({ setUserRole}) => {
             </form>
             <ToastContainer />
         </div>*/
-        <div className="login-page">
-  <div className="login-left">
-    <img
-      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.a8WzazOZQ-Wn1u1RUHwmpgHaE5%26pid%3DApi&f=1&ipt=7d8ae77d3fd2b58895b3eedb66d7c0494659a82950ce0f489311ebee040185b9&ipo=images"
-      alt="Scenic login visual"
-      className="login-image"
-    />
-  </div>
-  <div className="login-right">
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <label htmlFor="email">Email</label>
-        <input 
-          type="email" 
-          name="email"
-          value={email}
-          placeholder="Email" 
-          onChange={handleOnChange}
-          required
-        />
+    <div className="login-page">
+        <div className="login-left">
+            <img
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.HBgEqLahtceksyTEnxDurgAAAA%26pid%3DApi&f=1&ipt=e82c175e9a4d943f21c8004bfb03006722e93bd53896fd10bd060b65584a8f4d&ipo=images"
+                alt="Scenic login visual"
+                className="login-image"
+            />
+        </div>
+        <div className="login-right">
+            <div className="login-container">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                <label htmlFor="email">Email</label>
+                <input 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    placeholder="Email" 
+                    onChange={handleOnChange}
+                    required
+                />
 
-        <label htmlFor="password">Password</label>
-        <input 
-          type="password" 
-          name="password"
-          value={password}
-          placeholder="Password"
-          onChange={handleOnChange}
-          required 
-        />
+                <label htmlFor="password">Password</label>
+                <input 
+                    type="password" 
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={handleOnChange}
+                    required 
+                />
 
-        <button type="submit">Login</button>
-        <p className="register-link">
-          New? Make an account <Link to="/register">here</Link>.
-        </p>
-      </form>
-    </div>
-    <ToastContainer />
-  </div>
-</div>  
+                <button type="submit">Login</button>
+                <p className="register-link">
+                    New? Make an account <Link to="/register">here</Link>.
+                </p>
+                </form>
+            </div>
+            <ToastContainer />
+        </div>
+    </div>  
     );
 };
 

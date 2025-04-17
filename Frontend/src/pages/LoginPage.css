@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
 }
 
 .login-image {
@@ -28,8 +28,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
 }
+
 
 .login-container {
   background: #f9f9f9;
@@ -61,13 +62,13 @@
 }
 
 .login-form input:focus {
-  border-color: #007bff;
+  border-color: darkred;
   outline: none;
 }
 
 .login-form button {
   padding: 12px;
-  background-color: #007bff;
+  background-color: darkred;
   color: white;
   font-size: 16px;
   border: none;
@@ -77,7 +78,7 @@
 }
 
 .login-form button:hover {
-  background-color: #0056b3;
+  background-color: red;
 }
 
 .register-link {

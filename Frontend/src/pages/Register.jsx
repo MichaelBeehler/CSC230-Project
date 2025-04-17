@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import "./Register.css"
 
 const Register = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Register = () => {
   };
 
   return (
-    <div className="form_container">
+    /*<div className="form_container">
       <h2>Signup Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -111,7 +112,66 @@ const Register = () => {
         </span>
       </form>
       <ToastContainer />
-    </div>
+    </div>*/
+    <div className="register-page">
+        <div className="register-left">
+            <img
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.HBgEqLahtceksyTEnxDurgAAAA%26pid%3DApi&f=1&ipt=e82c175e9a4d943f21c8004bfb03006722e93bd53896fd10bd060b65584a8f4d&ipo=images"
+              alt="Scenic login visual"
+              className="register-image"
+            />
+        </div>
+        <div className="register-right">
+            <div className="register-container">
+                <h2>Register Your CIRT Account!</h2>
+                <form onSubmit={handleSubmit} className="register-form">
+                <label htmlFor="firstName">First Name</label>
+                <input 
+                    type="text" 
+                    name="firstName"
+                    value={firstName}
+                    placeholder="First Name" 
+                    onChange={handleOnChange}
+                    required
+                />
+                <label htmlFor="lastName">Last Name</label>
+                <input 
+                    type="text" 
+                    name="lastName"
+                    value={lastName}
+                    placeholder="Last Name" 
+                    onChange={handleOnChange}
+                    required
+                />
+                <label htmlFor="email">Email</label>
+                <input 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    placeholder="Email" 
+                    onChange={handleOnChange}
+                    required
+                />
+    
+                <label htmlFor="password">Password</label>
+                <input 
+                    type="password" 
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={handleOnChange}
+                    required 
+                />
+    
+                <button type="submit">Register</button>
+                <p className="login-link">
+                    Already Have An Account? Login <Link to="/login">here</Link>.
+                </p>
+                </form>
+                </div>
+                <ToastContainer />
+          </div>
+    </div>  
   );
 };
 
