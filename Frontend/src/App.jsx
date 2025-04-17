@@ -12,7 +12,7 @@ import ReviewPage from "./pages/ReviewPage";
 import Register from "./pages/Register";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage"; 
-
+import ForgotPassword from "./pages/Forgot-Password";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -43,6 +43,7 @@ function App() {
           <Route path="/login" element={<LoginPage setUserRole={setUserRole} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<StudentProfilePage />} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />
 
           {/* 🔍 Public search route */}
           <Route path="/search" element={<SearchResultsPage />} /> {/* ✅ Added */}

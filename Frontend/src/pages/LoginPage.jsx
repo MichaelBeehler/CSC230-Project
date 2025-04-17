@@ -118,6 +118,10 @@ const LoginPage = ({ setUserRole}) => {
                 <p className="register-link">
                     New? Make an account <Link to="/register">here</Link>.
                 </p>
+
+                <p className="register-link">
+                    Forgot Password? Click <Link to="/forgot-password">here</Link>.
+                </p>
                 </form>
             </div>
             <ToastContainer />

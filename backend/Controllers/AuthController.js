@@ -89,4 +89,24 @@ export const getProfile = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: "Server error" });
     }
-  };
+};
+
+export const forgotPassword = async (req, res) => {
+    try {
+        const {email} = req.body;
+        
+        // Check if the email is in the database
+        const existingUser = await User.findOne({ email });
+
+        // If the user is in the database
+        if (existingUser) {
+        }
+        return res.json({success: true});
+    
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({success: false});
+    }
+}
+

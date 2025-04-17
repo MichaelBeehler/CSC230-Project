@@ -1,4 +1,4 @@
-import {Signup, Login, getProfile } from "../Controllers/AuthController.js";
+import {Signup, Login, getProfile, forgotPassword } from "../Controllers/AuthController.js";
 import { userVerification } from "../Middlewares/AuthMiddleware.js";
 import { Router } from "express";
 
@@ -9,5 +9,6 @@ router.post("/login", Login);
 router.post("/", userVerification);
 
 router.get("/profile", userVerification, getProfile);
+router.post ("/forgotPassword", forgotPassword);
 
 export default router; 
