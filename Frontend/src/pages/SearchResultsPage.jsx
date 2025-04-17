@@ -8,11 +8,16 @@ const SearchResultsPage = () => {
   const query = queryParams.get("query") || "";
 
   const [results, setResults] = useState([]);
+  const [filter, setFilter] = useState("all"); // New: default is 'all'
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/pdf/search?query=${query}`);
+        let url = `http://localhost:4000/api/pdf/search?query=${query}`;
+        if (filter !== "all") {
+          url += `&type=${filter}`;
+        }
+        const res = await fetch(url);
         const data = await res.json();
         setResults(data);
       } catch (err) {
@@ -21,12 +26,48 @@ const SearchResultsPage = () => {
     };
 
     if (query.trim()) fetchResults();
-  }, [query]);
+  }, [query, filter]); // New: depend on both query and filter
 
   return (
     <div style={{ padding: "40px 60px", fontFamily: "Georgia, serif" }}>
       <div style={{ marginBottom: "30px" }}>
         <SearchBar />
+      </div>
+
+      {/* New: Filter Radio Buttons */}
+      <div style={{ marginBottom: "20px", display: "flex", gap: "20px", alignItems: "center" }}>
+        <label>
+          <input
+            type="radio"
+            name="filter"
+            value="all"
+            checked={filter === "all"}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          All
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="filter"
+            value="poster"
+            checked={filter === "poster"}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          Posters
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="filter"
+            value="article"
+            checked={filter === "article"}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          Journal Articles
+        </label>
       </div>
 
       <h2 style={{ textAlign: "left" }}>
@@ -48,8 +89,9 @@ const SearchResultsPage = () => {
           >
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: "12px", fontWeight: "bold", color: "#555" }}>
-                JOURNAL ARTICLE
+                {pdf.type === "poster" ? "POSTER" : "JOURNAL ARTICLE"}
               </p>
+
               <a
                 href={`http://localhost:4000/api/pdf/view/${pdf._id}`}
                 target="_blank"
@@ -63,9 +105,11 @@ const SearchResultsPage = () => {
               >
                 {pdf.filename}
               </a>
+
               <p style={{ fontStyle: "italic", margin: "5px 0" }}>
                 John Doe — University of Tampa, 2025
               </p>
+
               <p>
                 <strong>Faculty Comment:</strong>{" "}
                 {pdf.comment?.trim() ? pdf.comment : "No comments"}

@@ -264,6 +264,7 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
         _id: file._id,
         filename: file.filename,
         uploadedBy: file.metadata.uploadedBy,
+        type: file.metadata.type || "article",  // Assume 'article' if type is missing
         comment,
         approvedDate: new Date()
       });
@@ -278,14 +279,28 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
 
 // Search for Approved PDFs
 router.get("/search", async (req, res) => {
-  const { query } = req.query;
-  const searchResults = await conn.db.collection("approved_pdfs")
-    .find({ filename: { $regex: query, $options: "i" } })
-    .sort({ approvedDate: -1 })
-    .limit(3)
-    .toArray();
+  try {
+    const { query = "", type = "" } = req.query;
 
-  res.json(searchResults);
+    // Build search conditions
+    const searchConditions = {
+      filename: { $regex: query, $options: "i" }
+    };
+
+    if (type) {
+      searchConditions.type = type; // Only match if type is specified
+    }
+
+    const searchResults = await conn.db.collection("approved_pdfs")
+      .find(searchConditions)
+      .sort({ approvedDate: -1 })
+      .toArray();  // No limit now
+
+    res.json(searchResults);
+  } catch (error) {
+    console.error("❌ Error during search:", error);
+    res.status(500).json({ error: "An error occurred while searching" });
+  }
 });
 
 export default router;
