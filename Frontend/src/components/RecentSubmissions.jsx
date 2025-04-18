@@ -17,7 +17,7 @@ function RecentSubmissions() {
 
   return (
     <section className="recent-submissions">
-      <h2>Recently Approved Submissions</h2>
+      <h3>Featured Articles</h3>
       <div className="submission-grid">
         {submissions.map((item) => (
           <div key={item._id} className="submission-card">
