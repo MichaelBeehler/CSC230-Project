@@ -22,15 +22,15 @@ const SearchBar = () => {
         style={{
           padding: "10px",
           width: "300px",
-          borderRadius: "5px",
-          marginRight: "10px",
+          borderRadius: "8px",
+          border: "none"
         }}
       />
       <button
         onClick={handleSearch}
         style={{
           padding: "10px 20px",
-          borderRadius: "5px",
+          borderRadius: "8px",
           backgroundColor: "black",
           color: "white",
           border: "none",

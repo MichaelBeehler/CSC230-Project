@@ -13,7 +13,7 @@
   }
   
   .review-card {
-    background-color: black;
+    background-color: darkred;
     padding: 15px;
     border-radius: 8px;
     border: 1px solid white;
@@ -23,7 +23,7 @@
   .review-card h3 {
     margin: 0;
     font-size: 20px;
-    color: darkred;
+    color: white;
   }
   
   .status {
