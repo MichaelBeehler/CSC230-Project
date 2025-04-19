@@ -9,6 +9,7 @@ import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
 import UploadPage from "./pages/UploadPage"; 
 import ReviewPage from "./pages/ReviewPage";
+import AnnotatePdfPage from "./pages/AnnotatePdfPage.jsx";
 import Register from "./pages/Register";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage"; 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/login" element={<LoginPage setUserRole={setUserRole} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<StudentProfilePage />} />
+          <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
 
           {/* 🔍 Public search route */}

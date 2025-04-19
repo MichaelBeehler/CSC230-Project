@@ -16,6 +16,7 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  position: relative; /* Ensure root is positioned */
 }
 
 /* Make sure main content area expands */
@@ -71,6 +72,24 @@ main {
   border-radius: 10px;
   width: 90%;
   max-width: 800px;
+}
+
+/* Ensure PDFViewer's parent container is correctly positioned */
+.pdf-frame-wrapper {
+  position: absolute; /* Make sure the container has absolute positioning */
+  top: 0; /* Adjust to suit your layout */
+  left: 0; /* Adjust to suit your layout */
+  right: 0; /* Adjust to suit your layout */
+  bottom: 0; /* Adjust to suit your layout */
+  width: 100%;
+  height: 100%;
+}
+
+/* PDFViewer Container */
+.pdfViewer {
+  position: relative; /* Allow for positioning within */
+  width: 100%;
+  height: 100%;
 }
 
 /* Responsive Design */

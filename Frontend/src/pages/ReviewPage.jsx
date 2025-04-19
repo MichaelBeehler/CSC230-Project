@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link for routing
 import "./ReviewPage.css";
 
 function ReviewPage() {
@@ -22,7 +23,7 @@ function ReviewPage() {
       .catch((err) => console.error("Error fetching PDFs:", err));
   }, []);
 
-  // Handle Approve/Reject Actions (Send to Backend)
+  // Handle Approve/Reject Actions
   const handleAction = async (id, newStatus) => {
     const comment = comments[id] || "";
 
@@ -78,13 +79,9 @@ function ReviewPage() {
               ></textarea>
 
               <div className="button-group">
-                <a
-                  href={`http://localhost:4000/api/pdf/view/${submission.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link to={`/annotate/${submission.id}`} className="view-link">
                   View PDF
-                </a>
+                </Link>
 
                 <button
                   className="approve-btn"
