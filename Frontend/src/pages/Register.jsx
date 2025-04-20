@@ -33,21 +33,32 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/signup",
-        {
-          ...inputValue,
-        },
-        { withCredentials: true }
-      );
-      const { success, message } = data;
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      } else {
-        handleError(message);
+      if (password.length < 6) {
+        handleError("Password Must be More than 6 characters in length")
+      }
+      else if (!(/[^a-zA-Z0-9]/.test(password))) {
+        handleError ("Password Must Contain At Least One Special Character")
+      }
+      else if (!(/\d/.test(password))) {
+        handleError ("Password Must contain at least one digit")
+      }
+      else {
+        const { data } = await axios.post(
+          "http://localhost:4000/signup",
+          {
+            ...inputValue,
+          },
+          { withCredentials: true }
+        );
+        const { success, message } = data;
+        if (success) {
+          handleSuccess(message);
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        } else {
+          handleError(message);
+        }
       }
     } catch (error) {
       console.log(error);
