@@ -1,0 +1,260 @@
+.pdf-viewer-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .pdf-viewer-header {
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pdf-viewer-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .instructions {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .pdf-viewer-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .pdf-viewer-container {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 300px;
+    background-color: #f9f9f9;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f0f0f0;
+  }
+  
+  .sidebar-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .highlights-list {
+    padding: 15px;
+  }
+  
+  .no-highlights {
+    color: #888;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .highlight-item {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+  }
+  
+  .highlight-item.active {
+    border-left: 3px solid #4285f4;
+  }
+  
+  .highlight-content {
+    cursor: pointer;
+  }
+  
+  .highlight-content:hover {
+    opacity: 0.9;
+  }
+  
+  .highlight-text {
+    font-style: italic;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .highlight-image {
+    margin-bottom: 10px;
+    color: #555;
+    font-style: italic;
+  }
+  
+  .highlight-comment {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #f0f8ff;
+    border-left: 3px solid #4285f4;
+    border-radius: 3px;
+  }
+  
+  .highlight-date {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 8px;
+  }
+  
+  .highlight-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .edit-comment-btn {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  
+  .edit-comment-btn:hover {
+    background-color: #3367d6;
+  }
+  
+  .delete-highlight-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  
+  .delete-highlight-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Comment editor styles */
+  .comment-editor {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+  
+  .comment-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    margin-bottom: 8px;
+  }
+  
+  .comment-editor-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  
+  .save-comment-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  
+  .save-comment-btn:hover {
+    background-color: #388e3c;
+  }
+  
+  .cancel-btn {
+    background-color: #9e9e9e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #757575;
+  }
+  
+  /* Make sure lists in sidebar have proper styling */
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Ensure the PDF highlighter container is properly sized */
+  .PdfHighlighter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  /* Animation for highlight flash */
+  @keyframes highlight-flash {
+    0% { background-color: rgba(255, 255, 0, 0.3); }
+    50% { background-color: rgba(255, 165, 0, 0.7); }
+    100% { background-color: rgba(255, 255, 0, 0.3); }
+  }
+  
+  .highlight-flash {
+    animation: highlight-flash 1s;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .pdf-viewer-content {
+      flex-direction: column;
+    }
+    
+    .sidebar {
+      width: 100%;
+      height: 300px;
+      border-left: none;
+      border-top: 1px solid #ddd;
+    }
+    
+    .pdf-viewer-container {
+      height: calc(100% - 300px);
+    }
+  }

@@ -303,6 +303,128 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// Comment routes
+// Get all comments for a PDF
+router.get("/:fileId/comments", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Find comments for this PDF
+    const comments = await conn.db.collection("pdf_comments")
+      .find({ pdfId: fileId })
+      .sort({ createdAt: -1 })
+      .toArray();
+    
+    res.json({ comments });
+  } catch (error) {
+    console.error("❌ Error fetching comments:", error);
+    res.status(500).json({ error: "An error occurred while fetching comments" });
+  }
+});
+
+// Add a new comment to a PDF
+router.post("/:fileId/comments", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const { text } = req.body;
+    
+    if (!text) {
+      return res.status(400).json({ error: "Comment text is required" });
+    }
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Create a new comment
+    const comment = {
+      _id: new mongoose.Types.ObjectId(),
+      pdfId: fileId,
+      userId: req.user._id,
+      author: req.user.username,
+      text,
+      createdAt: new Date()
+    };
+    
+    // Save the comment
+    await conn.db.collection("pdf_comments").insertOne(comment);
+    
+    res.status(201).json({ comment });
+  } catch (error) {
+    console.error("❌ Error adding comment:", error);
+    res.status(500).json({ error: "An error occurred while adding the comment" });
+  }
+});
+
+// Delete a comment
+router.delete("/:fileId/comments/:commentId", authenticateUser, async (req, res) => {
+  try {
+    const { fileId, commentId } = req.params;
+    
+    // Find the comment
+    const comment = await conn.db.collection("pdf_comments").findOne({
+      _id: new mongoose.Types.ObjectId(commentId),
+      pdfId: fileId
+    });
+    
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+    
+    // Check if user is authorized to delete this comment
+    const isCommentAuthor = comment.userId.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    
+    if (!isCommentAuthor && !isFaculty) {
+      return res.status(403).json({ error: "Access denied. You can only delete your own comments." });
+    }
+    
+    // Delete the comment
+    await conn.db.collection("pdf_comments").deleteOne({
+      _id: new mongoose.Types.ObjectId(commentId)
+    });
+    
+    res.json({ message: "Comment deleted successfully" });
+  } catch (error) {
+    console.error("❌ Error deleting comment:", error);
+    res.status(500).json({ error: "An error occurred while deleting the comment" });
+  }
+});
+
+
+
 export default router;
 
 

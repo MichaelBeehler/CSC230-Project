@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./ReviewPage.css";
 
 function ReviewPage() {
@@ -78,13 +79,12 @@ function ReviewPage() {
               ></textarea>
 
               <div className="button-group">
-                <a
-                  href={`http://localhost:4000/api/pdf/view/${submission.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={`/annotate/${submission.id}`}
+                  className="annotate-link"
                 >
-                  View PDF
-                </a>
+                  Annotate PDF
+                </Link>
 
                 <button
                   className="approve-btn"

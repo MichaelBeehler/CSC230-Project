@@ -9,6 +9,7 @@ import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
 import UploadPage from "./pages/UploadPage"; 
 import ReviewPage from "./pages/ReviewPage";
+import AnnotatePdfPage from "./pages/AnnotatePdfPage";
 import Register from "./pages/Register";
 import StudentProfilePage from "./pages/StudentProfilePage";
 import SearchResultsPage from "./pages/SearchResultsPage"; 
@@ -18,6 +19,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import EditorDashboard from "./pages/EditorDashboard";
 import ResetPassword from "./pages/ResetPassword";
+
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
 
@@ -60,6 +62,7 @@ function App() {
           {/* Faculty protected route */}
           <Route element={<ProtectedRoute allowedRoles={["faculty"]} />}>
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
             <Route path="/profile" element={<StudentProfilePage />} />
           </Route>
 
