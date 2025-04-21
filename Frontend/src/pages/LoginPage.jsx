@@ -3,6 +3,8 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {ToastContainer, toast} from "react-toastify";
 import "./LoginPage.css";
+import plantHall from "../assets/plant-hall.jpg";
+
 
 const LoginPage = ({ setUserRole}) => {
     const navigate = useNavigate();
@@ -85,8 +87,7 @@ const LoginPage = ({ setUserRole}) => {
     <div className="login-page">
         <div className="login-left">
             <img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.HBgEqLahtceksyTEnxDurgAAAA%26pid%3DApi&f=1&ipt=e82c175e9a4d943f21c8004bfb03006722e93bd53896fd10bd060b65584a8f4d&ipo=images"
-                alt="Scenic login visual"
+                src= {plantHall}
                 className="login-image"
             />
         </div>

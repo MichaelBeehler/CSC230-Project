@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "./Register.css"
+import plantHall from "../assets/plant-hall.jpg";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -127,7 +128,7 @@ const Register = () => {
     <div className="register-page">
         <div className="register-left">
             <img
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.HBgEqLahtceksyTEnxDurgAAAA%26pid%3DApi&f=1&ipt=e82c175e9a4d943f21c8004bfb03006722e93bd53896fd10bd060b65584a8f4d&ipo=images"
+              src= {plantHall}
               alt="Scenic login visual"
               className="register-image"
             />
