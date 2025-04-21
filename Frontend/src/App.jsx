@@ -17,7 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import EditorDashboard from "./pages/EditorDashboard";
-
+import ResetPassword from "./pages/ResetPassword";
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
 
@@ -45,6 +45,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<StudentProfilePage />} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
+          <Route path="/reset-password/:token" element={<ResetPassword/>} />
 
           {/* 🔍 Public search route */}
           <Route path="/search" element={<SearchResultsPage />} /> {/* ✅ Added */}
