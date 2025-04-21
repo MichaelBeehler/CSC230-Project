@@ -1,38 +1,49 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { detectTextColumns, findColumn, calculateHighlightSegments } from "../components/highlighter";import "./AnnotatePdfPage.css";
+import "./AnnotatePdfPage.css";
 
 function AnnotatePdfPage() {
   const { id } = useParams();
   const [pdfUrl, setPdfUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [highlights, setHighlights] = useState([]);
+  const [error, setError] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
   const iframeRef = useRef(null);
-  const overlayRef = useRef(null);
-  const [isHighlighting, setIsHighlighting] = useState(false);
-  const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
-  const [currentHighlight, setCurrentHighlight] = useState(null);
-  const [textColumns, setTextColumns] = useState([]);
-  const [lineHeight, setLineHeight] = useState(18);
 
   // Fetch PDF from the server
   useEffect(() => {
     const fetchPdf = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         const response = await axios.get(
           `http://localhost:4000/api/pdf/view/${id}`,
           {
             responseType: "blob",
             withCredentials: true,
+            timeout: 10000 // 10 second timeout
           }
         );
+        
         const blob = new Blob([response.data], { type: "application/pdf" });
         const blobUrl = URL.createObjectURL(blob);
         setPdfUrl(blobUrl);
+        
+        // Fetch comments for this PDF
+        fetchComments();
       } catch (error) {
         console.error("Failed to fetch PDF:", error);
+        if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+          setError("Cannot connect to the server. Please make sure the backend server is running.");
+        } else if (error.response && error.response.status === 404) {
+          setError("PDF not found. The requested document may have been deleted or doesn't exist.");
+        } else if (error.response && error.response.status === 403) {
+          setError("You don't have permission to view this document.");
+        } else {
+          setError(`Error loading PDF: ${error.message}`);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -47,245 +58,193 @@ function AnnotatePdfPage() {
     };
   }, [id]);
 
-  // Detect text columns in the PDF
-  useEffect(() => {
-    if (!iframeRef.current || !pdfUrl) return;
-
-    const analyzeDocument = async () => {
-      const { columns, lineHeight: detectedLineHeight } = await detectTextColumns(iframeRef.current);
-      setTextColumns(columns);
-      setLineHeight(detectedLineHeight);
-    };
-
-    analyzeDocument();
-  }, [pdfUrl]);
-
-  // Handle mouse down to start highlighting
-  const handleMouseDown = (e) => {
-    if (!overlayRef.current || textColumns.length === 0) return;
-    
-    const overlay = overlayRef.current;
-    const rect = overlay.getBoundingClientRect();
-    
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Snap to the nearest line
-    const lineY = Math.floor(y / lineHeight) * lineHeight;
-    
-    // Find which column we're in
-    const column = findColumn(x, textColumns);
-    
-    setIsHighlighting(true);
-    setStartPoint({ x, y: lineY, column });
-    setCurrentHighlight({
-      x,
-      y: lineY,
-      width: 0,
-      height: lineHeight,
-      column
-    });
-  };
-
-  // Handle mouse move to update highlight
-  const handleMouseMove = (e) => {
-    if (!isHighlighting || !overlayRef.current || textColumns.length === 0) return;
-    
-    const overlay = overlayRef.current;
-    const rect = overlay.getBoundingClientRect();
-    
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Snap to the nearest line
-    const lineY = Math.floor(y / lineHeight) * lineHeight;
-    
-    // Find which column we're in
-    const currentColumn = findColumn(x, textColumns);
-    
-    // If we're on the same line as the start point
-    if (lineY === startPoint.y && currentColumn === startPoint.column) {
-      // Just adjust the width of the highlight
-      const width = x - startPoint.x;
-      setCurrentHighlight({
-        x: width >= 0 ? startPoint.x : x,
-        y: startPoint.y,
-        width: Math.abs(width),
-        height: lineHeight,
-        column: startPoint.column
-      });
-    } else {
-      // We're highlighting across multiple lines or columns
-      const segments = calculateHighlightSegments(
-        startPoint, 
-        x, 
-        lineY, 
-        lineHeight, 
-        currentColumn
+  // Fetch comments for this PDF
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/pdf/${id}/comments`,
+        { withCredentials: true }
       );
       
-      setCurrentHighlight({
-        multiSegment: true,
-        segments
-      });
+      if (response.data && response.data.comments) {
+        setComments(response.data.comments);
+      } else {
+        // If no comments endpoint exists yet, use an empty array
+        setComments([]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch comments:", error);
+      // If the endpoint doesn't exist, just use an empty array
+      setComments([]);
     }
   };
 
-  // Handle mouse up to finish highlighting
-  const handleMouseUp = () => {
-    if (!isHighlighting) return;
+  // Add a new comment
+  const addComment = async () => {
+    if (!newComment.trim()) return;
     
-    setIsHighlighting(false);
-    
-    // Check if we have a valid highlight
-    if (currentHighlight) {
-      let isValidHighlight = false;
+    try {
+      // Create a new comment object
+      const commentData = {
+        text: newComment
+      };
       
-      if (currentHighlight.multiSegment) {
-        isValidHighlight = currentHighlight.segments.length > 0 && 
-          currentHighlight.segments.some(seg => seg.width > 5);
+      const response = await axios.post(
+        `http://localhost:4000/api/pdf/${id}/comments`,
+        commentData,
+        { withCredentials: true }
+      );
+      
+      if (response.data && response.data.comment) {
+        setComments([...comments, response.data.comment]);
       } else {
-        isValidHighlight = currentHighlight.width > 5;
+        // Fallback if response format is different
+        const tempComment = {
+          _id: Date.now().toString(),
+          text: newComment,
+          author: "You",
+          createdAt: new Date().toISOString()
+        };
+        setComments([...comments, tempComment]);
       }
       
-      if (isValidHighlight) {
-        const comment = prompt('Add a comment to this highlight:') || 'No comment';
-        
-        // Get the current scroll position of the iframe
-        const scrollTop = iframeRef.current?.contentWindow?.document?.documentElement?.scrollTop || 0;
-        
-        setHighlights(prev => [...prev, {
-          ...currentHighlight,
-          id: Date.now().toString(),
-          comment,
-          scrollTop
-        }]);
-      }
+      setNewComment(""); // Clear the input field
+    } catch (error) {
+      console.error("Failed to add comment:", error);
+      // Add comment to local state even if API fails
+      const tempComment = {
+        _id: Date.now().toString(),
+        text: newComment,
+        author: "You",
+        createdAt: new Date().toISOString()
+      };
+      setComments([...comments, tempComment]);
+      setNewComment("");
     }
-    
-    setCurrentHighlight(null);
+  };
+
+  // Delete a comment
+  const deleteComment = async (commentId) => {
+    try {
+      // Remove from local state first for immediate feedback
+      setComments(comments.filter(comment => comment._id.toString() !== commentId.toString()));
+      
+      await axios.delete(
+        `http://localhost:4000/api/pdf/${id}/comments/${commentId}`,
+        { withCredentials: true }
+      );
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+      // If the endpoint doesn't exist, we still keep the comment removed from local state
+    }
+  };
+
+  // Handle Enter key press in comment input
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      addComment();
+    }
+  };
+
+  // Retry loading the PDF
+  const retryLoading = () => {
+    setPdfUrl("");
+    setIsLoading(true);
+    setError(null);
+    // This will trigger the useEffect to run again
   };
 
   return (
-    <div className="pdf-viewer-container">
-      <h2 className="pdf-page-title">Editing Student's Paper</h2>
-      
-      <div className="pdf-frame-wrapper">
-        {pdfUrl && !isLoading ? (
-          <div className="pdf-iframe-container">
-            <iframe 
-              ref={iframeRef}
-              src={`${pdfUrl}#toolbar=0`} 
-              className="pdf-iframe"
-              title="PDF Viewer"
-            />
-            <div 
-              ref={overlayRef}
-              className="pdf-overlay"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-            >
-              {/* Render existing highlights */}
-              {highlights.map(highlight => (
-                <React.Fragment key={highlight.id}>
-                  {highlight.multiSegment ? (
-                    highlight.segments.map((segment, index) => (
-                      <div
-                        key={`${highlight.id}-segment-${index}`}
-                        className="highlight-segment"
-                        style={{
-                          left: `${segment.x}px`,
-                          top: `${segment.y}px`,
-                          width: `${segment.width}px`,
-                          height: `${segment.height}px`
-                        }}
-                        title={highlight.comment}
-                        data-highlight-id={highlight.id}
-                      />
-                    ))
-                  ) : (
-                    <div
-                      className="highlight-segment"
-                      style={{
-                        left: `${highlight.x}px`,
-                        top: `${highlight.y}px`,
-                        width: `${highlight.width}px`,
-                        height: `${highlight.height}px`
-                      }}
-                      title={highlight.comment}
-                      data-highlight-id={highlight.id}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
-              
-              {/* Render current highlight being drawn */}
-              {currentHighlight && (
-                <React.Fragment>
-                  {currentHighlight.multiSegment ? (
-                    currentHighlight.segments.map((segment, index) => (
-                      <div
-                        key={`current-segment-${index}`}
-                        className="highlight-segment current"
-                        style={{
-                          left: `${segment.x}px`,
-                          top: `${segment.y}px`,
-                          width: `${segment.width}px`,
-                          height: `${segment.height}px`
-                        }}
-                      />
-                    ))
-                  ) : (
-                    <div
-                      className="highlight-segment current"
-                      style={{
-                        left: `${currentHighlight.x}px`,
-                        top: `${currentHighlight.y}px`,
-                        width: `${currentHighlight.width}px`,
-                        height: `${currentHighlight.height}px`
-                      }}
-                    />
-                  )}
-                </React.Fragment>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="pdf-loading">
-            {isLoading ? "Loading PDF..." : "PDF not available"}
-          </div>
-        )}
+    <div className="pdf-viewer-page">
+      <div className="pdf-viewer-header">
+        <h2>PDF Annotator</h2>
+        <p className="instructions">Add comments to this document</p>
       </div>
       
-      <div className="pdf-highlights-panel">
-        <h3>Highlights & Comments</h3>
-        <ul>
-          {highlights.map(highlight => (
-            <li key={highlight.id}>
-              <div className="highlight-comment">{highlight.comment}</div>
-              <button 
-                className="highlight-goto-btn"
-                onClick={() => {
-                  // Scroll to the highlight position
-                  if (iframeRef.current) {
-                    iframeRef.current.contentWindow.scrollTo(0, highlight.scrollTop);
-                    
-                    // Flash the highlight to make it more visible
-                    const highlightElements = document.querySelectorAll(`[data-highlight-id="${highlight.id}"]`);
-                    highlightElements.forEach(el => {
-                      el.classList.add('highlight-flash');
-                      setTimeout(() => el.classList.remove('highlight-flash'), 1000);
-                    });
-                  }
-                }}
-              >
-                Go to highlight
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="pdf-viewer-content">
+        <div className="pdf-viewer-container">
+          {isLoading ? (
+            <div className="loading-indicator">Loading PDF...</div>
+          ) : error ? (
+            <div className="error-container">
+              <div className="error-message">{error}</div>
+              <div className="error-help">
+                <p>Possible solutions:</p>
+                <ul>
+                  <li>Make sure the backend server is running on port 4000</li>
+                  <li>Check your network connection</li>
+                  <li>Verify that you have permission to access this document</li>
+                  <li>The document ID might be incorrect or the document might have been deleted</li>
+                </ul>
+                <button className="retry-button" onClick={retryLoading}>
+                  Retry
+                </button>
+              </div>
+            </div>
+          ) : (
+            <iframe
+              ref={iframeRef}
+              src={`${pdfUrl}#toolbar=1&navpanes=1`}
+              className="pdf-iframe"
+              title="PDF Viewer"
+              width="100%"
+              height="100%"
+            />
+          )}
+        </div>
+        
+        <div className="sidebar">
+          <div className="sidebar-header">
+            <h3>Comments</h3>
+          </div>
+          
+          <div className="comments-list">
+            {comments.length === 0 ? (
+              <div className="no-comments">
+                No comments yet. Add a comment below.
+              </div>
+            ) : (
+              <ul>
+                {comments.map((comment) => (
+                  <li key={comment._id} className="comment-item">
+                    <div className="comment-header">
+                      <span className="comment-author">{comment.author || "Anonymous"}</span>
+                      <span className="comment-date">
+                        {new Date(comment.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="comment-text">{comment.text}</div>
+                    <button 
+                      className="delete-comment-btn"
+                      onClick={() => deleteComment(comment._id)}
+                    >
+                      Delete
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          
+          <div className="add-comment-section">
+            <textarea
+              className="comment-textarea"
+              placeholder="Add a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={!!error}
+            />
+            <button
+              className="add-comment-btn"
+              onClick={addComment}
+              disabled={!newComment.trim() || !!error}
+            >
+              Add Comment
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

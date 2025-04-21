@@ -303,6 +303,350 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// Comment routes
+// Get all comments for a PDF
+router.get("/:fileId/comments", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Find comments for this PDF
+    const comments = await conn.db.collection("pdf_comments")
+      .find({ pdfId: fileId })
+      .sort({ createdAt: -1 })
+      .toArray();
+    
+    res.json({ comments });
+  } catch (error) {
+    console.error("❌ Error fetching comments:", error);
+    res.status(500).json({ error: "An error occurred while fetching comments" });
+  }
+});
+
+// Add a new comment to a PDF
+router.post("/:fileId/comments", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const { text } = req.body;
+    
+    if (!text) {
+      return res.status(400).json({ error: "Comment text is required" });
+    }
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Create a new comment
+    const comment = {
+      _id: new mongoose.Types.ObjectId(),
+      pdfId: fileId,
+      userId: req.user._id,
+      author: req.user.username,
+      text,
+      createdAt: new Date()
+    };
+    
+    // Save the comment
+    await conn.db.collection("pdf_comments").insertOne(comment);
+    
+    res.status(201).json({ comment });
+  } catch (error) {
+    console.error("❌ Error adding comment:", error);
+    res.status(500).json({ error: "An error occurred while adding the comment" });
+  }
+});
+
+// Delete a comment
+router.delete("/:fileId/comments/:commentId", authenticateUser, async (req, res) => {
+  try {
+    const { fileId, commentId } = req.params;
+    
+    // Find the comment
+    const comment = await conn.db.collection("pdf_comments").findOne({
+      _id: new mongoose.Types.ObjectId(commentId),
+      pdfId: fileId
+    });
+    
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+    
+    // Check if user is authorized to delete this comment
+    const isCommentAuthor = comment.userId.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    
+    if (!isCommentAuthor && !isFaculty) {
+      return res.status(403).json({ error: "Access denied. You can only delete your own comments." });
+    }
+    
+    // Delete the comment
+    await conn.db.collection("pdf_comments").deleteOne({
+      _id: new mongoose.Types.ObjectId(commentId)
+    });
+    
+    res.json({ message: "Comment deleted successfully" });
+  } catch (error) {
+    console.error("❌ Error deleting comment:", error);
+    res.status(500).json({ error: "An error occurred while deleting the comment" });
+  }
+});
+
+// Highlight routes
+// Get highlights for a specific PDF
+router.get("/:fileId/highlights", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Check if the highlights collection exists
+    const highlightsCollection = conn.db.collection("pdf_highlights");
+    
+    // Find highlights for this PDF
+    const highlights = await highlightsCollection.findOne({ pdfId: fileId });
+    
+    if (!highlights) {
+      // Return empty array if no highlights found
+      return res.json({ highlights: [] });
+    }
+    
+    res.json({ highlights: highlights.items || [] });
+  } catch (error) {
+    console.error("❌ Error fetching highlights:", error);
+    res.status(500).json({ error: "An error occurred while fetching highlights" });
+  }
+});
+
+// Save a new highlight
+router.post("/:fileId/highlights", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const { highlight } = req.body;
+    
+    if (!highlight) {
+      return res.status(400).json({ error: "No highlight data provided" });
+    }
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Check if user has access to this PDF
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isApproved = file.metadata.status === "Approved";
+    
+    if (!isOwner && !isFaculty && !isApproved) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    
+    // Add user info to the highlight
+    highlight.userId = req.user._id;
+    highlight.userName = req.user.username;
+    highlight.createdAt = new Date().toISOString();
+    
+    // Check if we already have highlights for this PDF
+    const highlightsCollection = conn.db.collection("pdf_highlights");
+    const existingHighlights = await highlightsCollection.findOne({ pdfId: fileId });
+    
+    if (existingHighlights) {
+      // Add to existing highlights
+      await highlightsCollection.updateOne(
+        { pdfId: fileId },
+        { $push: { items: highlight } }
+      );
+    } else {
+      // Create new highlights document
+      await highlightsCollection.insertOne({
+        pdfId: fileId,
+        items: [highlight]
+      });
+    }
+    
+    res.status(201).json({ message: "Highlight saved successfully", highlight });
+  } catch (error) {
+    console.error("❌ Error saving highlight:", error);
+    res.status(500).json({ error: "An error occurred while saving the highlight" });
+  }
+});
+
+// Update an existing highlight
+router.put("/:fileId/highlights/:highlightId", authenticateUser, async (req, res) => {
+  try {
+    const { fileId, highlightId } = req.params;
+    const { highlight } = req.body;
+    
+    if (!highlight) {
+      return res.status(400).json({ error: "No highlight data provided" });
+    }
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Find the highlight to check ownership
+    const highlightsCollection = conn.db.collection("pdf_highlights");
+    const existingHighlights = await highlightsCollection.findOne({ 
+      pdfId: fileId,
+      "items.id": highlightId
+    });
+    
+    if (!existingHighlights) {
+      return res.status(404).json({ error: "Highlight not found" });
+    }
+    
+    // Find the specific highlight
+    const existingHighlight = existingHighlights.items.find(h => h.id === highlightId);
+    
+    // Check if user is authorized to update this highlight
+    const isHighlightAuthor = existingHighlight.userId && 
+                             existingHighlight.userId.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    
+    if (!isHighlightAuthor && !isFaculty) {
+      return res.status(403).json({ error: "Access denied. You can only update your own highlights." });
+    }
+    
+    // Preserve the original user info
+    highlight.userId = existingHighlight.userId;
+    highlight.userName = existingHighlight.userName;
+    highlight.updatedAt = new Date().toISOString();
+    
+    // Update the highlight
+    const result = await highlightsCollection.updateOne(
+      { 
+        pdfId: fileId, 
+        "items.id": highlightId 
+      },
+      { 
+        $set: { "items.$": highlight } 
+      }
+    );
+    
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Highlight not found" });
+    }
+    
+    res.json({ message: "Highlight updated successfully", highlight });
+  } catch (error) {
+    console.error("❌ Error updating highlight:", error);
+    res.status(500).json({ error: "An error occurred while updating the highlight" });
+  }
+});
+
+// Delete a highlight
+router.delete("/:fileId/highlights/:highlightId", authenticateUser, async (req, res) => {
+  try {
+    const { fileId, highlightId } = req.params;
+    
+    // Find the PDF document
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId) 
+    });
+    
+    if (!file) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    // Find the highlight to check ownership
+    const highlightsCollection = conn.db.collection("pdf_highlights");
+    const existingHighlights = await highlightsCollection.findOne({ 
+      pdfId: fileId,
+      "items.id": highlightId
+    });
+    
+    if (!existingHighlights) {
+      return res.status(404).json({ error: "Highlight not found" });
+    }
+    
+    // Find the specific highlight
+    const existingHighlight = existingHighlights.items.find(h => h.id === highlightId);
+    
+    // Check if user is authorized to delete this highlight
+    const isHighlightAuthor = existingHighlight.userId && 
+                             existingHighlight.userId.toString() === req.user._id.toString();
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    
+    if (!isHighlightAuthor && !isFaculty) {
+      return res.status(403).json({ error: "Access denied. You can only delete your own highlights." });
+    }
+    
+    // Remove the highlight
+    const result = await highlightsCollection.updateOne(
+      { pdfId: fileId },
+      { $pull: { items: { id: highlightId } } }
+    );
+    
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Highlight not found" });
+    }
+    
+    res.json({ message: "Highlight deleted successfully" });
+  } catch (error) {
+    console.error("❌ Error deleting highlight:", error);
+    res.status(500).json({ error: "An error occurred while deleting the highlight" });
+  }
+});
+
+
 export default router;
 
 
