@@ -14,7 +14,9 @@ function ReviewPage() {
         const formattedSubmissions = data.map((pdf) => ({
           id: pdf._id,
           title: pdf.filename,
-          description: "Student-submitted research paper.",
+          description: pdf.metadata?.type === "poster" 
+            ? "Student-submitted poster." 
+            : "Student-submitted research paper.",
           status: pdf.metadata?.status || "Pending",
           comment: pdf.metadata?.comment || "",
         }));
@@ -22,6 +24,7 @@ function ReviewPage() {
       })
       .catch((err) => console.error("Error fetching PDFs:", err));
   }, []);
+  
 
   // Handle Approve/Reject Actions (Send to Backend)
   const handleAction = async (id, newStatus) => {
