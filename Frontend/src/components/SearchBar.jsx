@@ -61,6 +61,7 @@ const SearchBar = () => {
             width: "300px",
             display: "inline-block",
             marginLeft: "10px",
+            color: "black",
           }),
         }}
       />
