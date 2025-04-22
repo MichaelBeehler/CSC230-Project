@@ -1,20 +1,50 @@
 import React from "react";
-import "./AboutPage.css";
+import { Link } from "react-router-dom";
+
 function AboutPage() {
   return (
-    <div>
-      <h2>Mission Statement</h2>
-      <p className="paragraph">It is the mission of the Department of Criminology and Criminal Justice to provide criminological education, research and services to students, practitioners, policymakers and the community through an intellectually challenging environment that promotes collegiality and an educational experience relevant to crime and criminological theory that is meant to engage intellectual inquiry with domestic and international perspectives.</p>
-      <h2>Department of Criminology and Criminal Justice Purposes/Goals</h2>
+    <div style={{ maxWidth: "900px", margin: "40px auto", padding: "0 20px", fontFamily: "Arial, sans-serif", lineHeight: "1.6" }}>
+      
+      {/* Mission Section */}
+      <section style={{ marginBottom: "40px" }}>
+        <h2 style={{ fontSize: "28px", marginBottom: "10px" }}>Mission Statement</h2>
+        <hr style={{ border: "none", borderTop: "2px solid darkred", width: "50px", marginLeft: "0", marginBottom: "20px" }} />
+        <p>
+          The Department of Criminology and Criminal Justice is dedicated to providing high-quality criminological education, research, and services 
+          to students, practitioners, policymakers, and the broader community. We foster an intellectually challenging environment that encourages 
+          engagement with crime and criminological theory, drawing on both domestic and international perspectives.
+        </p>
+      </section>
 
-      <p className="paragraph">The CIRT supports the overall vision of The University by further strengthening existing programs and departments, furthering the training and success of graduate students, increasing the recognition of the Department of Criminology and Criminal Justice as well as UT, while also creating external funding opportunities.
+      {/* Purposes and Goals Section */}
+      <section>
+        <h2 style={{ fontSize: "28px", marginBottom: "10px" }}>Department Purposes and Goals</h2>
+        <hr style={{ border: "none", borderTop: "2px solid darkred", width: "50px", marginLeft: "0", marginBottom: "20px" }} />
+        <p>
+          The Criminology Institute for Research and Training (CIRT) supports the vision of The University of Tampa by strengthening academic programs, 
+          fostering student success, and creating new funding opportunities. We promote collaboration between scholars, agencies, and businesses; 
+          prepare students for careers in the ever-evolving criminal justice field; and serve as a central hub for research, training, and engagement 
+          within the Department of Criminology and Criminal Justice.
+        </p>
+      </section>
 
-The CIRT has four specific functions:
+      {/* Optional Button */}
+      <div style={{ marginTop: "40px" }}>
+        <Link 
+          to="/contact" 
+          style={{ 
+            backgroundColor: "darkred", 
+            color: "white", 
+            padding: "10px 20px", 
+            borderRadius: "5px", 
+            textDecoration: "none", 
+            fontWeight: "bold"
+          }}
+        >
+          Contact Us
+        </Link>
+      </div>
 
-Encourage networking and collaboration between UT scholars and criminal justice agencies and businesses;
-Provide learning resources and training for students, faculty and criminal justice professionals;
-Prepare students for future careers in the ever-changing field of criminal justice; and
-Provide a central hub for the intersection of research, training and student engagement within the Department of Criminology and Criminal Justice. </p>
     </div>
   );
 }

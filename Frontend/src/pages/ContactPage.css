@@ -1,70 +1,61 @@
 .contact-container {
-    display: flex;
-    margin: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    width: 20%;
-    padding-right: 20px;
-    border-right: 1px solid #ccc;
-  }
-  
-  .sidebar h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
-    color: #990000;
-    cursor: pointer;
-  }
-  
-  /* Main Content */
-  .main-content {
-    width: 80%;
-    padding-left: 20px;
-  }
-  
-  .main-content h2 {
-    margin-bottom: 20px;
-  }
-  
-  section {
-    margin-bottom: 20px;
-  }
-  
-  section h4 {
-    color: #990000;
-    margin-bottom: 10px;
-  }
-  
-  section button {
-    background: none;
-    border: none;
-    color: #990000;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 5px;
-  }
-  
-  section button:hover {
-    text-decoration: underline;
-  }
-  
-  a {
-    color: #990000;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: center;
+  margin: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.contact-content {
+  max-width: 900px;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.contact-content h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.contact-content section {
+  margin-bottom: 30px;
+}
+
+.contact-content h4 {
+  font-size: 24px;
+  color: darkred;
+  margin-bottom: 10px;
+}
+
+.contact-content button {
+  background: none;
+  border: none;
+  color: darkred;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.contact-content button:hover {
+  text-decoration: underline;
+}
+
+.contact-content a {
+  color: darkred;
+  text-decoration: none;
+}
+
+.contact-content a:hover {
+  text-decoration: underline;
+}
+
+.faculty-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin-top: 15px;
+}
+
+.faculty-list li {
+  margin-bottom: 10px;
+}
