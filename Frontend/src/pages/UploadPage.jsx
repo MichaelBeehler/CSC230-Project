@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./UploadPage.css";
 
+const TAG_OPTIONS = [
+  "Corrections",
+  "Courts/Sentencing",
+  "White Collar Crime",
+  "Mental Health",
+  "Victimology",
+  "Criminal Theory",
+  "Statistics/Methodology",
+  "Policing",
+  "Crime Prevention",
+  "Policy"
+];
+
 function UploadPage({ type }) {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
+  const [customFilename, setCustomFilename] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const [dragging, setDragging] = useState(false);
   const [message, setMessage] = useState("");
   const [uploads, setUploads] = useState([]);
@@ -14,11 +29,9 @@ function UploadPage({ type }) {
     : "http://localhost:4000/api/pdf/upload-poster";
 
   const fetchUrl = type === "pdf"
-  ? "http://localhost:4000/api/pdf/my-pdfs"
-  : "http://localhost:4000/api/pdf/my-posters";
+    ? "http://localhost:4000/api/pdf/my-pdfs"
+    : "http://localhost:4000/api/pdf/my-posters";
 
-
-  // Fetch user's uploaded files (PDF or Poster)
   useEffect(() => {
     fetch(fetchUrl, { credentials: "include" })
       .then((res) => res.json())
@@ -49,6 +62,12 @@ function UploadPage({ type }) {
     setMessage("");
   };
 
+  const handleTagToggle = (tag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
   const handleUpload = async () => {
     if (!file) {
       setMessage("⚠️ Please select a file.");
@@ -57,6 +76,8 @@ function UploadPage({ type }) {
 
     const formData = new FormData();
     formData.append("pdf", file);
+    formData.append("filename", customFilename.trim());
+    formData.append("tags", JSON.stringify(selectedTags));
 
     try {
       const response = await fetch(uploadUrl, {
@@ -70,6 +91,8 @@ function UploadPage({ type }) {
         setMessage(`✅ Upload successful: ${data.filename}`);
         setFile(null);
         setDescription("");
+        setCustomFilename("");
+        setSelectedTags([]);
         setUploads([...uploads, { _id: data.filename, filename: file.name }]);
       } else {
         setMessage(`❌ Upload failed: ${data.error}`);
@@ -85,10 +108,10 @@ function UploadPage({ type }) {
       <h2>Upload {title}</h2>
 
       {/* Drag & Drop Box */}
-      <div 
-        className={`upload-box ${dragging ? "dragging" : ""}`} 
-        onDragOver={handleDragOver} 
-        onDragLeave={handleDragLeave} 
+      <div
+        className={`upload-box ${dragging ? "dragging" : ""}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
         {file ? (
@@ -97,6 +120,30 @@ function UploadPage({ type }) {
           <p>Drag & Drop a file here or <label className="file-label">Click to select</label></p>
         )}
         <input type="file" accept="application/pdf" onChange={handleFileChange} className="file-input" />
+      </div>
+
+      {/* Filename Input */}
+      <input
+        type="text"
+        placeholder="Enter a custom filename (optional)"
+        value={customFilename}
+        onChange={(e) => setCustomFilename(e.target.value)}
+        style={{ marginBottom: "10px", width: "100%", padding: "5px" }}
+      />
+
+      {/* Tags */}
+      <div style={{ textAlign: "left", marginBottom: "10px" }}>
+        <p>Select Research Categories:</p>
+        {TAG_OPTIONS.map((tag) => (
+          <label key={tag} style={{ display: "block", marginBottom: "5px" }}>
+            <input
+              type="checkbox"
+              checked={selectedTags.includes(tag)}
+              onChange={() => handleTagToggle(tag)}
+            />{" "}
+            {tag}
+          </label>
+        ))}
       </div>
 
       {/* Description Input */}

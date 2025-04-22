@@ -10,6 +10,17 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 
+const parseTags = (tagJSON) => {
+  try {
+    const parsed = JSON.parse(tagJSON || "[]");
+    return Array.isArray(parsed) ? parsed.map(tag => tag.trim()).filter(Boolean) : [];
+  } catch (err) {
+    console.warn("⚠️ Invalid tag format:", err.message);
+    return [];
+  }
+};
+
+
 const router = express.Router();
 router.use(cookieParser());
 
@@ -67,8 +78,17 @@ router.post("/upload-pdf", authenticateUser, upload.single("pdf"), async (req, r
     readableStream.push(req.file.buffer);
     readableStream.push(null);
 
-    const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
-      metadata: { uploadedBy: req.user._id, status: "Pending", comment: "" },
+    const chosenFilename = req.body.filename?.trim() || req.file.originalname;
+    const tags = parseTags(req.body.tags);
+
+    const uploadStream = gridFSBucket.openUploadStream(chosenFilename, {
+      metadata: {
+        uploadedBy: req.user._id,
+        status: "Pending",
+        comment: "",
+        tags,
+        type: "pdf"
+      },
     });
 
     readableStream.pipe(uploadStream);
@@ -79,10 +99,10 @@ router.post("/upload-pdf", authenticateUser, upload.single("pdf"), async (req, r
     });
 
     uploadStream.on("finish", () => {
-      console.log("✅ File successfully uploaded:", req.file.originalname);
+      console.log("✅ File successfully uploaded:", chosenFilename);
       res.status(201).json({
         message: "File uploaded successfully",
-        filename: req.file.originalname,
+        filename: chosenFilename,
       });
     });
 
@@ -91,6 +111,7 @@ router.post("/upload-pdf", authenticateUser, upload.single("pdf"), async (req, r
     res.status(500).json({ error: "An error occurred while uploading" });
   }
 });
+
 
 // Upload Poster with user ownership tracking
 router.post("/upload-poster", authenticateUser, upload.single("pdf"), async (req, res) => {
@@ -105,8 +126,17 @@ router.post("/upload-poster", authenticateUser, upload.single("pdf"), async (req
     readableStream.push(req.file.buffer);
     readableStream.push(null);
 
-    const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
-      metadata: { uploadedBy: req.user._id, status: "Pending", type: "poster", comment: "" },
+    const chosenFilename = req.body.filename?.trim() || req.file.originalname;
+    const tags = parseTags(req.body.tags);
+
+    const uploadStream = gridFSBucket.openUploadStream(chosenFilename, {
+      metadata: {
+        uploadedBy: req.user._id,
+        status: "Pending",
+        type: "poster",
+        comment: "",
+        tags
+      },
     });
 
     readableStream.pipe(uploadStream);
@@ -117,10 +147,10 @@ router.post("/upload-poster", authenticateUser, upload.single("pdf"), async (req
     });
 
     uploadStream.on("finish", () => {
-      console.log("✅ Poster successfully uploaded:", req.file.originalname);
+      console.log("✅ Poster successfully uploaded:", chosenFilename);
       res.status(201).json({
         message: "Poster uploaded successfully",
-        filename: req.file.originalname,
+        filename: chosenFilename,
       });
     });
 
@@ -129,6 +159,7 @@ router.post("/upload-poster", authenticateUser, upload.single("pdf"), async (req
     res.status(500).json({ error: "An error occurred while uploading poster" });
   }
 });
+
 
 // Fetch all PDFs (Faculty Only)
 router.get("/all", authenticateUser, async (req, res) => {
@@ -258,16 +289,19 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
       return res.status(404).json({ error: "File not found or status unchanged." });
     }
 
+    // ⬇️ NEW: Also insert tags when approved
     if (status === "Approved") {
       const file = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
       await conn.db.collection("approved_pdfs").insertOne({
         _id: file._id,
         filename: file.filename,
         uploadedBy: file.metadata.uploadedBy,
-        type: file.metadata.type || "article",  // Assume 'article' if type is missing
+        type: file.metadata.type || "article",
         comment,
+        tags: file.metadata.tags || [], // ⬅️ important fix
         approvedDate: new Date()
       });
+      
     }
 
     res.json({ message: `PDF marked as ${status} with comment.` });
@@ -277,24 +311,35 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
   }
 });
 
+
 // Search for Approved PDFs
+// Search for Approved PDFs with optional tag filtering
 router.get("/search", async (req, res) => {
   try {
-    const { query = "", type = "" } = req.query;
+    const { query = "", type = "", tags = "" } = req.query;
 
-    // Build search conditions
-    const searchConditions = {
-      filename: { $regex: query, $options: "i" }
-    };
+    const searchConditions = {};
+
+    // Only include title filter if the query has content
+    if (query && query.trim()) {
+      searchConditions.filename = { $regex: query, $options: "i" };
+    }
 
     if (type) {
-      searchConditions.type = type; // Only match if type is specified
+      searchConditions.type = type;
+    }
+
+    if (tags) {
+      const tagList = tags.split(",").map(tag => tag.trim()).filter(Boolean);
+      if (tagList.length > 0) {
+        searchConditions.tags = { $in: tagList };
+      }
     }
 
     const searchResults = await conn.db.collection("approved_pdfs")
       .find(searchConditions)
       .sort({ approvedDate: -1 })
-      .toArray();  // No limit now
+      .toArray();
 
     res.json(searchResults);
   } catch (error) {
@@ -302,6 +347,22 @@ router.get("/search", async (req, res) => {
     res.status(500).json({ error: "An error occurred while searching" });
   }
 });
+
+
+
+// Fetch all unique tags from approved PDFs
+router.get("/tags", async (req, res) => {
+  try {
+    const tags = await conn.db
+      .collection("approved_pdfs")
+      .distinct("tags");
+    res.json(tags);
+  } catch (error) {
+    console.error("❌ Error fetching tags:", error);
+    res.status(500).json({ error: "An error occurred while fetching tags" });
+  }
+});
+
 
 // Comment routes
 // Get all comments for a PDF
