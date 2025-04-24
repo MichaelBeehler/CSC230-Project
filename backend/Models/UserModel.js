@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "You must select a role"],
     },
+    profilePicture: {
+        type: String,
+        default: null
+    },
+  
     created_at: {
         type: Date,
         default: new Date(),
