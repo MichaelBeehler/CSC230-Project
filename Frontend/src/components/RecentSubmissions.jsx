@@ -21,18 +21,16 @@ function RecentSubmissions() {
       <div className="submission-grid">
         {submissions.map((item) => (
           <div key={item._id} className="submission-card">
-            <h3>{item.filename}</h3>
-            {item.comment && <p className="faculty-comment">Faculty Comment: {item.comment}</p>}
             <a 
-              href={`http://localhost:4000/api/pdf/view/${item._id}`} 
-              target="_blank" 
+              href={`http://localhost:4000/api/pdf/view/${item._id}`}
+              target="_blank"
               rel="noopener noreferrer"
-              className="view-link"
+              className="article-link"
             >
-              View File
+              <h3>{item.filename}</h3>
             </a>
-          </div>
-        ))}
+            {item.comment && <p className="faculty-comment">Faculty Comment: {item.comment}</p>}
+          </div>        ))}
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ function Header({ userRole, setUserRole }) {
         <img src={logo} alt="University Logo" />
       </a>
       <Link to="/" className="cirt-title">
-        Criminology Institute for Research and Training
+        Criminology Institute for Research & Training
       </Link>
     </div>
 
