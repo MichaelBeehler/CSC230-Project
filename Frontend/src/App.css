@@ -1,0 +1,87 @@
+/* Global Styles */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: block;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Flex layout to enable sticky footer */
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make sure main content area expands */
+main {
+  flex: 1;
+}
+
+/* Main App container */
+.App {
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+  background: url('/path-to-hero-image.jpg') no-repeat center center/cover;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.cta-button {
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.cta-button:hover {
+  background-color: #005fa3;
+}
+
+/* Search Section */
+.search-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding: 50px 10px;
+  }
+
+  .cta-button {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+}

@@ -1,0 +1,66 @@
+.upload-container {
+    text-align: center;
+    max-width: 500px;
+    margin: 20px auto;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .upload-box {
+    border: 2px dashed white;
+    padding: 20px;
+    margin: 15px 0;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .upload-box.dragging {
+    border-color: darkred;
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+  
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .file-label {
+    color: darkred;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 80px;
+    margin-top: 10px;
+    background: black;
+    border: 1px solid white;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: darkred;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+  

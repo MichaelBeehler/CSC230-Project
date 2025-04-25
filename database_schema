@@ -1,0 +1,21 @@
+{
+  "_id": "ObjectId",
+  "name": "String",
+  "email": "String (unique)",
+  "password": "String (hashed)",
+  "role": "String (enum: 'author', 'reviewer', 'admin')",
+  "created_at": "Date",
+  "updated_at": "Date"
+}
+
+
+{
+  "_id": "ObjectId",
+  "user_id": "ObjectId (ref: users)",
+  "title": "String",
+  "abstract": "String",
+  "file_url": "String (path to uploaded file)",
+  "status": "String (enum: 'pending', 'under review', 'accepted', 'rejected')",
+  "submitted_at": "Date",
+  "updated_at": "Date"
+}

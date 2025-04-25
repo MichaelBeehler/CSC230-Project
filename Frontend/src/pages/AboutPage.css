@@ -1,0 +1,13 @@
+h2 {
+    padding-left: 2em; /* indents the heading */
+  }
+  
+  .paragraph {
+    text-align: left;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 1em;
+    line-height: 1.6;
+    text-indent: 2em;
+  }
+  
