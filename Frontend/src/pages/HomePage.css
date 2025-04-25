@@ -110,7 +110,7 @@
 .search-bar-container .search-bar-input::placeholder {
   color: #444;
   transition: opacity 0.3s ease;
-  animation: placeholderFade 7s infinite;
+  animation: placeholderFade 5s infinite;
 }
 
 .search-bar-container .search-bar-input:focus::placeholder {
