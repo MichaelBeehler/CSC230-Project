@@ -1,8 +1,13 @@
 /* Layout container */
 .login-page {
   display: flex;
-  height: 100vh;
+  height: auto; /* Allow natural height */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Remove overflow: hidden to allow scrolling */
+  margin: 36px 0; /* Increased by 20% from 30px */
+  padding: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Left side with image */
@@ -11,15 +16,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
+  background-color: transparent; /* Removed grey background */
+  padding: 6px; /* Increased by 20% from 5px */
+  height: auto; /* Allow natural height */
+  max-height: 720px; /* Increased by 20% from 600px */
 }
 
 .login-image {
-  width: 90%;
+  width: 90%; /* Increased by 20% from 75% */
   height: auto;
-  max-height: 90vh;
-  border-radius: 12px;
+  max-height: 78vh; /* Increased by 20% from 65vh */
+  border-radius: 12px; /* Increased by 20% from 10px */
   object-fit: cover;
+  margin: 18px 0; /* Increased by 20% from 15px */
 }
 
 /* Right side with form */
@@ -28,63 +37,114 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: transparent; /* Removed grey background */
+  padding: 6px; /* Increased by 20% from 5px */
+  height: auto; /* Allow natural height */
+  max-height: 720px; /* Increased by 20% from 600px */
 }
 
-
 .login-container {
-  background: #f9f9f9;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: white; /* Changed from #f9f9f9 to white */
+  padding: 22px; /* Increased by 20% from 18px */
+  border-radius: 14px; /* Increased by 20% from 12px */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1); /* Increased by 20% */
   width: 100%;
-  max-width: 400px;
+  max-width: 360px; /* Increased by 20% from 300px */
+  margin: 18px auto; /* Increased by 20% from 15px */
+  /* Remove max-height and overflow restrictions */
 }
 
 .login-container h2 {
-  margin-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 10px; /* Increased by 20% from 8px */
   color: #333;
   text-align: center;
+  font-size: 1.8rem; /* Increased by 20% from 1.5rem */
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px; /* Increased by 20% from 7px */
 }
 
+/* Input styles */
 .login-form input {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  height: 41px; /* Increased by 20% from 34px */
+  padding: 0 12px; /* Increased by 20% from 10px */
+  background-color: white; /* Changed from #e6e6e6 to white */
+  border: 2px solid rgb(200, 16, 46);
+  border-radius: 6px; /* Increased by 20% from 5px */
+  color: #000;
+  font-size: 17px; /* Increased by 20% from 14px */
+  line-height: normal;
+  width: 100%;
+  outline: none;
+  margin: 0;
 }
 
 .login-form input:focus {
-  border-color: darkred;
+  background-color: white; /* Changed from #e6e6e6 to white */
+  border: 2px solid rgb(200, 16, 46);
+  color: #000;
   outline: none;
+  box-shadow: none;
 }
 
+.login-form input::placeholder {
+  color: #444;
+  transition: opacity 0.3s ease;
+  font-size: 17px; /* Increased by 20% from 14px (implied) */
+}
+
+.login-form input:focus::placeholder {
+  color: #444;
+  opacity: 0.7;
+}
+
+/* Button styles */
 .login-form button {
-  padding: 12px;
-  background-color: darkred;
+  box-sizing: border-box;
+  height: 41px; /* Increased by 20% from 34px */
+  padding: 0 18px; /* Increased by 20% from 15px */
+  background-color: rgb(200, 16, 46);
   color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
+  border: 2px solid white;
+  border-radius: 6px; /* Increased by 20% from 5px */
   cursor: pointer;
+  font-weight: bold;
+  font-size: 17px; /* Increased by 20% from 14px */
+  line-height: normal;
+  outline: none;
   transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.login-form button:focus {
+  background-color: rgb(200, 16, 46);
+  color: white;
+  border: 2px solid white;
+  outline: none;
+  box-shadow: none;
 }
 
 .login-form button:hover {
-  background-color: red;
+  background-color: #000000;
+}
+
+.login-form button:focus:hover {
+  background-color: #000000;
 }
 
 .register-link {
-  font-size: 14px;
+  font-size: 13px; /* Increased by 20% from 11px */
   text-align: center;
   color: #666;
+  margin: 1px 0;
+  line-height: 1.3; /* Increased by 20% from 1.1 */
 }
 
 .register-link a {
@@ -100,20 +160,106 @@
 @media (max-width: 768px) {
   .login-page {
     flex-direction: column;
+    height: auto; /* Allow natural height */
+    margin: 24px 0; /* Increased by 20% from 20px */
   }
-
+  
   .login-left,
   .login-right {
     flex: unset;
     width: 100%;
+    height: auto; /* Allow natural height */
+    padding: 2px;
+    background-color: transparent; /* Ensure consistency on mobile */
   }
-
+  
   .login-image {
-    width: 100%;
+    width: 90%;
+    max-height: 46vh; /* Increased by 20% from 38vh */
     border-radius: 0;
+    margin: 12px 0; /* Increased by 20% from 10px */
   }
-
+  
   .login-container {
-    margin: 40px auto;
+    margin: 12px auto; /* Increased by 20% from 10px */
+    padding: 12px; /* Increased by 20% from 10px */
+    background-color: white; /* Ensure consistency on mobile */
   }
+}
+
+/* For very small screens */
+@media (max-height: 600px) {
+  .login-page {
+    height: auto;
+    margin: 18px 0; /* Increased by 20% from 15px */
+  }
+  
+  .login-left, .login-right {
+    height: auto;
+    background-color: transparent; /* Ensure consistency on small screens */
+  }
+  
+  .login-image {
+    max-height: 66vh; /* Increased by 20% from 55vh */
+    margin: 10px 0; /* Increased by 20% from 8px */
+  }
+  
+  .login-container {
+    padding: 10px; /* Increased by 20% from 8px */
+    margin: 10px auto; /* Increased by 20% from 8px */
+    background-color: white; /* Ensure consistency on small screens */
+  }
+  
+  .login-form {
+    gap: 6px; /* Increased by 20% from 5px */
+  }
+  
+  .register-link {
+    margin: 0;
+    font-size: 12px; /* Increased by 20% from 10px */
+  }
+  
+  .login-container h2 {
+    margin-bottom: 6px; /* Increased by 20% from 5px */
+    font-size: 1.68rem; /* Increased by 20% from 1.4rem */
+  }
+}
+
+/* Remove the scroll restrictions from root elements */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Use min-height instead of height */
+  margin: 0;
+  padding: 0;
+  /* Remove overflow: hidden */
+}
+
+/* Main content container */
+main, .main-content, .app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  /* Remove overflow: hidden */
+}
+
+/* Keep some spacing for header and footer */
+header, .header, nav, .navbar {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+footer, .footer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Body and html */
+body, html {
+  margin: 0;
+  padding: 0;
+  /* Remove overflow: hidden */
+  height: 100%;
 }

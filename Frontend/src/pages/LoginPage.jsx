@@ -5,7 +5,6 @@ import {ToastContainer, toast} from "react-toastify";
 import "./LoginPage.css";
 import plantHall from "../assets/plant-hall.jpg";
 
-
 const LoginPage = ({ setUserRole}) => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
@@ -13,6 +12,7 @@ const LoginPage = ({ setUserRole}) => {
         password: "",
     });
     const {email, password} = inputValue;
+    
     const handleOnChange = (e) => {
         const {name, value} = e.target;
         setInputValue({
@@ -20,7 +20,7 @@ const LoginPage = ({ setUserRole}) => {
             [name]: value,
         });
     };
-    
+        
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -56,70 +56,40 @@ const LoginPage = ({ setUserRole}) => {
             password: "",
         });
     };
+
     return (
-        /*<div className="login-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                name="email"
-                value={email}
-                placeholder="Email" 
-                onChange={handleOnChange}/>
-              </div>
-              <div>
-                <label htmlFor="password">Password</label>
-                <input 
-                  type="password" 
-                  name="password"
-                  value={password}
-                  placeholder="Password"
-                  onChange={handleOnChange} required />
-              </div>
-                <button type="submit">Login</button>
-                <span>New? Make an account here <Link to={"/register"}>Register</Link>
-                </span>
-            </form>
-            <ToastContainer />
-        </div>*/
     <div className="login-page">
         <div className="login-left">
             <img
-                src= {plantHall}
+                src={plantHall}
                 className="login-image"
+                alt="Plant Hall"
             />
         </div>
         <div className="login-right">
             <div className="login-container">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit} className="login-form">
-                <label htmlFor="email">Email</label>
-                <input 
-                    type="email" 
+                <input
+                    type="email"
                     name="email"
                     value={email}
-                    placeholder="Email" 
+                    placeholder="Email"
                     onChange={handleOnChange}
                     required
                 />
-
-                <label htmlFor="password">Password</label>
-                <input 
-                    type="password" 
+                <input
+                    type="password"
                     name="password"
                     value={password}
                     placeholder="Password"
                     onChange={handleOnChange}
-                    required 
-                />
-
+                    required
+                 />
                 <button type="submit">Login</button>
                 <p className="register-link">
                     New? Make an account <Link to="/register">here</Link>.
                 </p>
-
                 <p className="register-link">
                     Forgot Password? Click <Link to="/forgot-password">here</Link>.
                 </p>
@@ -127,7 +97,7 @@ const LoginPage = ({ setUserRole}) => {
             </div>
             <ToastContainer />
         </div>
-    </div>  
+    </div>
     );
 };
 

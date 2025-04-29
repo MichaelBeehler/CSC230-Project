@@ -1,0 +1,147 @@
+.homepage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-image {
+  background-image: url('../assets/UTJPEG.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.background-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.home-content {
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  padding-top: 1.5rem;
+  border-radius: 10px;
+  color: #f0f0f0;
+  margin-top: 50px;
+}
+
+/* Main heading - "Welcome" */
+.home-content h1 {
+  margin-bottom: 5px;
+  margin-top: -70px;
+  font-size: 3.8rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+/* First subtitle - "Your trusted source..." */
+.main-subtitle {
+  font-size: 1.4rem;
+  margin-top: -5px;
+  margin-bottom: 95px;
+  font-weight: 400;
+  color: #f0f0f0;
+}
+
+/* Second subtitle - "Browse a selection..." */
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #e0e0e0;
+  line-height: 1.2;
+}
+
+/* Enhanced specificity to ensure these styles apply */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  margin-top: 5px;
+}
+
+.search-bar-container .search-bar-input,
+.search-bar-container .search-bar-button {
+  box-sizing: border-box;
+  height: 40px;
+  margin: 0;
+  vertical-align: middle;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.search-bar-container .search-bar-input {
+  width: 300px;
+  padding: 0 15px;
+  background-color: #e6e6e6;
+  border: 2px solid rgb(200, 16, 46);
+  border-radius: 5px;
+  color: #000;
+  outline: none;
+}
+
+.search-bar-container .search-bar-input:focus {
+  background-color: #e6e6e6;
+  border: 2px solid rgb(200, 16, 46);
+  color: #000;
+  outline: none;
+  box-shadow: none;
+}
+
+@keyframes placeholderFade {
+  0%, 100% { opacity: 1; }
+}
+
+.search-bar-container .search-bar-input::placeholder {
+  color: #444;
+  transition: opacity 0.3s ease;
+  animation: placeholderFade 5s infinite;
+}
+
+.search-bar-container .search-bar-input:focus::placeholder {
+  color: #444;
+  opacity: 0.7;
+}
+
+.search-bar-container .search-bar-button {
+  padding: 0 20px;
+  background-color: rgb(200, 16, 46);
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar-container .search-bar-button:focus {
+  background-color: rgb(200, 16, 46);
+  color: white;
+  border: 2px solid white;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-bar-container .search-bar-button:hover {
+  background-color: #000000;
+}
+
+.search-bar-container .search-bar-button:focus:hover {
+  background-color: #000000;
+}

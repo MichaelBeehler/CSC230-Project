@@ -10,4 +10,20 @@ h2 {
     line-height: 1.6;
     text-indent: 2em;
   }
-  
+
+
+  .contact-button {
+    background-color: rgb(200, 16, 46);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    border: 2px solid white;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-button:hover {
+    background-color: #000000;
+  }

@@ -93,7 +93,10 @@ function Footer() {
       {/* Bottom Section */}
       <div className="footer-bottom" style={{ 
         marginTop: "18px",
-        marginBottom: "0"
+
+        marginBottom: "0",
+        textAlign: "center",
+        fontSize: "0.9em"
       }}>
         <p style={{ margin: "0 0 5px 0", lineHeight: "1.4" }}>© 2025 University of Tampa. All rights reserved.</p>
         <p style={{ margin: "0", lineHeight: "1.4" }}>Maintained by Department of Criminology</p>
