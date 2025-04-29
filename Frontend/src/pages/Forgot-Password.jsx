@@ -24,7 +24,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
             const {data} = await axios.post(
-                "http://localhost:4000/forgotPassword",
+                "https://csc230-project.onrender.com/forgotPassword",
                 {
                     ...inputValue
                 },

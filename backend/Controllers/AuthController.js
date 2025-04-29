@@ -105,7 +105,7 @@ const transporter = nodemailer.createTransport({
   });
 
   async function sendResetEmail(toEmail, resetToken) {
-    const resetLink = `localhost:5173/reset-password/${resetToken}`;
+    const resetLink = `https://csc-230-project.vercel.app/reset-password/${resetToken}`;
   
     const mailOptions = {
       from: process.env.EMAIL_USER,

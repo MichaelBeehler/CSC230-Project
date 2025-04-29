@@ -19,7 +19,7 @@ function AnnotatePdfPage() {
       setError(null);
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/pdf/view/${id}`,
+          `https://csc230-project.onrender.com/api/pdf/view/${id}`,
           {
             responseType: "blob",
             withCredentials: true,
@@ -62,7 +62,7 @@ function AnnotatePdfPage() {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/pdf/${id}/comments`,
+        `https://csc230-project.onrender.com/api/pdf/${id}/comments`,
         { withCredentials: true }
       );
       
@@ -90,7 +90,7 @@ function AnnotatePdfPage() {
       };
       
       const response = await axios.post(
-        `http://localhost:4000/api/pdf/${id}/comments`,
+        `https://csc230-project.onrender.com/api/pdf/${id}/comments`,
         commentData,
         { withCredentials: true }
       );
@@ -130,7 +130,7 @@ function AnnotatePdfPage() {
       setComments(comments.filter(comment => comment._id.toString() !== commentId.toString()));
       
       await axios.delete(
-        `http://localhost:4000/api/pdf/${id}/comments/${commentId}`,
+        `https://csc230-project.onrender.com/api/pdf/${id}/comments/${commentId}`,
         { withCredentials: true }
       );
     } catch (error) {

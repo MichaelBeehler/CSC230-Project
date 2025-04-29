@@ -45,7 +45,7 @@ const Register = () => {
       }
       else {
         const { data } = await axios.post(
-          "http://localhost:4000/signup",
+          "https://csc230-project.onrender.com/signup",
           {
             ...inputValue,
           },

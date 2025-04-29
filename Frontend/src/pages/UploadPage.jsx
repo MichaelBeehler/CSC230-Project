@@ -25,12 +25,12 @@ function UploadPage({ type }) {
 
   const title = type === "pdf" ? "Article" : "Poster";
   const uploadUrl = type === "pdf"
-    ? "http://localhost:4000/api/pdf/upload-pdf"
-    : "http://localhost:4000/api/pdf/upload-poster";
+    ? "https://csc230-project.onrender.com/api/pdf/upload-pdf"
+    : "https://csc230-project.onrender.com/api/pdf/upload-poster";
 
   const fetchUrl = type === "pdf"
-    ? "http://localhost:4000/api/pdf/my-pdfs"
-    : "http://localhost:4000/api/pdf/my-posters";
+    ? "https://csc230-project.onrender.com/api/pdf/my-pdfs"
+    : "https://csc230-project.onrender.com/api/pdf/my-posters";
 
   useEffect(() => {
     fetch(fetchUrl, { credentials: "include" })
@@ -165,7 +165,7 @@ function UploadPage({ type }) {
         <ul>
           {uploads.map((item) => (
             <li key={item._id}>
-              <a href={`http://localhost:4000/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
                 {item.filename}
               </a>
             </li>

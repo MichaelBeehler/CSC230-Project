@@ -6,7 +6,7 @@ function RecentSubmissions() {
 
   useEffect(() => {
     // Assuming this is your approved PDFs endpoint (adjust if needed)
-    fetch("http://localhost:4000/api/pdf/search?query=", { credentials: "include" })
+    fetch("https://csc230-project.onrender.com/api/pdf/search?query=", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         const sorted = data.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
@@ -24,7 +24,7 @@ function RecentSubmissions() {
             <h3>{item.filename}</h3>
             {item.comment && <p className="faculty-comment">Faculty Comment: {item.comment}</p>}
             <a 
-              href={`http://localhost:4000/api/pdf/view/${item._id}`} 
+              href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="view-link"

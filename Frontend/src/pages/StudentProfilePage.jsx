@@ -22,7 +22,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/profile", {
+        const { data } = await axios.get("https://csc230-project.onrender.com/profile", {
           withCredentials: true,
         });
         setUser(data.user);
@@ -33,7 +33,7 @@ const ProfilePage = () => {
 
     const fetchUploads = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/pdf/my-pdfs", {
+        const { data } = await axios.get("https://csc230-project.onrender.com/api/pdf/my-pdfs", {
           withCredentials: true,
         });
         setUploads(data);
@@ -58,7 +58,7 @@ const ProfilePage = () => {
 
     const fetchProfilePicture = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/profile-pic/current", {
+        const { data } = await axios.get("https://csc230-project.onrender.com/api/profile-pic/current", {
           withCredentials: true,
         });
         if (data.profilePicture) {
@@ -112,7 +112,7 @@ const ProfilePage = () => {
     try {
       // Use the correct endpoint: set-default instead of update
       await axios.post(
-        "http://localhost:4000/api/profile-pic/set-default",
+        "https://csc230-project.onrender.com/api/profile-pic/set-default",
         { avatarId: selectedAvatar },
         { withCredentials: true }
       );
@@ -185,7 +185,7 @@ const ProfilePage = () => {
         const avatarId = selectedAvatar.split(':')[1];
         return (
           <img 
-            src={`http://localhost:4000/api/profile-pic/image/default/${avatarId}`}
+            src={`https://csc230-project.onrender.com/api/profile-pic/image/default/${avatarId}`}
             alt="Profile Avatar" 
             className="avatar-image" 
           />
@@ -195,7 +195,7 @@ const ProfilePage = () => {
         const avatarId = selectedAvatar.split(':')[1];
         return (
           <img 
-            src={`http://localhost:4000/api/profile-pic/image/custom/${avatarId}`}
+            src={`https://csc230-project.onrender.com/api/profile-pic/image/custom/${avatarId}`}
             alt="Profile Avatar" 
             className="avatar-image" 
           />
@@ -278,7 +278,7 @@ const ProfilePage = () => {
                     <li key={item._id} className="pdf-item">
                       <div className="pdf-info">
                         <a
-                          href={`http://localhost:4000/api/pdf/view/${item._id}`}
+                          href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >

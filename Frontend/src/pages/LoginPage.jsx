@@ -25,7 +25,7 @@ const LoginPage = ({ setUserRole}) => {
         e.preventDefault();
         try {
             const {data} =await axios.post(
-                "http://localhost:4000/login",
+                "https://csc230-project.onrender.com/login",
                 {
                     ...inputValue
                 },

@@ -13,7 +13,7 @@ const SearchResultsPage = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        let url = `http://localhost:4000/api/pdf/search?query=${query}`;
+        let url = `https://csc230-project.onrender.com/api/pdf/search?query=${query}`;
         if (filter !== "all") {
           url += `&type=${filter}`;
         }
@@ -93,7 +93,7 @@ const SearchResultsPage = () => {
               </p>
 
               <a
-                href={`http://localhost:4000/api/pdf/view/${pdf._id}`}
+                href={`https://csc230-project.onrender.com/api/pdf/view/${pdf._id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -118,7 +118,7 @@ const SearchResultsPage = () => {
 
             <div style={{ textAlign: "right", minWidth: "120px" }}>
               <a
-                href={`http://localhost:4000/api/pdf/view/${pdf._id}`}
+                href={`https://csc230-project.onrender.com/api/pdf/view/${pdf._id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

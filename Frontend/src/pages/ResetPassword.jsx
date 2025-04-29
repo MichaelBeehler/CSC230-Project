@@ -18,7 +18,7 @@ function ResetPassword () {
     }
 
     try {
-      const response = await axios.post("http://localhost:4000/resetPassword", {
+      const response = await axios.post("https://csc230-project.onrender.com/resetPassword", {
         token,
         newPassword: password,
       });

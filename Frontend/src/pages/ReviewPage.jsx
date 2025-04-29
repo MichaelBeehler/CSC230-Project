@@ -8,7 +8,7 @@ function ReviewPage() {
 
   // Fetch all uploaded PDFs (Faculty only)
   useEffect(() => {
-    fetch("http://localhost:4000/api/pdf/all", { credentials: "include" })
+    fetch("https://csc230-project.onrender.com/api/pdf/all", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         const formattedSubmissions = data.map((pdf) => ({
@@ -31,7 +31,7 @@ function ReviewPage() {
     const comment = comments[id] || "";
 
     try {
-      const response = await fetch(`http://localhost:4000/api/pdf/update-status/${id}`, {
+      const response = await fetch(`https://csc230-project.onrender.com/api/pdf/update-status/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
