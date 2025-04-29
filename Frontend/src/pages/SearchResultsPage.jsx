@@ -6,16 +6,20 @@ const SearchResultsPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query") || "";
+  const tagsParam = queryParams.get("tags") || "";
 
   const [results, setResults] = useState([]);
-  const [filter, setFilter] = useState("all"); // New: default is 'all'
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        let url = `http://localhost:4000/api/pdf/search?query=${query}`;
+        let url = `http://localhost:4000/api/pdf/search?query=${encodeURIComponent(query)}`;
         if (filter !== "all") {
-          url += `&type=${filter}`;
+          url += `&type=${encodeURIComponent(filter)}`;
+        }
+        if (tagsParam) {
+          url += `&tags=${encodeURIComponent(tagsParam)}`;
         }
         const res = await fetch(url);
         const data = await res.json();
@@ -26,7 +30,7 @@ const SearchResultsPage = () => {
     };
 
     if (query.trim()) fetchResults();
-  }, [query, filter]); // New: depend on both query and filter
+  }, [query, filter, tagsParam]);
 
   return (
     <div style={{ padding: "40px 60px", fontFamily: "Georgia, serif" }}>
@@ -34,7 +38,6 @@ const SearchResultsPage = () => {
         <SearchBar />
       </div>
 
-      {/* New: Filter Radio Buttons */}
       <div style={{ marginBottom: "20px", display: "flex", gap: "20px", alignItems: "center" }}>
         <label>
           <input
@@ -114,6 +117,13 @@ const SearchResultsPage = () => {
                 <strong>Faculty Comment:</strong>{" "}
                 {pdf.comment?.trim() ? pdf.comment : "No comments"}
               </p>
+
+              {/* Display Tags */}
+              {pdf.tags && pdf.tags.length > 0 && (
+                <p>
+                  <strong>Tags:</strong> {pdf.tags.join(", ")}
+                </p>
+              )}
             </div>
 
             <div style={{ textAlign: "right", minWidth: "120px" }}>
