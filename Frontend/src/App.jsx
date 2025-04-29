@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./App.css";
 
+import FellowsPage from "./pages/FellowsPage";
+import FellowsAdmin from "./pages/FellowsAdmin";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
@@ -48,6 +50,7 @@ function App() {
           <Route path="/profile" element={<StudentProfilePage />} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
           <Route path="/reset-password/:token" element={<ResetPassword/>} />
+          <Route path="/fellows" element={<FellowsPage />} />
 
           {/* 🔍 Public search route */}
           <Route path="/search" element={<SearchResultsPage />} /> {/* ✅ Added */}
@@ -64,6 +67,7 @@ function App() {
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
             <Route path="/profile" element={<StudentProfilePage />} />
+            <Route path="/fellows-admin" element={<FellowsAdmin />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["editor"]} />}>

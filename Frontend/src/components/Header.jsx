@@ -85,6 +85,7 @@ function Header({ userRole, setUserRole }) {
           </li>
         )}
 
+        <li><Link to="/fellows">Fellows</Link></li>
         {!userRole && <li><Link to="/login">Login</Link></li>}
 
         {userRole && (

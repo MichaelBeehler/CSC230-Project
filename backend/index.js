@@ -4,9 +4,11 @@ import cors from "cors";
 import authRoute from "./Routes/AuthRoute.js";
 import pdfRoute from "./Routes/PdfRoute.js"; 
 const app = express();
+import fellowsRoute from "./Routes/FellowsRoute.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import profilePicRoute from "./Routes/ProfilePicRoute.js";
+
 dotenv.config();
 
 const { MONGO_URL, PORT } = process.env;
@@ -35,5 +37,7 @@ app.use(express.json());
 app.use("/api/profile-pic", profilePicRoute);
 app.use("/", authRoute);
 app.use("/api/pdf", pdfRoute);
+app.use("/api/fellows", fellowsRoute);
+
 
 export default app;
