@@ -13,7 +13,7 @@ const SearchBar = () => {
     // Fetch available tags from the backend
     const fetchTags = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/pdf/tags");
+        const res = await fetch("https://csc230-project.onrender.com/api/pdf/tags");
         const data = await res.json();
         const options = data.map((tag) => ({ value: tag, label: tag }));
         setTagOptions(options);
