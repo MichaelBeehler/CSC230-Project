@@ -21,7 +21,9 @@ mongoose
 // CORS configuration
 app.use(
     cors({
-        origin: ["http://localhost:5173"], // Make sure this matches your frontend URL
+        origin: ["http://localhost:5173",
+            "https://csc-230-project.vercel.app"
+        ],
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],
