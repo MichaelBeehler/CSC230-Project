@@ -18,11 +18,11 @@ function ContactPage() {
 
         {/* Contact Faculty Toggle */}
         <section>
-          <button onClick={() => setExpanded(!expanded)}>
-            {expanded ? "▼ Contact Faculty" : "▶ Contact Faculty"}
-          </button>
+        <button onClick={() => setExpanded(!expanded)}>
+          Contact Faculty <span className={`arrow ${expanded ? "rotated" : ""}`}>▾</span>
+        </button>
 
-          {expanded && (
+          <div className={`accordion ${expanded ? "open" : ""}`}>
             <ul className="faculty-list">
               <li><strong>Nate Connealy</strong> - Associate Director - <a href="mailto:nconnealy@ut.edu">nconnealy@ut.edu</a></li>
               <li><strong>Chivon Fitch</strong> - Industry Liaison - <a href="mailto:cfitch@ut.edu">cfitch@ut.edu</a></li>
@@ -37,8 +37,9 @@ function ContactPage() {
               <li><strong>Gabriel Paez</strong> - Research Associate - <a href="mailto:gpaez@ut.edu">gpaez@ut.edu</a></li>
               <li><strong>Cassidy Tevlin</strong> - Research Associate - <a href="mailto:ctevlin@ut.edu">ctevlin@ut.edu</a></li>
             </ul>
-          )}
+          </div>
         </section>
+
       </div>
     </div>
   );
