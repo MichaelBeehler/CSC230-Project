@@ -87,12 +87,26 @@
 
 .search-bar-container .search-bar-input {
   width: 300px;
-  padding: 0 15px;
+  padding: 0 10px 2px 10px;
   background-color: #e6e6e6;
-  border: 2px solid rgb(200, 16, 46);
+  border: 1px solid rgb(200, 16, 46);
   border-radius: 5px;
   color: #000;
   outline: none;
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+/* For browsers that don't fully support flexbox on inputs */
+@supports not (display: flex) {
+  .search-bar-container .search-bar-input {
+    line-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .search-bar-container .search-bar-input:focus {
@@ -111,6 +125,11 @@
   color: #444;
   transition: opacity 0.3s ease;
   animation: placeholderFade 5s infinite;
+  font-size: 12px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  padding-left: 0;
 }
 
 .search-bar-container .search-bar-input:focus::placeholder {
@@ -122,18 +141,22 @@
   padding: 0 20px;
   background-color: rgb(200, 16, 46);
   color: white;
-  border: 2px solid white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   outline: none;
   transition: background-color 0.3s ease;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-bar-container .search-bar-button:focus {
   background-color: rgb(200, 16, 46);
   color: white;
-  border: 2px solid white;
+  border: none;
   outline: none;
   box-shadow: none;
 }
