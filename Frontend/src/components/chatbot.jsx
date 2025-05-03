@@ -40,7 +40,7 @@ const Chatbot = () => {
     try {
       console.log("Sending message to backend:", messageText);
       
-      const response = await fetch('/api/chatbot/chat', {
+      const response = await fetch('https://csc230-project.onrender.com/api/chatbot/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
