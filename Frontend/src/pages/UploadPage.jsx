@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { FiUploadCloud } from "react-icons/fi";
+import "react-toastify/dist/ReactToastify.css";
 import "./UploadPage.css";
 
 const TAG_OPTIONS = [
@@ -20,7 +23,6 @@ function UploadPage({ type }) {
   const [customFilename, setCustomFilename] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [dragging, setDragging] = useState(false);
-  const [message, setMessage] = useState("");
   const [uploads, setUploads] = useState([]);
 
   const title = type === "pdf" ? "Article" : "Poster";
@@ -42,7 +44,6 @@ function UploadPage({ type }) {
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
-    setMessage("");
   };
 
   const handleDragOver = (event) => {
@@ -59,7 +60,6 @@ function UploadPage({ type }) {
     setDragging(false);
     const droppedFile = event.dataTransfer.files[0];
     setFile(droppedFile);
-    setMessage("");
   };
 
   const handleTagToggle = (tag) => {
@@ -70,7 +70,7 @@ function UploadPage({ type }) {
 
   const handleUpload = async () => {
     if (!file) {
-      setMessage("⚠️ Please select a file.");
+      toast.warn("Please select a file.");
       return;
     }
 
@@ -88,17 +88,17 @@ function UploadPage({ type }) {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage(`✅ Upload successful: ${data.filename}`);
+        toast.success(`Upload successful: ${data.filename}`);
         setFile(null);
         setDescription("");
         setCustomFilename("");
         setSelectedTags([]);
         setUploads([...uploads, { _id: data.filename, filename: file.name }]);
       } else {
-        setMessage(`❌ Upload failed: ${data.error}`);
+        toast.error(`Upload failed: ${data.error}`);
       }
     } catch (error) {
-      setMessage("❌ Upload error, check console.");
+      toast.error("Upload error, check console.");
       console.error("Upload Error:", error);
     }
   };
@@ -107,71 +107,81 @@ function UploadPage({ type }) {
     <div className="upload-container">
       <h2>Upload {title}</h2>
 
-      {/* Drag & Drop Box */}
       <div
         className={`upload-box ${dragging ? "dragging" : ""}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
+        <FiUploadCloud size={40} className="upload-icon" />
         {file ? (
           <p>📄 {file.name}</p>
         ) : (
-          <p>Drag & Drop a file here or <label className="file-label">Click to select</label></p>
+          <p>
+            Drag & Drop or <label className="file-label">Click to Select</label>
+          </p>
         )}
-        <input type="file" accept="application/pdf" onChange={handleFileChange} className="file-input" />
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={handleFileChange}
+          className="file-input"
+        />
       </div>
 
-      {/* Filename Input */}
       <input
         type="text"
         placeholder="Enter a custom filename (optional)"
         value={customFilename}
         onChange={(e) => setCustomFilename(e.target.value)}
-        style={{ marginBottom: "10px", width: "100%", padding: "5px" }}
+        className="upload-input"
       />
 
-      {/* Tags */}
-      <div style={{ textAlign: "left", marginBottom: "10px" }}>
+      <div className="tag-container">
         <p>Select Research Categories:</p>
-        {TAG_OPTIONS.map((tag) => (
-          <label key={tag} style={{ display: "block", marginBottom: "5px" }}>
-            <input
-              type="checkbox"
-              checked={selectedTags.includes(tag)}
-              onChange={() => handleTagToggle(tag)}
-            />{" "}
-            {tag}
-          </label>
-        ))}
+        <div className="tags-grid">
+          {TAG_OPTIONS.map((tag) => (
+            <label key={tag} className="tag-option">
+              <input
+                type="checkbox"
+                checked={selectedTags.includes(tag)}
+                onChange={() => handleTagToggle(tag)}
+              />
+              {tag}
+            </label>
+          ))}
+        </div>
       </div>
 
-      {/* Description Input */}
       <textarea
         placeholder="Enter a description..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        className="upload-textarea"
       ></textarea>
 
-      {/* Upload Button */}
       <button onClick={handleUpload} disabled={!file}>Upload</button>
-
-      {message && <p className="upload-message">{message}</p>}
 
       <h3>My Uploaded {title}s</h3>
       {uploads.length === 0 ? (
         <p>No {title}s uploaded yet.</p>
       ) : (
-        <ul>
+        <ul className="upload-list">
           {uploads.map((item) => (
-            <li key={item._id}>
-              <a href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
+            <li key={item._id} className="upload-item">
+              <a
+                href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {item.filename}
               </a>
             </li>
           ))}
         </ul>
       )}
+
+      <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar />
     </div>
   );
 }
