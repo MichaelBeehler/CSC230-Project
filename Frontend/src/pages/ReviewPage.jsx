@@ -8,7 +8,10 @@ function ReviewPage() {
 
   // Fetch all uploaded PDFs (Faculty only)
   useEffect(() => {
-    fetch("https://csc230-project.onrender.com/api/pdf/all", { credentials: "include" })
+    fetch('https://csc230-project.onrender.com/api/pdf/all', {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
         const formattedSubmissions = data.map((pdf) => ({
