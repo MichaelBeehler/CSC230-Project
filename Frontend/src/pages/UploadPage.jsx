@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FiUploadCloud } from "react-icons/fi";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,23 +23,11 @@ function UploadPage({ type }) {
   const [customFilename, setCustomFilename] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [dragging, setDragging] = useState(false);
-  const [uploads, setUploads] = useState([]);
 
   const title = type === "pdf" ? "Article" : "Poster";
   const uploadUrl = type === "pdf"
     ? "https://csc230-project.onrender.com/api/pdf/upload-pdf"
     : "https://csc230-project.onrender.com/api/pdf/upload-poster";
-
-  const fetchUrl = type === "pdf"
-    ? "https://csc230-project.onrender.com/api/pdf/my-pdfs"
-    : "https://csc230-project.onrender.com/api/pdf/my-posters";
-
-  useEffect(() => {
-    fetch(fetchUrl, { credentials: "include" })
-      .then((res) => res.json())
-      .then((data) => setUploads(data))
-      .catch((err) => console.error("Error fetching uploads:", err));
-  }, [fetchUrl]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -93,7 +81,6 @@ function UploadPage({ type }) {
         setDescription("");
         setCustomFilename("");
         setSelectedTags([]);
-        setUploads([...uploads, { _id: data.filename, filename: file.name }]);
       } else {
         toast.error(`Upload failed: ${data.error}`);
       }
@@ -161,25 +148,6 @@ function UploadPage({ type }) {
       ></textarea>
 
       <button onClick={handleUpload} disabled={!file}>Upload</button>
-
-      <h3>My Uploaded {title}s</h3>
-      {uploads.length === 0 ? (
-        <p>No {title}s uploaded yet.</p>
-      ) : (
-        <ul className="upload-list">
-          {uploads.map((item) => (
-            <li key={item._id} className="upload-item">
-              <a
-                href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.filename}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
 
       <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar />
     </div>
