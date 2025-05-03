@@ -73,6 +73,9 @@ export const Login = async (req, res, next) => {
         res.cookie("token", token, {
             withCredentials: true,
             httpOnly: true,
+            secure: true, 
+            sameSite: 'None',
+
         });
         res.status(200).json({message: "Successful login!", success: true, role: user.role});
         next();
