@@ -5,7 +5,6 @@
  ******************************************/
 
 import mongoose from 'mongoose';
-import User from './UserModel';
 
 const PaperSchema = new mongoose.Schema({
   gridFsFileId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'fs.files' },
