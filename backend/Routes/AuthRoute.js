@@ -13,19 +13,19 @@ router.post ("/forgotPassword", forgotPassword);
 router.post("/resetPassword", resetPassword);
 
 // Get all users
-router.get("/users", isEditor, async (req, res) => {
+router.get("/users", async (req, res) => {
     const users = await User.find({}, "-password");
     res.json(users);
 });
 
 // Delete a user
-router.delete("/users/:id", isEditor, async (req, res) => {
+router.delete("/users/:id", async (req, res) => {
     await User.findByIdAndDelete(req.params.id);
     res.json({ success: true });
 });
 
 // Update user role
-router.put("/users/:id", isEditor, async (req, res) => {
+router.put("/users/:id", async (req, res) => {
     const { role } = req.body;
     await User.findByIdAndUpdate(req.params.id, { role });
     res.json({ success: true });

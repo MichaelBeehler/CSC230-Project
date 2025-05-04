@@ -31,6 +31,7 @@ export const isEditor = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+        console.log(decoded);
         if (decoded.role === 'editor' || decoded.role === 'admin') {
             req.user = decoded;
             next();
