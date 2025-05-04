@@ -1,8 +1,12 @@
 import {Signup, Login, getProfile, forgotPassword, resetPassword } from "../Controllers/AuthController.js";
-import { userVerification, isEditor } from "../Middlewares/AuthMiddleware.js";
+import { userVerification } from "../Middlewares/AuthMiddleware.js";
 import { Router } from "express";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { Readable } from "stream";
+import User from "../Models/UserModel.js";
 
 // Middleware to verify user authentication
 const authenticateUser = async (req, res, next) => {
