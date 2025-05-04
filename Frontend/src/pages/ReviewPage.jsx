@@ -33,11 +33,11 @@ function ReviewPage() {
       .catch((err) => console.error("Error fetching PDFs:", err));
   }, []);
 
-  const handleAction = async (id, newStatus) => {
+  const handleAction = async (id, recommendation) => {
     const comment = comments[id] || "";
     try {
       const res = await fetch(
-        `https://csc230-project.onrender.com/api/paper/recommend/${id}`,
+        `https://csc230-project.onrender.com/api/pdf/recommend/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

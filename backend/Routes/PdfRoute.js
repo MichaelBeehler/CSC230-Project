@@ -264,7 +264,7 @@ router.get("/view/:fileId", async (req, res) => {
 });
 
 // Faculty Recommendation Route
-router.put("/recommend/:fileId", authenticateUser, async (req, res) => {
+router.put("/recommend/:paperId", authenticateUser, async (req, res) => {
   try {
     if (req.user.role !== "faculty") {
       return res.status(403).json({ error: "Only faculty can make recommendations." });
@@ -305,7 +305,7 @@ router.put("/recommend/:fileId", authenticateUser, async (req, res) => {
 });
 
 // Editor Final Decision Route
-router.put("/decide/:fileId", authenticateUser, async (req, res) => {
+router.put("/decide/:paperId", authenticateUser, async (req, res) => {
   try {
     if (req.user.role !== "editor") {
       return res.status(403).json({ error: "Only editors can make final decisions." });
