@@ -19,6 +19,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import EditorDashboard from "./pages/EditorDashboard";
 import ResetPassword from "./pages/ResetPassword";
+import ManageUsers from "./pages/ManageUsers";
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
@@ -69,6 +70,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={["editor"]} />}>
             <Route path="/editor" element={< EditorDashboard/>} />
             <Route path="/profile" element={<StudentProfilePage />} />
+            <Route path="/manage" element={<ManageUsers/>} />
           </Route>
         </Routes>
       </main>
