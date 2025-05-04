@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { FiUploadCloud } from "react-icons/fi";
 import "react-toastify/dist/ReactToastify.css";
 import "./UploadPage.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const TAG_OPTIONS = [
   "Corrections",
@@ -26,8 +27,8 @@ function UploadPage({ type }) {
 
   const title = type === "pdf" ? "Article" : "Poster";
   const uploadUrl = type === "pdf"
-    ? "https://csc230-project.onrender.com/api/pdf/upload-pdf"
-    : "https://csc230-project.onrender.com/api/pdf/upload-poster";
+    ? `${backendUrl}/api/pdf/upload-pdf`
+    : `${backendUrl}/api/pdf/upload-poster`;
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];

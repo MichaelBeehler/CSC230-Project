@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {ToastContainer, toast} from "react-toastify";
 import "./ForgotPassword.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
             const {data} = await axios.post(
-                "https://csc230-project.onrender.com/forgotPassword",
+                `${backendUrl}/forgotPassword`,
                 {
                     ...inputValue
                 },

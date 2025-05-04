@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -13,7 +14,7 @@ const SearchResultsPage = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        let url = `https://csc230-project.onrender.com/api/pdf/search?query=${query}`;
+        let url = `${backendUrl}/api/pdf/search?query=${query}`;
         if (filter !== "all") {
           url += `&type=${filter}`;
         }
@@ -93,7 +94,7 @@ const SearchResultsPage = () => {
               </p>
 
               <a
-                href={`https://csc230-project.onrender.com/api/pdf/view/${pdf._id}`}
+                href={`${backendUrl}/api/pdf/view/${pdf._id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -118,7 +119,7 @@ const SearchResultsPage = () => {
 
             <div style={{ textAlign: "right", minWidth: "120px" }}>
               <a
-                href={`https://csc230-project.onrender.com/api/pdf/view/${pdf._id}`}
+                href={`${backendUrl}/api/pdf/view/${pdf._id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

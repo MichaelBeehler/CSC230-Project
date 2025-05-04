@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./EditorDashboard.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function EditorDashboard() {
   const [submissions, setSubmissions] = useState([]);
@@ -7,7 +8,7 @@ function EditorDashboard() {
 
   // Fetch all uploaded PDFs (Faculty only)
   useEffect(() => {
-    fetch("https://csc230-project.onrender.com/api/pdf/all", { credentials: "include" })
+    fetch(`${backendUrl}/api/pdf/all`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         const formattedSubmissions = data.map((pdf) => ({
@@ -27,7 +28,7 @@ function EditorDashboard() {
     const comment = comments[id] || "";
 
     try {
-      const response = await fetch(`https://csc230-project.onrender.com/api/pdf/update-status/${id}`, {
+      const response = await fetch(`${backendUrl}/api/pdf/update-status/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -79,7 +80,7 @@ function EditorDashboard() {
 
               <div className="button-group">
                 <a
-                  href={`https://csc230-project.onrender.com/api/pdf/view/${submission.id}`}
+                  href={`${backendUrl}/api/pdf/view/${submission.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

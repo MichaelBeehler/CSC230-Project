@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function ManageUsers () {
 
@@ -8,7 +9,7 @@ function ManageUsers () {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        axios.get("https://csc230-project.onrender.com/users", {
+        axios.get(`${backendUrl}/users`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -23,14 +24,14 @@ function ManageUsers () {
 
     const deleteUser = async (id) => {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
-        await axios.delete(`https://csc230-project.onrender.com/users/${id}`, {
+        await axios.delete(`${backendUrl}/users/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(users.filter(u => u._id !== id));
     };
 
     const updateRole = async (id, newRole) => {
-        await axios.put(`https://csc230-project.onrender.com/users/${id}`, { role: newRole }, {
+        await axios.put(`${backendUrl}/users/${id}`, { role: newRole }, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(users.map(u => u._id === id ? { ...u, role: newRole } : u));

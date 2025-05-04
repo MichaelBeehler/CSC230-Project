@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './chatbot.css';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ const Chatbot = () => {
     try {
       console.log("Sending message to backend:", messageText);
       
-      const response = await fetch('https://csc230-project.onrender.com/api/chatbot/chat', {
+      const response = await fetch(`${backendUrl}/api/chatbot/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

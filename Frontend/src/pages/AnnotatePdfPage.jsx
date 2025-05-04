@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./AnnotatePdfPage.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function AnnotatePdfPage() {
   const { id } = useParams();
@@ -19,7 +20,7 @@ function AnnotatePdfPage() {
       setError(null);
       try {
         const response = await axios.get(
-          `https://csc230-project.onrender.com/api/pdf/view/${id}`,
+          `${backendUrl}/api/pdf/view/${id}`,
           {
             responseType: "blob",
             withCredentials: true,
@@ -62,7 +63,7 @@ function AnnotatePdfPage() {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `https://csc230-project.onrender.com/api/pdf/${id}/comments`,
+        `${backendUrl}/api/pdf/${id}/comments`,
         { withCredentials: true }
       );
       
@@ -90,7 +91,7 @@ function AnnotatePdfPage() {
       };
       
       const response = await axios.post(
-        `https://csc230-project.onrender.com/api/pdf/${id}/comments`,
+        `${backendUrl}/api/pdf/${id}/comments`,
         commentData,
         { withCredentials: true }
       );
@@ -130,7 +131,7 @@ function AnnotatePdfPage() {
       setComments(comments.filter(comment => comment._id.toString() !== commentId.toString()));
       
       await axios.delete(
-        `https://csc230-project.onrender.com/api/pdf/${id}/comments/${commentId}`,
+        `${backendUrl}/api/pdf/${id}/comments/${commentId}`,
         { withCredentials: true }
       );
     } catch (error) {

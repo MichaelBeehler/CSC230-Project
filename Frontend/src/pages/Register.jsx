@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "./Register.css"
 import plantHall from "../assets/plant-hall.jpg";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const Register = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Register = () => {
       }
       else {
         const { data } = await axios.post(
-          "https://csc230-project.onrender.com/signup",
+          `${backendUrl}/signup`,
           {
             ...inputValue,
           },

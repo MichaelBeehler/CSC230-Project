@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function AboutPage() {
   return (

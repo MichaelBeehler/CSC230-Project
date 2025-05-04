@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
@@ -13,7 +14,7 @@ const SearchBar = () => {
     // Fetch available tags from the backend
     const fetchTags = async () => {
       try {
-        const res = await fetch("https://csc230-project.onrender.com/api/pdf/tags");
+        const res = await fetch(`${backendUrl}/api/pdf/tags`);
         const data = await res.json();
         const options = data.map((tag) => ({ value: tag, label: tag }));
         setTagOptions(options);

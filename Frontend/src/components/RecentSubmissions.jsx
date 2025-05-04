@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./RecentSubmissions.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function RecentSubmissions() {
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
     // Assuming this is your approved PDFs endpoint (adjust if needed)
-    fetch("https://csc230-project.onrender.com/api/pdf/search?query=", { credentials: "include" })
+    fetch(`${backendUrl}/api/pdf/search?query=`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         const sorted = data.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
@@ -24,7 +25,7 @@ function RecentSubmissions() {
             <h3>{item.filename}</h3>
             {item.comment && <p className="faculty-comment">Faculty Comment: {item.comment}</p>}
             <a 
-              href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} 
+              href={`${backendUrl}/api/pdf/view/${item._id}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="view-link"

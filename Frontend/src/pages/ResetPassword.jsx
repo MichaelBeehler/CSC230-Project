@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResetPassword.css";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function ResetPassword() {
     const { token } = useParams();
@@ -22,7 +23,7 @@ function ResetPassword() {
 
         setIsLoading(true);
         try {
-            const response = await axios.post("https://csc230-project.onrender.com/resetPassword", {
+            const response = await axios.post(`${backendUrl}/resetPassword`, {
                 token,
                 newPassword: password,
             });

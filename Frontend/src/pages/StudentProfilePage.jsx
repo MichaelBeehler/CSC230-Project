@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("uploads");
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const availableAvatars = [
     { id: "panda", src: pandaAvatar, alt: "Panda Avatar" },
@@ -21,7 +22,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("https://csc230-project.onrender.com/profile", {
+        const { data } = await axios.get(`${backendUrl}/profile`, {
           withCredentials: true,
         });
         setUser(data.user);
@@ -32,7 +33,7 @@ const ProfilePage = () => {
 
     const fetchUploads = async () => {
       try {
-        const { data } = await axios.get("https://csc230-project.onrender.com/api/pdf/my-pdfs", {
+        const { data } = await axios.get(`${backendUrl}/api/pdf/my-pdfs`, {
           withCredentials: true,
         });
         setUploads(data);
@@ -50,7 +51,7 @@ const ProfilePage = () => {
 
     const fetchPosters = async () => {
       try {
-        const { data } = await axios.get("https://csc230-project.onrender.com/api/pdf/my-posters", {
+        const { data } = await axios.get(`${backendUrl}/api/pdf/my-posters`, {
           withCredentials: true,
         });
         setPosters(data);
@@ -61,7 +62,7 @@ const ProfilePage = () => {
 
     const fetchProfilePicture = async () => {
       try {
-        const { data } = await axios.get("https://csc230-project.onrender.com/api/profile-pic/current", {
+        const { data } = await axios.get(`${backendUrl}/api/profile-pic/current`, {
           withCredentials: true,
         });
         if (data.profilePicture) {
@@ -102,7 +103,7 @@ const ProfilePage = () => {
   const updateProfilePicture = async () => {
     if (!selectedAvatar) return;
     try {
-      await axios.post("https://csc230-project.onrender.com/api/profile-pic/set-default", {
+      await axios.post(`${backendUrl}/api/profile-pic/set-default`, {
         avatarId: selectedAvatar
       }, { withCredentials: true });
       localStorage.setItem("selectedAvatar", selectedAvatar);
@@ -214,7 +215,7 @@ const ProfilePage = () => {
                   {uploads.map((item) => (
                     <li key={item._id} className="pdf-item">
                       <div className="pdf-info">
-                        <a href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
+                        <a href={`${backendUrl}/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
                           📄 {item.filename}
                         </a>
                         {getStatusBadge(item.metadata)}
@@ -240,7 +241,7 @@ const ProfilePage = () => {
                   {posters.map((item) => (
                     <li key={item._id} className="pdf-item">
                       <div className="pdf-info">
-                        <a href={`https://csc230-project.onrender.com/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
+                        <a href={`${backendUrl}/api/pdf/view/${item._id}`} target="_blank" rel="noopener noreferrer">
                           🖼️ {item.filename}
                         </a>
                         {getStatusBadge(item.metadata)}

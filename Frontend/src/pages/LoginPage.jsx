@@ -4,6 +4,7 @@ import axios from "axios";
 import {ToastContainer, toast} from "react-toastify";
 import "./LoginPage.css";
 import plantHall from "../assets/plant-hall.jpg";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
 const LoginPage = ({ setUserRole}) => {
@@ -25,7 +26,7 @@ const LoginPage = ({ setUserRole}) => {
         e.preventDefault();
         try {
             const {data} =await axios.post(
-                "https://csc230-project.onrender.com/login",
+                `${backendUrl}/login`,
                 {
                     ...inputValue
                 },

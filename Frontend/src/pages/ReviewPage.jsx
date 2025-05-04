@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ConfettiExplosion from "react-confetti-explosion";
 import "./ReviewPage.css";
-
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 function ReviewPage() {
   const [submissions, setSubmissions] = useState([]);
   const [comments, setComments] = useState({});
@@ -10,7 +10,7 @@ function ReviewPage() {
   const [confettiId, setConfettiId] = useState(null);
 
   useEffect(() => {
-    fetch("https://csc230-project.onrender.com/api/pdf/all", {
+    fetch(`${backendUrl}/api/pdf/all`, {
       method: "GET",
       credentials: "include",
     })
@@ -37,7 +37,7 @@ function ReviewPage() {
     const comment = comments[id] || "";
     try {
       const res = await fetch(
-        `https://csc230-project.onrender.com/api/pdf/recommend/${id}`,
+        `${backendUrl}/api/pdf/recommend/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
