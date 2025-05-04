@@ -57,9 +57,10 @@ function ManageUsers () {
                             <td>{user.role}</td>
                             <td>
                                 <select value={user.role} onChange={(e) => updateRole(user._id, e.target.value)}>
-                                    <option value="user">User</option>
+                                    <option value="guest">Guest</option>
+                                    <option value="student">Student</option>
+                                    <option value="faculty">Faculty</option>
                                     <option value="editor">Editor</option>
-                                    <option value="admin">Admin</option>
                                 </select>
                             </td>
                             <td>

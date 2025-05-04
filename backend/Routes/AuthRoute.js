@@ -83,7 +83,7 @@ router.put("/users/:id", authenticateUser, async (req, res) => {
         if (req.user.role !== "editor") {
             return res.status(403).json({error: "Access Denied: Editor Only"});
         }
-        const { role } = req.body.updatedRole;
+        const { role } = req.body.role;
         await User.findByIdAndUpdate(req.params.id, { role });
         res.json({ success: true });
     }
