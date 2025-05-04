@@ -9,6 +9,7 @@ function ManageUsers () {
 
     useEffect(() => {
         axios.get("https://csc230-project.onrender.com/users", {
+            headers: { Authorization: `Bearer ${token}` }
         }).then(res => {
             setUsers(res.data);
             setLoading(false);
@@ -21,12 +22,14 @@ function ManageUsers () {
     const deleteUser = async (id) => {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
         await axios.delete(`https://csc230-project.onrender.com/users/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(users.filter(u => u._id !== id));
     };
 
     const updateRole = async (id, newRole) => {
         await axios.put(`https://csc230-project.onrender.com/users/${id}`, { role: newRole }, {
+            headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(users.map(u => u._id === id ? { ...u, role: newRole } : u));
     };
