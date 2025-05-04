@@ -77,7 +77,7 @@ export const Login = async (req, res, next) => {
             sameSite: 'None',
 
         });
-        res.status(200).json({message: "Successful login!", success: true, role: user.role});
+        res.status(200).json({message: "Successful login!", success: true, role: user.role, token});
         next();
     }
     catch (error) {

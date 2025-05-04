@@ -32,9 +32,10 @@ const LoginPage = ({ setUserRole}) => {
                 {withCredentials: true}
             );
             console.log(data);
-            const {success, message, role} = data;
+            const {success, message, role, token} = data;
             if (success) {
-                localStorage.setItem("userRole", role)
+                localStorage.setItem("userRole", role);
+                localStorage.setItem("token", token);
                 setUserRole(role); // MANUAL REFRESH ISSUE FIX
                 toast.success(message, {position: "bottom-left"});
                 setTimeout(() => {
