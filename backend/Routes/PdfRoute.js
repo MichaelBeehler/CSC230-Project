@@ -7,6 +7,7 @@ import { Readable } from "stream";
 import User from "../Models/UserModel.js";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import Paper from "../Models/Paper.js"
 
 dotenv.config();
 
