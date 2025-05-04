@@ -1,52 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ConfettiExplosion from "react-confetti-explosion";
 import "./ReviewPage.css";
 
 function ReviewPage() {
   const [submissions, setSubmissions] = useState([]);
   const [comments, setComments] = useState({});
+  const [filter, setFilter] = useState("Pending");
+  const [confettiId, setConfettiId] = useState(null);
 
-  // Fetch all uploaded PDFs (Faculty only)
   useEffect(() => {
-    fetch('https://csc230-project.onrender.com/api/pdf/all', {
-      method: 'GET',
-      credentials: 'include',
+    fetch("https://csc230-project.onrender.com/api/pdf/all", {
+      method: "GET",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
-        const formattedSubmissions = data.map((pdf) => ({
+        const formatted = data.map((pdf) => ({
           id: pdf._id,
           title: pdf.filename,
-          description: pdf.metadata?.type === "poster" 
-            ? "Student-submitted poster." 
-            : "Student-submitted research paper.",
+          description:
+            pdf.metadata?.type === "poster"
+              ? "Student-submitted poster."
+              : "Student-submitted research paper.",
           status: pdf.metadata?.status || "Pending",
           comment: pdf.metadata?.comment || "",
+          type: pdf.metadata?.type || "pdf",
+          createdAt: pdf.uploadDate || pdf.uploadedAt || pdf.uploaded || pdf.createdAt || new Date().toISOString()
         }));
-        setSubmissions(formattedSubmissions);
+        setSubmissions(formatted);
       })
       .catch((err) => console.error("Error fetching PDFs:", err));
   }, []);
-  
 
-  // Handle Approve/Reject Actions (Send to Backend)
   const handleAction = async (id, newStatus) => {
     const comment = comments[id] || "";
-
     try {
-      const response = await fetch(`https://csc230-project.onrender.com/api/pdf/update-status/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ status: newStatus, comment }),
-      });
+      const res = await fetch(
+        `https://csc230-project.onrender.com/api/pdf/update-status/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ status: newStatus, comment }),
+        }
+      );
 
-      if (response.ok) {
+      if (res.ok) {
         setSubmissions((prev) =>
-          prev.map((sub) =>
-            sub.id === id ? { ...sub, status: newStatus, comment } : sub
+          prev.map((s) =>
+            s.id === id ? { ...s, status: newStatus } : s
           )
         );
+
+        if (newStatus === "Approved") {
+          setConfettiId(id);
+          setTimeout(() => setConfettiId(null), 3000);
+        }
       } else {
         console.error("❌ Error updating status.");
       }
@@ -55,75 +65,113 @@ function ReviewPage() {
     }
   };
 
-  const pendingSubmissions = submissions.filter((sub) => sub.status === "Pending");
+  const filtered = submissions.filter(
+    (s) => filter === "All" || s.status === filter
+  );
+  const grouped = {
+    pdf: filtered.filter((s) => s.type !== "poster"),
+    poster: filtered.filter((s) => s.type === "poster"),
+  };
 
   return (
     <div className="review-container">
       <h2>Review Submissions</h2>
 
-      {pendingSubmissions.length === 0 ? (
-        <p>No submissions found.</p>
+      {/* Filter Controls */}
+      <div style={{ marginBottom: "20px", textAlign: "center" }}>
+        <label style={{ fontWeight: "bold", marginRight: "10px" }}>
+          Filter by Status:
+        </label>
+        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      {/* PDFs */}
+      <h3>Research Papers</h3>
+      {grouped.pdf.length === 0 ? (
+        <p>No matching research papers.</p>
       ) : (
         <div className="card-grid">
-          {pendingSubmissions.map((submission) => (
-            <div key={submission.id} className="review-card">
-              <h3>{submission.title}</h3>
-              <p>{submission.description}</p>
-              <p>
-                Status:{" "}
-                <span className={`status ${submission.status.toLowerCase()}`}>
-                  {submission.status}
-                </span>
-              </p>
+          {grouped.pdf.map((sub) => renderCard(sub))}
+        </div>
+      )}
 
-              <textarea
-                placeholder="Enter comments..."
-                value={comments[submission.id] || ""}
-                onChange={(e) =>
-                  setComments({ ...comments, [submission.id]: e.target.value })
-                }
-              ></textarea>
-
-              <div className="button-group">
-                <Link
-                  to={`/annotate/${submission.id}`}
-                  className="annotate-link"
-                >
-                  Annotate PDF
-                </Link>
-
-                <button
-                  className="approve-btn"
-                  onClick={() => {
-                    if (
-                      window.confirm("Are you sure you want to approve this submission?")
-                    ) {
-                      handleAction(submission.id, "Approved");
-                    }
-                  }}
-                >
-                  Approve
-                </button>
-
-                <button
-                  className="reject-btn"
-                  onClick={() => {
-                    if (
-                      window.confirm("Are you sure you want to reject this submission?")
-                    ) {
-                      handleAction(submission.id, "Rejected");
-                    }
-                  }}
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-          ))}
+      {/* Posters */}
+      <h3>Posters</h3>
+      {grouped.poster.length === 0 ? (
+        <p>No matching posters.</p>
+      ) : (
+        <div className="card-grid">
+          {grouped.poster.map((sub) => renderCard(sub))}
         </div>
       )}
     </div>
   );
+
+  function renderCard(submission) {
+    const formattedDate = new Date(submission.createdAt).toLocaleString();
+
+    return (
+      <div key={submission.id} className="review-card">
+        <h3>{submission.title}</h3>
+        <p style={{ fontWeight: "bold" }}>{submission.description}</p>
+        <p>
+          Status:{" "}
+          <span
+            className={`status ${submission.status.toLowerCase()} status-animate`}
+          >
+            {submission.status}
+          </span>
+        </p>
+        <p className="submission-date">Submitted: {formattedDate}</p>
+
+        <textarea
+          placeholder="Enter comments..."
+          value={comments[submission.id] || ""}
+          onChange={(e) =>
+            setComments({ ...comments, [submission.id]: e.target.value })
+          }
+        ></textarea>
+
+        <div className="button-group">
+          <Link
+            to={`/annotate/${submission.id}`}
+            className="annotate-link"
+          >
+            Annotate PDF
+          </Link>
+          <div className="button-row">
+            <button
+              className="approve-btn"
+              onClick={() =>
+                window.confirm("Approve this submission?") &&
+                handleAction(submission.id, "Approved")
+              }
+            >
+              Approve
+            </button>
+            <button
+              className="reject-btn"
+              onClick={() =>
+                window.confirm("Reject this submission?") &&
+                handleAction(submission.id, "Rejected")
+              }
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+
+        {confettiId === submission.id && (
+          <ConfettiExplosion force={0.8} duration={2500} particleCount={120} />
+        )}
+      </div>
+    );
+  }
 }
 
 export default ReviewPage;
