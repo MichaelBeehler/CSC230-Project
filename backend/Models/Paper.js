@@ -5,6 +5,7 @@
  ******************************************/
 
 import mongoose from 'mongoose';
+import User from './UserModel';
 
 const PaperSchema = new mongoose.Schema({
   gridFsFileId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'fs.files' },
@@ -20,6 +21,14 @@ const PaperSchema = new mongoose.Schema({
   status: { type: String, enum: ['under_review', 'published', 'rejected'], default: 'under_review' },
   citationCount: { type: Number, default: 0 },
   tags: [String],
+
+  reviewers: [{
+    reviewerId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    recommendation: {type: String, enum: ['approve', 'reject', 'undecided'], default: 'undecided'},
+    comment: String,
+  }],
+
+  //finalDecision? 
 });
 
 module.exports = mongoose.model('Paper', PaperSchema);

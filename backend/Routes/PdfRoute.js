@@ -263,8 +263,76 @@ router.get("/view/:fileId", async (req, res) => {
   }
 });
 
+// Faculty Recommendation Route
+router.put("/recommend/:fileId", authenticateUser, async (req, res) => {
+  try {
+    if (req.user.role !== "faculty") {
+      return res.status(403).json({ error: "Only faculty can make recommendations." });
+    }
+
+    const { recommendation, comment } = req.body;
+    if (!['approve', 'reject', 'undecided'].includes(recommendation)) {
+      return res.status(400).json({ error: "Invalid recommendation." });
+    }
+
+    const paper = await Paper.findById(req.params.paperId);
+    if (!paper) return res.status(404).json({ error: "Paper not found." });
+
+    const existingReviewer = paper.reviewers.find(r =>
+      r.reviewerId.toString() === req.user._id.toString()
+    );
+
+    if (existingReviewer) {
+      // Update recommendation
+      existingReviewer.recommendation = recommendation;
+      existingReviewer.comment = comment;
+    } else {
+      // Add new reviewer recommendation
+      paper.reviewers.push({
+        reviewerId: req.user._id,
+        recommendation,
+        comment
+      });
+    }
+
+    await paper.save();
+    res.json({ message: "Recommendation submitted." });
+
+  } catch (error) {
+    console.error("❌ Error submitting recommendation:", error);
+    res.status(500).json({ error: "An error occurred." });
+  }
+});
+
+// Editor Final Decision Route
+router.put("/decide/:fileId", authenticateUser, async (req, res) => {
+  try {
+    if (req.user.role !== "editor") {
+      return res.status(403).json({ error: "Only editors can make final decisions." });
+    }
+
+    const { status } = req.body;
+    if (!['published', 'rejected'].includes(status)) {
+      return res.status(400).json({ error: "Invalid final status." });
+    }
+
+    const paper = await Paper.findById(req.params.paperId);
+    if (!paper) return res.status(404).json({ error: "Paper not found." });
+
+    paper.status = status;
+    //paper.finalDecisionDate = new Date();
+    await paper.save();
+
+    res.json({ message: `Paper marked as ${status}.` });
+
+  } catch (error) {
+    console.error("❌ Error making final decision:", error);
+    res.status(500).json({ error: "An error occurred." });
+  }
+});
+
 // Faculty Approval/Rejection with Comments
-router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
+/*router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
   try {
     if (req.user.role !== "faculty" && req.user.role !== "editor") {
       return res.status(403).json({ error: "Access denied. Faculty only." });
@@ -305,7 +373,7 @@ router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
     console.error("❌ Error updating PDF status:", error);
     res.status(500).json({ error: "An error occurred while updating status." });
   }
-});
+});*/
 
 // Search for Approved PDFs with optional tag filtering
 router.get("/search", async (req, res) => {

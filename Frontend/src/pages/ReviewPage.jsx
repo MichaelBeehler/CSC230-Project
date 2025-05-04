@@ -37,17 +37,18 @@ function ReviewPage() {
     const comment = comments[id] || "";
     try {
       const res = await fetch(
-        `https://csc230-project.onrender.com/api/pdf/update-status/${id}`,
+        `https://csc230-project.onrender.com/api/paper/recommend/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ status: newStatus, comment }),
+          body: JSON.stringify({ recommendation, comment }),
         }
       );
 
       if (res.ok) {
-        setSubmissions((prev) =>
+        alert("✅ Recommendation submitted.");
+        /*setSubmissions((prev) =>
           prev.map((s) =>
             s.id === id ? { ...s, status: newStatus } : s
           )
@@ -56,12 +57,12 @@ function ReviewPage() {
         if (newStatus === "Approved") {
           setConfettiId(id);
           setTimeout(() => setConfettiId(null), 3000);
-        }
+        }*/
       } else {
-        console.error("❌ Error updating status.");
+        console.error("❌ Error submitting recommendation.");
       }
     } catch (error) {
-      console.error("❌ Failed to update status:", error);
+      console.error("❌ Failed to submit recommendation:", error);
     }
   };
 
@@ -149,19 +150,19 @@ function ReviewPage() {
               className="approve-btn"
               onClick={() =>
                 window.confirm("Approve this submission?") &&
-                handleAction(submission.id, "Approved")
+                handleAction(submission.id, "approve")
               }
             >
-              Approve
+              Recommend Approve
             </button>
             <button
               className="reject-btn"
               onClick={() =>
                 window.confirm("Reject this submission?") &&
-                handleAction(submission.id, "Rejected")
+                handleAction(submission.id, "reject")
               }
             >
-              Reject
+              Recommend Reject
             </button>
           </div>
         </div>
