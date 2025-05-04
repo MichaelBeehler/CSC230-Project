@@ -9,8 +9,9 @@ function ManageUsers () {
 
     useEffect(() => {
         axios.get("https://csc230-project.onrender.com/users", {
-            method: "GET", 
-            credentials: "include", 
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
         }).then(res => {
             setUsers(res.data);
             setLoading(false);
