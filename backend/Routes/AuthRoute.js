@@ -1,7 +1,8 @@
 import {Signup, Login, getProfile, forgotPassword, resetPassword } from "../Controllers/AuthController.js";
 import { userVerification, isEditor } from "../Middlewares/AuthMiddleware.js";
 import { Router } from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 // Middleware to verify user authentication
 const authenticateUser = async (req, res, next) => {
