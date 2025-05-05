@@ -276,7 +276,7 @@ router.put("/recommend/:paperId", authenticateUser, async (req, res) => {
     }
 
     //const paper = await Paper.findById(req.params.paperId);
-    const fileId = new mongoose.Types.ObjectId(req.params.fileId);
+    const fileId = new mongoose.Types.ObjectId(req.params.paperId);
     const paper = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
 
     if (!paper) return res.status(404).json({ error: "Paper not found." });
