@@ -275,7 +275,10 @@ router.put("/recommend/:paperId", authenticateUser, async (req, res) => {
       return res.status(400).json({ error: "Invalid recommendation." });
     }
 
-    const paper = await Paper.findById(req.params.paperId);
+    //const paper = await Paper.findById(req.params.paperId);
+    const fileId = new mongoose.Types.ObjectId(req.params.fileId);
+    const paper = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
+
     if (!paper) return res.status(404).json({ error: "Paper not found." });
 
     const existingReviewer = paper.reviewers.find(r =>
