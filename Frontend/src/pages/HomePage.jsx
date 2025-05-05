@@ -2,7 +2,6 @@ import React from "react";
 import RecentSubmissions from "../components/RecentSubmissions";
 import SearchBar from "../components/SearchBar";
 import "./HomePage.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const HomePage = () => {
   return (
