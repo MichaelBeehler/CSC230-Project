@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./AnnotatePdfPage.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function AnnotatePdfPage() {
   const { id } = useParams();

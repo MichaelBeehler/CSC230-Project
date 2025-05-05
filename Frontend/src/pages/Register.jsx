@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import "./Register.css"
 import plantHall from "../assets/plant-hall.jpg";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const Register = () => {
   const navigate = useNavigate();

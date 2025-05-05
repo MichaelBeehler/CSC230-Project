@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './chatbot.css';
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);

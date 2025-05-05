@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ContactPage.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function ContactPage() {
   const [expanded, setExpanded] = useState(false);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ConfettiExplosion from "react-confetti-explosion";
 import "./ReviewPage.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 function ReviewPage() {
   const [submissions, setSubmissions] = useState([]);
   const [comments, setComments] = useState({});

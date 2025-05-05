@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function ManageUsers () {
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import {ToastContainer, toast} from "react-toastify";
 import "./LoginPage.css";
 import plantHall from "../assets/plant-hall.jpg";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 console.log("ENV backend URL:", process.env.REACT_APP_BACKEND_URL);
 
 

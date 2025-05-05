@@ -5,7 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {ToastContainer, toast} from "react-toastify";
 import "./ForgotPassword.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const ForgotPassword = () => {
     const navigate = useNavigate();

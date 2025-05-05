@@ -3,6 +3,7 @@ import axios from "axios";
 import "./StudentProfilePage.css";
 import pandaAvatar from "../avatars/panda.png";
 import gorillaAvatar from "../avatars/gorilla.png";
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -12,7 +13,6 @@ const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("uploads");
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const availableAvatars = [
     { id: "panda", src: pandaAvatar, alt: "Panda Avatar" },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./RecentSubmissions.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function RecentSubmissions() {
   const [submissions, setSubmissions] = useState([]);

@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { FiUploadCloud } from "react-icons/fi";
 import "react-toastify/dist/ReactToastify.css";
 import "./UploadPage.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const TAG_OPTIONS = [
   "Corrections",

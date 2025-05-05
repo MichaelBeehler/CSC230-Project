@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResetPassword.css";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function ResetPassword() {
     const { token } = useParams();
