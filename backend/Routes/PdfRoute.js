@@ -577,7 +577,7 @@ router.put("/:fileId/recommendations", authenticateUser, async (req, res) => {
     const fileId = req.params.fileId;
     const { recommendation, comments } = req.body;
 
-    if (!["approve", "deny"].includes(recommendation)) {
+    if (!["approve", "reject"].includes(recommendation)) {
       return res.status(400).json({ error: "Invalid recommendation" });
     }
 
