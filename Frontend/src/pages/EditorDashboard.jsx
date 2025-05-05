@@ -5,6 +5,8 @@ const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 function EditorDashboard() {
   const [submissions, setSubmissions] = useState([]);
   const [comments, setComments] = useState({});
+  const [recommendations, setRecommendations] = useState({});
+
 
   // Fetch all uploaded PDFs (Faculty only)
   useEffect(() => {
@@ -19,6 +21,23 @@ function EditorDashboard() {
           comment: pdf.metadata?.comment || "",
         }));
         setSubmissions(formattedSubmissions);
+  
+        // Fetch recommendations for each PDF
+        data.forEach((pdf) => {
+          fetch(`${backendUrl}/api/pdf/${pdf._id}/recommendations`, {
+            credentials: "include",
+          })
+            .then((res) => res.json())
+            .then((recData) => {
+              setRecommendations((prev) => ({
+                ...prev,
+                [pdf._id]: recData.recommendations || [],
+              }));
+            })
+            .catch((err) =>
+              console.error(`Error fetching recommendations for ${pdf._id}:`, err)
+            );
+        });
       })
       .catch((err) => console.error("Error fetching PDFs:", err));
   }, []);
@@ -69,6 +88,21 @@ function EditorDashboard() {
                   {submission.status}
                 </span>
               </p>
+
+              {/* Reviewer Recommendations */}
+              {recommendations[submission.id] && recommendations[submission.id].length > 0 && (
+                <div className="recommendations">
+                  <h4>Reviewer Recommendations:</h4>
+                  <ul>
+                    {recommendations[submission.id].map((rec) => (
+                      <li key={rec._id}>
+                        <strong>{rec.reviewerName || "Reviewer"}:</strong>{" "}
+                        {rec.recommendation} — "{rec.comment}"
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                )}
 
               <textarea
                 placeholder="Enter comments..."
