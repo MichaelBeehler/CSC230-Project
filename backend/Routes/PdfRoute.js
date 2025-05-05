@@ -307,32 +307,48 @@ router.put("/recommend/:paperId", authenticateUser, async (req, res) => {
   }
 });
 
-// Editor Final Decision Route
-router.put("/decide/:paperId", authenticateUser, async (req, res) => {
+// Editor Approval/Rejection with Comments
+router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
   try {
     if (req.user.role !== "editor") {
-      return res.status(403).json({ error: "Only editors can make final decisions." });
+      return res.status(403).json({ error: "Access denied. Faculty only." });
     }
 
-    const { status } = req.body;
-    if (!['published', 'rejected'].includes(status)) {
-      return res.status(400).json({ error: "Invalid final status." });
+    const { status, comment } = req.body;
+    const fileId = new mongoose.Types.ObjectId(req.params.fileId);
+
+    if (!["Approved", "Rejected", "Pending"].includes(status)) {
+      return res.status(400).json({ error: "Invalid status value." });
     }
 
-    const paper = await Paper.findById(req.params.paperId);
-    if (!paper) return res.status(404).json({ error: "Paper not found." });
+    const result = await conn.db.collection("pdfs.files").updateOne(
+      { _id: fileId },
+      { $set: { "metadata.status": status, "metadata.comment": comment } }
+    );
 
-    paper.status = status;
-    //paper.finalDecisionDate = new Date();
-    await paper.save();
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "File not found or status unchanged." });
+    }
 
-    res.json({ message: `Paper marked as ${status}.` });
+    if (status === "Approved") {
+      const file = await conn.db.collection("pdfs.files").findOne({ _id: fileId });
+      await conn.db.collection("approved_pdfs").insertOne({
+        _id: file._id,
+        filename: file.filename,
+        uploadedBy: file.metadata.uploadedBy,
+        type: file.metadata.type || "article",  // Assume 'article' if type is missing
+        comment,
+        approvedDate: new Date()
+      });
+    }
 
+    res.json({ message: `PDF marked as ${status} with comment.` });
   } catch (error) {
-    console.error("❌ Error making final decision:", error);
-    res.status(500).json({ error: "An error occurred." });
+    console.error("❌ Error updating PDF status:", error);
+    res.status(500).json({ error: "An error occurred while updating status." });
   }
 });
+
 
 // Faculty Approval/Rejection with Comments
 /*router.put("/update-status/:fileId", authenticateUser, async (req, res) => {
