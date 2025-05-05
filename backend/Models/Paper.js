@@ -21,11 +21,6 @@ const PaperSchema = new mongoose.Schema({
   citationCount: { type: Number, default: 0 },
   tags: [String],
 
-  reviewers: [{
-    reviewerId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    recommendation: {type: String, enum: ['approve', 'reject', 'undecided'], default: 'undecided'},
-    comment: String,
-  }],
 
   //finalDecision? 
 });

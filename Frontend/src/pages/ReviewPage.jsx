@@ -37,7 +37,7 @@ function ReviewPage() {
     const comment = comments[id] || "";
     try {
       const res = await fetch(
-        `${backendUrl}/api/pdf/recommend/${id}`,
+        `${backendUrl}/api/pdf/${id}/recommend`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

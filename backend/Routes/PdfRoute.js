@@ -545,4 +545,85 @@ router.delete("/:fileId/comments/:commentId", authenticateUser, async (req, res)
   }
 });
 
+router.get("/:fileId/recommendations", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId)
+    });
+
+    if (!file) return res.status(404).json({ error: "PDF not found" });
+
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    const isOwner = file.metadata.uploadedBy.toString() === req.user._id.toString();
+    if (!isOwner && !isFaculty) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const recommendations = await conn.db.collection("pdf_recommendations")
+      .find({ pdfId: fileId })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    res.json({ recommendations });
+  } catch (error) {
+    console.error("❌ Error fetching recommendations:", error);
+    res.status(500).json({ error: "Failed to fetch recommendations" });
+  }
+});
+
+router.post("/:fileId/recommendations", authenticateUser, async (req, res) => {
+  try {
+    const fileId = req.params.fileId;
+    const { recommendation, comments } = req.body;
+
+    if (!["approve", "deny"].includes(recommendation)) {
+      return res.status(400).json({ error: "Invalid recommendation" });
+    }
+
+    const file = await conn.db.collection("pdfs.files").findOne({ 
+      _id: new mongoose.Types.ObjectId(fileId)
+    });
+
+    if (!file) return res.status(404).json({ error: "PDF not found" });
+
+    const isFaculty = req.user.role === "faculty" || req.user.role === "editor";
+    if (!isFaculty) {
+      return res.status(403).json({ error: "Only faculty or editors can recommend" });
+    }
+
+    const existing = await conn.db.collection("pdf_recommendations").findOne({
+      pdfId: fileId,
+      reviewerId: req.user._id
+    });
+
+    const recommendationData = {
+      pdfId: fileId,
+      reviewerId: req.user._id,
+      reviewerUsername: req.user.username,
+      recommendation,
+      comments: comments || "",
+      createdAt: new Date()
+    };
+
+    if (existing) {
+      // Update existing recommendation
+      await conn.db.collection("pdf_recommendations").updateOne(
+        { _id: existing._id },
+        { $set: recommendationData }
+      );
+      res.status(200).json({ message: "Recommendation updated", recommendation: recommendationData });
+    } else {
+      // Create new recommendation
+      recommendationData._id = new mongoose.Types.ObjectId();
+      await conn.db.collection("pdf_recommendations").insertOne(recommendationData);
+      res.status(201).json({ message: "Recommendation submitted", recommendation: recommendationData });
+    }
+  } catch (error) {
+    console.error("❌ Error submitting recommendation:", error);
+    res.status(500).json({ error: "Failed to submit recommendation" });
+  }
+});
+
+
 export default router;
