@@ -572,7 +572,7 @@ router.get("/:fileId/recommendations", authenticateUser, async (req, res) => {
   }
 });
 
-router.post("/:fileId/recommendations", authenticateUser, async (req, res) => {
+router.put("/:fileId/recommendations", authenticateUser, async (req, res) => {
   try {
     const fileId = req.params.fileId;
     const { recommendation, comments } = req.body;
