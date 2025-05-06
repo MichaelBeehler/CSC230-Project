@@ -1,5 +1,4 @@
 /* IMPORT FONTS - NOTE: call each with 'Univers LT Std', differentiate with font-weights & styles (700, 500, 300; normal, italic) */
-
 /* 67 Bold Condensed - Use for titles */
 @font-face {
   font-family: "Univers LT Std";
@@ -39,7 +38,6 @@
   font-weight: 300;
   font-style: italic;
 }
-
 
 .unified-header {
   display: flex;
@@ -98,6 +96,7 @@
 .header-right a:hover,
 .header-right span:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  color: black;
 }
 
 .dropdown {
@@ -105,9 +104,7 @@
   display: inline-block;
 }
 
-
 .dropdown-content {
-  display: none;
   display: none;
   position: absolute;
   top: 100%;
@@ -132,6 +129,7 @@
 .dropdown-content li a:hover,
 .dropdown-content li .logout-button:hover {
   background-color: rgb(200, 16, 46);
+  color: black;
 }
 
 .dropdown:hover > .dropdown-content {
@@ -144,18 +142,15 @@
     flex-direction: column;
     align-items: flex-start;
   }
-
   .header-right ul {
     flex-direction: column;
     gap: 10px;
     width: 100%;
   }
-
   .header-right a,
   .header-right span {
     width: 100%;
   }
-
   .dropdown-content {
     position: static;
     border: none;
