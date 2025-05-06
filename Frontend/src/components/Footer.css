@@ -2,116 +2,61 @@
   background-color: rgb(200, 16, 46);
   color: white;
   width: 100%;
-  padding: 0;
+  padding: 25px 0;
   margin: 0;
-  padding-top: 10px;
-  padding-bottom: 8px;
 }
 
-.footer-container {
+.footer-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
-  margin-top: 0;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2em;
+  gap: 30px;
 }
 
 .footer-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 0;
   text-align: left;
   padding-left: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .footer-right {
   text-align: right;
+  padding-right: 2em;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 0;
-  margin-top: 0;
-  padding-right: 2em;
+  gap: 10px;
 }
 
-.footer h3 {
-  margin: 0 0 15px 0;
-  font-weight: bold;
-}
-
-.footer h4 {
-  margin: 0 0 15px 0;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.footer-left a, .footer-right a {
-  color: white;
-  text-decoration: none;
-  margin: 0 0 7px 0;
+.footer p {
+  margin: 0;
+  padding: 0;
   line-height: 1.4;
-}
-
-.footer-left a:hover, .footer-right a:hover {
-  text-decoration: underline;
-}
-
-.address-link div {
-  line-height: 1.4;
-}
-
-.address-link div:last-child {
-  margin-bottom: 7px;
-}
-
-.phone-link {
-  line-height: 1.4;
-}
-
-.footer-bottom {
-  margin-top: 18px;
-  margin-bottom: 0;
-  text-align: center;
   font-size: 0.9em;
 }
 
-.footer-bottom p {
-  margin: 0 0 5px 0;
-  line-height: 1.4;
+.footer a {
+  color: white;
+  text-decoration: none;
 }
 
-.footer-bottom p:last-child {
-  margin: 0;
+.footer a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  .footer-container {
+  .footer-content {
     flex-direction: column;
     text-align: center;
-    gap: 17px;
+    gap: 20px;
   }
   
   .footer-left, .footer-right {
     padding: 0;
     text-align: center;
-    margin: 0;
-    gap: 8px;
-    align-items: center;
-  }
-  
-  .footer-right a, .footer-left a {
-    margin: 0 0 7px 0;
-  }
-  
-  .footer-left h3, .footer-right h4 {
-    margin-bottom: 10px;
-  }
-  
-  .footer-right {
-    align-items: center;
   }
 }
