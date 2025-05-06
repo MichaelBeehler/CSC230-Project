@@ -171,7 +171,7 @@
 .dropdown-content li a:hover,
 .dropdown-content li .logout-button:hover {
   background-color: rgb(200, 16, 46);
-  color: white;
+  color: black;
 }
 
 .dropdown:hover > .dropdown-content {
