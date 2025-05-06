@@ -2,131 +2,116 @@
   background-color: rgb(200, 16, 46);
   color: white;
   width: 100%;
-  /* Reduce padding by ~15% */
-  padding: 21px 0; /* Reduced from 25px (15% reduction) */
+  padding: 0;
   margin: 0;
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 
-.footer-content {
+.footer-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2em;
-  /* Reduce gap by ~15% */
-  gap: 25px; /* Reduced from 30px */
 }
 
 .footer-left {
-  text-align: left;
-  padding-left: 2em;
   display: flex;
   flex-direction: column;
-  /* Reduce gap by ~15% */
-  gap: 8px; /* Reduced from 10px */
+  gap: 0;
+  margin-top: 0;
+  text-align: left;
+  padding-left: 2em;
 }
 
 .footer-right {
   text-align: right;
-  padding-right: 2em;
   display: flex;
   flex-direction: column;
-  /* Reduce gap by ~15% */
-  gap: 8px; /* Reduced from 10px */
+  align-items: flex-end;
+  gap: 0;
+  margin-top: 0;
+  padding-right: 2em;
 }
 
-/* Add more space to the first items in each column */
-.footer-left p:first-child,
-.footer-right p:first-child {
-  margin-top: 8px; /* Add space at the top */
+.footer h3 {
+  margin: 0 0 15px 0;
+  font-weight: bold;
 }
 
-/* Add more space to the last items in each column */
-.footer-left p:last-child,
-.footer-right p:last-child {
-  margin-bottom: 8px; /* Add space at the bottom */
+.footer h4 {
+  margin: 0 0 15px 0;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-.footer p {
-  margin: 0;
-  padding: 0;
-  /* Reduce line height by ~15% */
-  line-height: 1.2; /* Reduced from 1.4 */
-  /* Reduce font size by ~5% */
-  font-size: 0.85em; /* Reduced from 0.9em */
-}
-
-/* Reduce spacing between paragraphs */
-.footer p + p {
-  margin-top: 1px;
-}
-
-.footer a {
+.footer-left a, .footer-right a {
   color: white;
   text-decoration: none;
-  /* Add padding to links for better clickability */
-  padding: 2px 0;
+  margin: 0 0 7px 0;
+  line-height: 1.4;
 }
 
-.footer a:hover {
+.footer-left a:hover, .footer-right a:hover {
   text-decoration: underline;
 }
 
-/* Remove the inline display to ensure proper vertical spacing */
-.footer-left p, .footer-right p {
-  display: block;
+.address-link div {
+  line-height: 1.4;
 }
 
-/* Condense the content by putting some elements on the same line */
-.footer-left p:nth-child(2),
-.footer-left p:nth-child(3) {
-  display: inline-block;
-  margin-right: 10px;
+.address-link div:last-child {
+  margin-bottom: 7px;
+}
+
+.phone-link {
+  line-height: 1.4;
+}
+
+.footer-bottom {
+  margin-top: 18px;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.footer-bottom p {
+  margin: 0 0 5px 0;
+  line-height: 1.4;
+}
+
+.footer-bottom p:last-child {
+  margin: 0;
 }
 
 @media (max-width: 768px) {
-  .footer {
-    /* Keep generous padding in mobile */
-    padding: 21px 0; /* Reduced from 25px */
-  }
-  
-  .footer-content {
+  .footer-container {
     flex-direction: column;
     text-align: center;
-    /* Reduce gap by ~15% */
-    gap: 17px; /* Reduced from 20px */
+    gap: 17px;
   }
   
   .footer-left, .footer-right {
     padding: 0;
     text-align: center;
     margin: 0;
-    /* Reduce gap by ~15% */
-    gap: 8px; /* Reduced from 10px */
+    gap: 8px;
+    align-items: center;
   }
   
-  .footer-right p {
-    display: block;
-    margin-bottom: 8px; /* Reduced from 10px */
+  .footer-right a, .footer-left a {
+    margin: 0 0 7px 0;
   }
   
-  .footer-right a {
-    margin: 0 8px;
-    padding: 2px 0; /* Reduced from 3px */
+  .footer-left h3, .footer-right h4 {
+    margin-bottom: 10px;
   }
   
-  .footer-left p {
-    display: block;
-    margin-bottom: 8px; /* Reduced from 10px */
-  }
-  
-  .footer-left p:last-child {
-    margin-top: 4px; /* Reduced from 5px */
-  }
-  
-  .footer-left p:last-child,
-  .footer-right p:last-child {
-    margin-bottom: 0;
+  .footer-right {
+    align-items: center;
   }
 }
