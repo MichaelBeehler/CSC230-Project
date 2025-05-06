@@ -5,6 +5,7 @@ import logo from "../assets/256.avif";
 
 function Header({ userRole, setUserRole }) {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("userRole");
     setUserRole(null);
@@ -21,15 +22,17 @@ function Header({ userRole, setUserRole }) {
         Criminology Institute for Research & Training
       </Link>
     </div>
+
     <nav className="header-right">
       <ul>
         <li className="dropdown">
           <span>About Us ▾</span>
           <ul className="dropdown-content">
-            <li><Link to="/about" style={{ transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.target.style.color = 'black'} onMouseLeave={(e) => e.target.style.color = 'white'}>About Us</Link></li>
-            <li><Link to="/contact" style={{ transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.target.style.color = 'black'} onMouseLeave={(e) => e.target.style.color = 'white'}>Contact Us</Link></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/contact">Contact Us</Link></li>
           </ul>
         </li>
+
         <li className="dropdown">
           <span>Resources ▾</span>
           <ul className="dropdown-content">
@@ -53,6 +56,7 @@ function Header({ userRole, setUserRole }) {
             </li>
           </ul>
         </li>
+
         {userRole === "student" && (
           <li className="dropdown">
             <span>Upload ▾</span>
@@ -62,6 +66,7 @@ function Header({ userRole, setUserRole }) {
             </ul>
           </li>
         )}
+
         {userRole === "faculty" && (
           <li className="dropdown">
             <span>Research ▾</span>
@@ -70,16 +75,18 @@ function Header({ userRole, setUserRole }) {
             </ul>
           </li>
         )}
+
         {userRole === "editor" && (
           <li className="dropdown">
             <span>Assign & Review ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/editor">Review Submissions</Link></li>
-              <li><Link to="/manage">Manage Users</Link></li>
             </ul>
           </li>
         )}
+
         {!userRole && <li><Link to="/login">Login</Link></li>}
+
         {userRole && (
           <li className="dropdown">
             <span>My Profile ▾</span>
@@ -88,6 +95,7 @@ function Header({ userRole, setUserRole }) {
               <li>
                   <span onClick={handleLogout} className="logout-button">Logout</span>
               </li>
+
             </ul>
           </li>
         )}
