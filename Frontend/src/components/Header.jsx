@@ -26,8 +26,8 @@ function Header({ userRole, setUserRole }) {
         <li className="dropdown">
           <span>About Us ▾</span>
           <ul className="dropdown-content">
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="/about" style={{ transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.target.style.color = 'black'} onMouseLeave={(e) => e.target.style.color = 'white'}>About Us</Link></li>
+            <li><Link to="/contact" style={{ transition: 'color 0.3s ease' }} onMouseEnter={(e) => e.target.style.color = 'black'} onMouseLeave={(e) => e.target.style.color = 'white'}>Contact Us</Link></li>
           </ul>
         </li>
         <li className="dropdown">
