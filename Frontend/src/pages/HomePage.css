@@ -44,9 +44,3 @@ p {
     padding: 10px;
   }
 }
-
-.dropdown-content li a:hover,
-.dropdown-content li .logout-button:hover {
-  background-color: rgb(200, 16, 46);
-  color: black; /* Changed from white to black */
-}

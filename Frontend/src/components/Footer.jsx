@@ -6,6 +6,196 @@ function Footer() {
   // Google Maps URL for University of Tampa
   const mapsUrl = "https://maps.google.com/?q=University+of+Tampa,401+W.+Kennedy+Blvd,Tampa,FL+33606";
   
+  // Function to handle mouse enter
+  const handleMouseEnter = (e) => {
+    e.target.style.color = 'black'import React from "react";
+    import { Link } from "react-router-dom";
+    import "./Footer.css";
+    
+    function Footer() {
+      // Function to handle mouse enter
+      const handleMouseEnter = (e) => {
+        e.target.style.color = 'black';
+      };
+      
+      // Function to handle mouse leave
+      const handleMouseLeave = (e) => {
+        e.target.style.color = 'white';
+      };
+    
+      return (
+        <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-left">
+              <p>University of Tampa</p>
+              <p>401 W. Kennedy Blvd</p>
+              <p>Tampa, FL 33606-1490</p>
+              <p>(813) 253-3333</p>
+            </div>
+            <div className="footer-right">
+              <p>Quick Links</p>
+              <p>
+                <Link 
+                  to="/" 
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  Home
+                </Link>
+              </p>
+              <p>
+                <Link 
+                  to="/contact" 
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  Contact Us
+                </Link>
+              </p>
+              <p>
+                <Link 
+                  to="/about" 
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  About Us
+                </Link>
+              </p>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+    
+    export default Footer;
+    import React from "react";
+import { Link } from "react-router-dom";
+import "./Footer.css";
+
+function Footer() {
+  // Function to handle mouse enter
+  const handleMouseEnter = (e) => {
+    e.target.style.color = 'black';
+  };
+  
+  // Function to handle mouse leave
+  const handleMouseLeave = (e) => {
+    e.target.style.color = 'white';
+  };
+
+  return (
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-left">
+          <p>University of Tampa</p>
+          <p>401 W. Kennedy Blvd</p>
+          <p>Tampa, FL 33606-1490</p>
+          <p>(813) 253-3333</p>
+        </div>
+        <div className="footer-right">
+          <p>Quick Links</p>
+          <p>
+            <Link 
+              to="/" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Home
+            </Link>
+          </p>
+          <p>
+            <Link 
+              to="/contact" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Contact Us
+            </Link>
+          </p>
+          <p>
+            <Link 
+              to="/about" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              About Us
+            </Link>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Footer.css";
+
+function Footer() {
+  // Function to handle mouse enter
+  const handleMouseEnter = (e) => {
+    e.target.style.color = 'black';
+  };
+  
+  // Function to handle mouse leave
+  const handleMouseLeave = (e) => {
+    e.target.style.color = 'white';
+  };
+
+  return (
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-left">
+          <p>University of Tampa</p>
+          <p>401 W. Kennedy Blvd</p>
+          <p>Tampa, FL 33606-1490</p>
+          <p>(813) 253-3333</p>
+        </div>
+        <div className="footer-right">
+          <p>Quick Links</p>
+          <p>
+            <Link 
+              to="/" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Home
+            </Link>
+          </p>
+          <p>
+            <Link 
+              to="/contact" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Contact Us
+            </Link>
+          </p>
+          <p>
+            <Link 
+              to="/about" 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              About Us
+            </Link>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
+;
+  };
+  
+  // Function to handle mouse leave
+  const handleMouseLeave = (e) => {
+    e.target.style.color = 'white';
+  };
+
   return (
     <footer className="footer" style={{ 
       paddingTop: "10px",
@@ -74,19 +264,19 @@ function Footer() {
             textDecoration: "none", 
             margin: "0 0 7px 0",
             lineHeight: "1.4"
-          }}>Home</Link>
+          }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Home</Link>
           <Link to="/contact" style={{ 
             color: "white", 
             textDecoration: "none", 
             margin: "0 0 7px 0",
             lineHeight: "1.4"
-          }}>Contact Us</Link>
+          }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Contact Us</Link>
           <Link to="/about" style={{ 
             color: "white", 
             textDecoration: "none", 
             margin: "0",
             lineHeight: "1.4"
-          }}>About Us</Link>
+          }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>About Us</Link>
         </div>
       </div>
       
