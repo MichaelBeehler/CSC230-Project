@@ -72,87 +72,103 @@ function EditorDashboard() {
 
   return (
     <div className="review-container">
-      <h2>Review Submissions</h2>
+    <h2>Review Submissions</h2>
 
-      {pendingSubmissions.length === 0 ? (
-        <p>No submissions found.</p>
-      ) : (
-        <div className="card-grid">
-          {pendingSubmissions.map((submission) => (
-            <div key={submission.id} className="review-card">
-              <h3>{submission.title}</h3>
-              <p>{submission.description}</p>
-              <p>
-                Status:{" "}
-                <span className={`status ${submission.status.toLowerCase()}`}>
-                  {submission.status}
-                </span>
-              </p>
+    {/* Filter Controls */}
+    <div style={{ marginBottom: "20px", textAlign: "center" }}>
+      <label style={{ fontWeight: "bold", marginRight: "10px" }}>
+        Filter by Status:
+      </label>
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="All">All</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
 
-              {/* Reviewer Recommendations */}
-              {recommendations[submission.id] && recommendations[submission.id].length > 0 && (
-                <div className="recommendations">
-                  <h4>Reviewer Recommendations:</h4>
-                  <ul>
-                    {recommendations[submission.id].map((rec) => (
-                      <li key={rec._id}>
-                        <strong>{rec.reviewerName || "Reviewer"}:</strong>{" "}
-                        {rec.recommendation} — "{rec.comment}"
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                )}
+    {/* PDFs */}
+    <h3>Research Papers</h3>
+    {grouped.pdf.length === 0 ? (
+      <p>No matching research papers.</p>
+    ) : (
+      <div className="card-grid">
+        {grouped.pdf.map((sub) => renderCard(sub))}
+      </div>
+    )}
 
-              <textarea
-                placeholder="Enter comments..."
-                value={comments[submission.id] || ""}
-                onChange={(e) =>
-                  setComments({ ...comments, [submission.id]: e.target.value })
-                }
-              ></textarea>
+    {/* Posters */}
+    <h3>Posters</h3>
+    {grouped.poster.length === 0 ? (
+      <p>No matching posters.</p>
+    ) : (
+      <div className="card-grid">
+        {grouped.poster.map((sub) => renderCard(sub))}
+      </div>
+    )}
+  </div>
+);
 
-              <div className="button-group">
-                <a
-                  href={`${backendUrl}/api/pdf/view/${submission.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View PDF
-                </a>
+function renderCard(submission) {
+  const formattedDate = new Date(submission.createdAt).toLocaleString();
 
-                <button
-                  className="approve-btn"
-                  onClick={() => {
-                    if (
-                      window.confirm("Are you sure you want to approve this submission?")
-                    ) {
-                      handleAction(submission.id, "Approved");
-                    }
-                  }}
-                >
-                  Approve
-                </button>
+  return (
+    <div key={submission.id} className="review-card">
+      <h3>{submission.title}</h3>
+      <p style={{ fontWeight: "bold" }}>{submission.description}</p>
+      <p>
+        Status:{" "}
+        <span
+          className={`status ${submission.status.toLowerCase()} status-animate`}
+        >
+          {submission.status}
+        </span>
+      </p>
+      <p className="submission-date">Submitted: {formattedDate}</p>
 
-                <button
-                  className="reject-btn"
-                  onClick={() => {
-                    if (
-                      window.confirm("Are you sure you want to reject this submission?")
-                    ) {
-                      handleAction(submission.id, "Rejected");
-                    }
-                  }}
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-          ))}
+      <textarea
+        placeholder="Enter comments..."
+        value={comments[submission.id] || ""}
+        onChange={(e) =>
+          setComments({ ...comments, [submission.id]: e.target.value })
+        }
+      ></textarea>
+
+      <div className="button-group">
+        <Link
+          to={`/annotate/${submission.id}`}
+          className="annotate-link"
+        >
+          Annotate PDF
+        </Link>
+        <div className="button-row">
+          <button
+            className="approve-btn"
+            onClick={() =>
+              window.confirm("Approve this submission?") &&
+              handleAction(submission.id, "Approved")
+            }
+          >
+            Approve Submission
+          </button>
+          <button
+            className="reject-btn"
+            onClick={() =>
+              window.confirm("Reject this submission?") &&
+              handleAction(submission.id, "Rejected")
+            }
+          >
+            Reject Submission
+          </button>
         </div>
+      </div>
+
+      {confettiId === submission.id && (
+        <ConfettiExplosion force={0.8} duration={2500} particleCount={120} />
       )}
     </div>
   );
+}
 }
 
 export default EditorDashboard;
