@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import "./SearchBar.css"; // Make sure this is included
 const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const SearchBar = () => {
@@ -43,12 +44,7 @@ const SearchBar = () => {
         placeholder="Search by title or tag..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        style={{
-          padding: "10px",
-          width: "300px",
-          borderRadius: "8px",
-          border: "none",
-        }}
+        className="search-input"
       />
       <Select
         isMulti
@@ -66,17 +62,7 @@ const SearchBar = () => {
           }),
         }}
       />
-      <button
-        onClick={handleSearch}
-        style={{
-          padding: "10px 20px",
-          borderRadius: "8px",
-          backgroundColor: "black",
-          color: "white",
-          border: "none",
-          marginLeft: "10px",
-        }}
-      >
+      <button onClick={handleSearch} className="search-button">
         Search
       </button>
     </div>

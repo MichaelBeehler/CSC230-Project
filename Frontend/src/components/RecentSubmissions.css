@@ -12,7 +12,7 @@
 }
 
 .submission-card {
-  background-color: rgb(200, 16, 46); /* UTampa Red */
+  background-color: rgba(200, 16, 46, 0.85); /* red with 85% opacity */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
@@ -20,6 +20,7 @@
   text-align: center;
   color: white;
 }
+
 
 .submission-card:hover {
   transform: translateY(-5px);
@@ -43,7 +44,7 @@
   color: white;
   text-decoration: none;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .view-link:hover {

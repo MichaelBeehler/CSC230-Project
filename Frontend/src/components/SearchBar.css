@@ -3,6 +3,13 @@
     border-radius: 8px;
     border: none;
     width: 300px;
+    background-color: black;
+    color: white;
+    outline: none;
+  }
+
+  .search-input:focus {
+    outline: 2px solid rgb(200, 16, 46); /* UT red */
   }
   
   .search-button {
@@ -10,12 +17,15 @@
     padding: 10px 20px;
     border-radius: 8px;
     border: none;
-    background-color: #b30000;
+    background-color: rgb(200, 16, 46);
     color: white;
     cursor: pointer;
     transition: background 0.3s;
   }
+  
   .search-button:hover {
-    background-color: #8b0000;
+    background-color: rgb(150, 10, 30);
+    transform: translateY(-5px);
   }
+  
   
