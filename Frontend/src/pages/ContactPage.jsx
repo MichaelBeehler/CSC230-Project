@@ -9,6 +9,7 @@ function ContactPage() {
     <div className="contact-container">
       <div className="contact-content">
         <h2>Contact Us</h2>
+        <hr style={{ border: "none", borderTop: "2px solid darkred", width: "50px", marginLeft: "0", marginBottom: "20px" }} />
 
         {/* Administrative Office */}
         <section>
@@ -19,9 +20,9 @@ function ContactPage() {
 
         {/* Contact Faculty Toggle */}
         <section>
-        <button onClick={() => setExpanded(!expanded)}>
-          Contact Faculty <span className={`arrow ${expanded ? "rotated" : ""}`}>▾</span>
-        </button>
+          <button onClick={() => setExpanded(!expanded)}>
+            Contact Faculty <span className={`arrow ${expanded ? "rotated" : ""}`}>▾</span>
+          </button>
 
           <div className={`accordion ${expanded ? "open" : ""}`}>
             <ul className="faculty-list">
