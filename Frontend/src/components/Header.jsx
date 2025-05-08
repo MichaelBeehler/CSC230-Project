@@ -73,7 +73,6 @@ function Header({ userRole, setUserRole }) {
             <span>RESEARCH ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/review">Review Submissions</Link></li>
-              <li><Link to="/fellows-admin">Add Fellows</Link></li>
             </ul>
           </li>
         )}
@@ -83,6 +82,7 @@ function Header({ userRole, setUserRole }) {
             <span>ASSIGN & REVIEW ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/editor">Review Submissions</Link></li>
+              <li><Link to="/fellows-admin">Add Fellows</Link></li>
             </ul>
           </li>
         )}
