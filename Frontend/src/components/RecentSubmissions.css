@@ -1,7 +1,49 @@
+/* 67 Bold Condensed - Use for titles */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-BoldCn.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* 57 Condensed - Use for subtitles & buttons */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-Cn.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* 57 Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-CnObl.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* 47 Light Condensed - Use for body text */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCn.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* 47 Light Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCnObl.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
 .recent-submissions {
     margin: 50px auto;
     max-width: 1000px;
     text-align: center;
+    font-family: "Univers LT Std";
+    font-style: bold;
   }
   
   .submission-grid {

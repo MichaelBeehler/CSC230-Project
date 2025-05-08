@@ -8,6 +8,11 @@ import fellowsRoute from "./Routes/FellowsRoute.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import profilePicRoute from "./Routes/ProfilePicRoute.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -34,6 +39,7 @@ app.use(
 app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/profile-pic", profilePicRoute);
 app.use("/", authRoute);
 app.use("/api/pdf", pdfRoute);
