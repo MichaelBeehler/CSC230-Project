@@ -108,7 +108,7 @@ const SearchResultsPage = () => {
               </a>
 
               <p style={{ fontStyle: "italic", margin: "5px 0" }}>
-                John Doe — University of Tampa, 2025
+                {pdf.approvedDate}
               </p>
 
               <p>
