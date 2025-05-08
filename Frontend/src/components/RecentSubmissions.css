@@ -45,6 +45,13 @@
   text-decoration: none;
   border-radius: 5px;
   font-weight: normal;
+  user-select: none;          /* Prevent text selection */
+  -webkit-user-select: none;  /* For Safari */
+  -moz-user-select: none;     /* For Firefox */
+}
+
+.view-link:focus {
+  outline: none;              /* Remove focus border (blue glow) */
 }
 
 .view-link:hover {

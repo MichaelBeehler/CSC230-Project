@@ -50,6 +50,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
 }
 
@@ -61,6 +62,12 @@
   transition: border-color 0.3s ease;
 }
 
+.login-form label,
+.login-form input {
+  width: 100%;
+}
+
+
 .login-form input:focus {
   border-color: darkred;
   outline: none;
@@ -68,7 +75,7 @@
 
 .login-form button {
   padding: 12px;
-  background-color: darkred;
+  background-color: rgb(200, 16, 46);
   color: white;
   font-size: 16px;
   border: none;
@@ -78,13 +85,14 @@
 }
 
 .login-form button:hover {
-  background-color: red;
+  background-color: darkred;
 }
 
 .register-link {
   font-size: 14px;
   text-align: center;
   color: #666;
+  margin: 4px 0;
 }
 
 .register-link a {
@@ -95,6 +103,14 @@
 .register-link a:hover {
   text-decoration: underline;
 }
+
+/* Force autofill fields to match black input background with white text */
+.login-form input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #111 inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

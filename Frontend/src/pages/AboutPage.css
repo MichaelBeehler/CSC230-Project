@@ -1,7 +1,3 @@
-h2 {
-    padding-left: 2em; /* indents the heading */
-  }
-  
   .paragraph {
     text-align: left;
     max-width: 90%;
@@ -24,5 +20,15 @@ h2 {
   .contact-btn:hover {
     background-color: rgb(150, 10, 30); /* darker red on hover */
   }
+
+  .contact-btn:visited,
+  .contact-btn:active,
+  .contact-btn:focus {
+    color: white;
+    text-decoration: none;
+  }
+
+
+  
   
   
