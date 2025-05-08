@@ -136,6 +136,21 @@ function renderCard(submission) {
       </p>
       <p className="submission-date">Submitted: {formattedDate}</p>
 
+      {/* Reviewer Recommendations */}
+      {recommendations[submission.id] && recommendations[submission.id].length > 0 && (
+        <div className="recommendations">
+          <h4>Reviewer Recommendations:</h4>
+          <ul>
+            {recommendations[submission.id].map((rec) => (
+              <li key={rec._id}>
+                <strong>{rec.reviewerName || "Reviewer"}:</strong>{" "}
+                {rec.recommendation}
+              </li>
+            ))}
+          </ul>
+        </div>
+        )}
+
       <textarea
         placeholder="Enter comments..."
         value={comments[submission.id] || ""}
