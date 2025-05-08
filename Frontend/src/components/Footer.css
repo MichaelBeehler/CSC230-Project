@@ -7,16 +7,22 @@
 
 .footer-container {
   display: flex;
-  align-items: flex-start;  /* Align top edges */
-  justify-content: space-between;
-  gap: 60px;  /* Creates buffer between left and right */
+  align-items: flex-start;     /* Align tops */
+  justify-content: flex-start; /* Align content to left edge */
+  gap: 80px;                   /* Gap between left column and right grid */
   flex-wrap: wrap;
 }
 
+.footer-left {
+  margin: 0;
+  padding: 0;
+}
 
 .footer-left h3 {
   font-size: 20px;
   text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 0 10px 0;
 }
 
 
@@ -28,15 +34,14 @@
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  flex: 1;
-  min-width: 500px; /* helps keep columns from collapsing */
+  grid-template-columns: repeat(3, max-content);  /* Shrinkwrap each column */
+  column-gap: 50px;  /* Reduce horizontal spacing */
+  flex: none;
 }
 
 
 .footer-links h4 {
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
   font-size: 20px;  /* Match .footer-left h3 size */
   font-weight: bold;
   text-transform: uppercase;
