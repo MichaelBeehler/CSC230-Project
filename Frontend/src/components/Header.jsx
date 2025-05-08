@@ -83,6 +83,7 @@ function Header({ userRole, setUserRole }) {
             <ul className="dropdown-content">
               <li><Link to="/editor">Review Submissions</Link></li>
               <li><Link to="/fellows-admin">Add Fellows</Link></li>
+              <li><Link to="/manage">Manage Users</Link></li>
             </ul>
           </li>
         )}

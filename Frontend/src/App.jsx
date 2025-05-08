@@ -69,7 +69,6 @@ function App() {
           {/* Faculty protected route */}
           <Route element={<ProtectedRoute allowedRoles={["faculty"]} />}>
             <Route path="/review" element={<ReviewPage />} />
-            <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
             <Route path="/profile" element={<StudentProfilePage />} />
           </Route>
 
@@ -78,8 +77,12 @@ function App() {
             <Route path="/profile" element={<StudentProfilePage />} />
             <Route path="/manage" element={<ManageUsers/>} />
             <Route path="/fellows-admin" element={<FellowsAdmin />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["faculty", "editor"]} />}>
             <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
           </Route>
+          
         </Routes>
       </main>
       {/* Add the Chatbot component here, outside of Routes so it appears on all pages */}
