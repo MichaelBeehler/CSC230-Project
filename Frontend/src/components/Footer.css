@@ -12,8 +12,10 @@
 }
 
 .footer-left h3 {
-  margin-bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
 }
+
 
 .footer-socials a {
   color: white;
@@ -22,13 +24,20 @@
 }
 
 .footer-links {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* Equal spacing */
   gap: 40px;
+  flex: 1;
 }
+
 
 .footer-links h4 {
   margin-bottom: 10px;
+  font-size: 20px;  /* Match .footer-left h3 size */
+  font-weight: bold;
+  text-transform: uppercase;
 }
+
 
 .footer-links ul {
   list-style: none;
