@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 import "./EditorDashboard.css";
+import ConfettiExplosion from 'react-confetti-explosion';
 const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function EditorDashboard() {
