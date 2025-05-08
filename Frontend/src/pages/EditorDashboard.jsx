@@ -23,6 +23,8 @@ function EditorDashboard() {
           description: "Student-submitted research paper.",
           status: pdf.metadata?.status || "Pending",
           comment: pdf.metadata?.comment || "",
+          type: pdf.metadata?.type || "pdf",
+          createdAt: pdf.uploadDate || pdf.uploadedAt || pdf.uploaded || pdf.createdAt || new Date().toISOString()
         }));
         setSubmissions(formattedSubmissions);
   
