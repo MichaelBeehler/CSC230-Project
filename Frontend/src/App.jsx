@@ -78,6 +78,7 @@ function App() {
             <Route path="/profile" element={<StudentProfilePage />} />
             <Route path="/manage" element={<ManageUsers/>} />
             <Route path="/fellows-admin" element={<FellowsAdmin />} />
+            <Route path="/annotate/:id" element={<AnnotatePdfPage />} />
           </Route>
         </Routes>
       </main>
