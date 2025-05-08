@@ -41,6 +41,12 @@
   text-decoration: underline;
 }
 
+.contact-content button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
 .contact-content a {
   color: darkred;
   text-decoration: none;
