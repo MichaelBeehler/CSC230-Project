@@ -103,7 +103,7 @@ function FellowsAdmin() {
   return (
     <div className="fellows-admin-page">
       <h2>Manage Fellows</h2>
-      
+
       <form className="fellow-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -173,19 +173,24 @@ function FellowsAdmin() {
 
       <div className="fellows-list">
         {fellows.map((fellow) => (
-          <div key={fellow._id} className="fellow-card">
+          <div key={fellow._id} className="fellow-card-vertical">
             <img
               src={`${backendUrl}/api/fellows/photo/${fellow.photoId}`}
               alt={fellow.name}
-              className="fellow-photo"
+              className="fellow-photo-large"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "/default-avatar.png";
               }}
             />
-            <h3>{fellow.name} ({fellow.year})</h3>
-            <p>{fellow.bio}</p>
-            <button onClick={() => handleDelete(fellow._id)} className="delete-btn">
+            <div className="fellow-details">
+              <h3>{fellow.name} ({fellow.year})</h3>
+              <p className="fellow-bio">{fellow.bio}</p>
+            </div>
+            <button
+              onClick={() => handleDelete(fellow._id)}
+              className="delete-btn"
+            >
               Delete Fellow
             </button>
           </div>

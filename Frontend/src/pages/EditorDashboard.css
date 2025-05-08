@@ -145,6 +145,7 @@ textarea,
   transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   resize: vertical;
   text-align: left;
+  box-sizing: border-box;
 }
 
 textarea:focus {

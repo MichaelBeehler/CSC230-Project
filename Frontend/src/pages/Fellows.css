@@ -20,16 +20,21 @@
   .fellow-card {
     display: flex;
     align-items: center;
+    gap: 30px;
     background-color: #f8f9fa;
-    color: #212529;
-    border-radius: 8px;
-    padding: 20px;
-    gap: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: all 0.3s ease;
   }
+  
   
   .fellow-details {
     flex: 1;
+    overflow-wrap: break-word;
   }  
   
   .fellow-card:hover {
@@ -94,6 +99,7 @@
     border-radius: 5px;
     font-family: inherit;
     font-size: 1rem;
+    box-sizing: border-box;
   }
   
   .link-fields {
@@ -122,11 +128,13 @@
   button.delete-btn {
     background-color: #dc3545;
     color: white;
-    padding: 8px 12px;
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    white-space: nowrap;        /* prevent wrapping */
+    flex-shrink: 0;             /* prevent button from shrinking */
+    margin-left: auto;          /* push to right */
   }
   
   button.delete-btn:hover {

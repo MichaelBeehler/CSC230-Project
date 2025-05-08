@@ -173,25 +173,29 @@
   font-weight: 500;
   color: #6c757d;
   transition: all 0.2s ease;
+  outline: none;
+  box-shadow: none;
 }
 
+/* Red underline on hover */
 .tab-button:hover {
   color: rgb(200, 16, 46);
-  text-decoration: underline;
-  text-decoration-color: rgb(200, 16, 46);
+  border-bottom: 3px solid rgb(200, 16, 46);
 }
 
+/* Active tab: red underline */
+.tab-button.active {
+  color: rgb(200, 16, 46);
+  border-bottom: 3px solid rgb(200, 16, 46);
+}
 
+/* Remove focus ring */
 .tab-button:focus,
 .tab-button:focus-visible {
   outline: none;
+  box-shadow: none;
 }
 
-
-.tab-button.active {
-  color: rgb(200, 16, 46);
-  border-bottom-color: rgb(200, 16, 46);
-}
 
 .placeholder-text {
   color: #6c757d;
