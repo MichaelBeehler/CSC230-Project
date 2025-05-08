@@ -30,6 +30,7 @@ const SearchResultsPage = () => {
   }, [query, filter]); // New: depend on both query and filter
 
   return (
+    
     <div style={{ padding: "40px 60px", fontFamily: "Georgia, serif" }}>
       <div style={{ marginBottom: "30px" }}>
         <SearchBar />
@@ -106,9 +107,14 @@ const SearchResultsPage = () => {
               >
                 {pdf.filename}
               </a>
+              
 
               <p style={{ fontStyle: "italic", margin: "5px 0" }}>
-                {pdf.approvedDate}
+              {new Date(pdf.approvedDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
               </p>
 
               <p>
