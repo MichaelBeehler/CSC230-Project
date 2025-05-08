@@ -7,9 +7,12 @@
 
 .footer-container {
   display: flex;
+  align-items: flex-start;  /* Align top edges */
   justify-content: space-between;
+  gap: 60px;  /* Creates buffer between left and right */
   flex-wrap: wrap;
 }
+
 
 .footer-left h3 {
   font-size: 20px;
@@ -25,9 +28,10 @@
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);  /* Equal spacing */
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   flex: 1;
+  min-width: 500px; /* helps keep columns from collapsing */
 }
 
 
@@ -50,6 +54,7 @@
 
 .footer-links ul li a {
   color: white;
+  font-size: 0.95rem;
   text-decoration: none;
 }
 
@@ -64,3 +69,16 @@
   padding-top: 10px;
   font-size: 12px;
 }
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    min-width: unset;
+  }
+}
+
