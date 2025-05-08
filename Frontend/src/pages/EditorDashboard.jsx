@@ -8,6 +8,8 @@ function EditorDashboard() {
   const [submissions, setSubmissions] = useState([]);
   const [comments, setComments] = useState({});
   const [recommendations, setRecommendations] = useState({});
+  const [filter, setFilter] = useState("Pending");
+  const [confettiId, setConfettiId] = useState(null);
 
 
   // Fetch all uploaded PDFs (Faculty only)
@@ -70,7 +72,13 @@ function EditorDashboard() {
     }
   };
 
-  const pendingSubmissions = submissions.filter((sub) => sub.status === "Pending");
+  const filtered = submissions.filter(
+    (s) => filter === "All" || s.status === filter
+  );
+  const grouped = {
+    pdf: filtered.filter((s) => s.type !== "poster"),
+    poster: filtered.filter((s) => s.type === "poster"),
+  };
 
   return (
     <div className="review-container">
