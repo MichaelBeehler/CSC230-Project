@@ -25,25 +25,25 @@ function Footer() {
           <div>
             <h4>Academics</h4>
             <ul>
-              <li><a href="#">Admissions</a></li>
-              <li><a href="#">Campus Life</a></li>
-              <li><a href="#">Research</a></li>
+            <li><a href="https://www.ut.edu/admissions" target="_blank" rel="noopener noreferrer">Admissions</a></li>
+            <li><a href="https://www.ut.edu/campus-life" target="_blank" rel="noopener noreferrer">Campus Life</a></li>
+            <li><a href="https://www.ut.edu/academics/office-of-the-provost/undergraduate-research-and-inquiry" target="_blank" rel="noopener noreferrer">Research</a></li>
             </ul>
           </div>
           <div>
             <h4>Resources</h4>
             <ul>
-              <li><a href="#">Emergency & Safety</a></li>
-              <li><a href="#">Title IX</a></li>
-              <li><a href="#">Libraries</a></li>
+            <li><a href="https://www.ut.edu/about-utampa/university-services/emergency#:~:text=If%20you%20have%20an%20emergency,(813)%20257%2D7777." target="_blank" rel="noopener noreferrer">Emergency & Safety</a></li>
+            <li><a href="https://www.ut.edu/about-utampa/university-services/human-resources/title-ix-" target="_blank" rel="noopener noreferrer">Title IX</a></li>
+            <li><a href="https://utopia.ut.edu" target="_blank" rel="noopener noreferrer">Libraries</a></li>
             </ul>
           </div>
           <div>
             <h4>Support</h4>
             <ul>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Accessibility</a></li>
+            <li><a href="https://www.ut.edu/graduate-degrees/contact-us" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+            <li><a href="https://www.ut.edu/uploadedFiles/Student_Services/Health_and_Wellness_Center/Health-Center-Privacy-Policy.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+            <li><a href="https://www.ut.edu/academics/academic-support/academic-success-center/student-accessibility-and-academic-support-/student-accessibility-services" target="_blank" rel="noopener noreferrer">Accessibility</a></li>
             </ul>
           </div>
         </div>
