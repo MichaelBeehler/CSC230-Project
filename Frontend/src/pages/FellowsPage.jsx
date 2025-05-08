@@ -20,7 +20,7 @@ function FellowsPage() {
         {fellows.map((fellow) => (
           <div key={fellow._id} className="fellow-card-vertical">
             <img
-              src={`${backendUrl}/uploads/fellows/${fellow.photo}`}
+              src={`${backendUrl}/api/fellows/photo/${fellow.photoId}`}
               alt={fellow.name}
               className="fellow-photo-large"
               onError={(e) => {

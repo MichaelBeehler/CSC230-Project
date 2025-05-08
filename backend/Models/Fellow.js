@@ -11,7 +11,7 @@ const fellowSchema = new mongoose.Schema({
   bio: String,
   topic: String,
   faculty: String,
-  photo: String,
+  photoId: mongoose.Types.ObjectId,
   links: [linkSchema],
 });
 
