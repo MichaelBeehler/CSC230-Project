@@ -91,6 +91,13 @@
   border-color: rgb(200, 16, 46);
 }
 
+.avatar-modal-actions button:not(.primary) {
+  background-color: rgb(200, 16, 46);
+  color: white;
+  border-color: rgb(200, 16, 46);
+}
+
+
 .avatar-modal-actions button:hover {
   opacity: 0.9;
 }
@@ -150,6 +157,10 @@
   display: flex;
   border-bottom: 1px solid #dee2e6;
   margin-bottom: 20px;
+}
+
+.tab-navigation:hover {
+  color: rgb(200, 16, 46);
 }
 
 .tab-button {
@@ -319,7 +330,7 @@
 }
 
 .pdf-info a {
-  color: #007bff;
+  color: rgb(200, 16, 46);
   text-decoration: none;
   font-weight: 500;
   display: flex;

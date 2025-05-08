@@ -19,9 +19,9 @@ function ContactPage() {
 
         {/* Contact Faculty Toggle */}
         <section>
-          <button onClick={() => setExpanded(!expanded)}>
-            Contact Faculty <span className={`arrow ${expanded ? "rotated" : ""}`}>▾</span>
-          </button>
+        <button onClick={() => setExpanded(!expanded)}>
+          Contact Faculty <span className={`arrow ${expanded ? "rotated" : ""}`}>▾</span>
+        </button>
 
           <div className={`accordion ${expanded ? "open" : ""}`}>
             <ul className="faculty-list">
