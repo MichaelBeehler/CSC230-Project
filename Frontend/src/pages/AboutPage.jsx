@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./AboutPage.css"; // ✅ Don't forget to import the CSS file
 const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function AboutPage() {
@@ -29,19 +30,9 @@ function AboutPage() {
         </p>
       </section>
 
-      {/* Optional Button */}
+      {/* Contact Us Button */}
       <div style={{ marginTop: "40px" }}>
-        <Link 
-          to="/contact" 
-          style={{ 
-            backgroundColor: "darkred", 
-            color: "white", 
-            padding: "10px 20px", 
-            borderRadius: "5px", 
-            textDecoration: "none", 
-            fontWeight: "bold"
-          }}
-        >
+        <Link to="/contact" className="contact-btn">
           Contact Us
         </Link>
       </div>

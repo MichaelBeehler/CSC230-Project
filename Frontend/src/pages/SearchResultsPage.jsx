@@ -124,7 +124,7 @@ const SearchResultsPage = () => {
                 rel="noopener noreferrer"
                 style={{
                   display: "block",
-                  backgroundColor: "#990000",
+                  backgroundColor: "rgb(200, 16, 46)",
                   color: "white",
                   padding: "8px 12px",
                   borderRadius: "4px",

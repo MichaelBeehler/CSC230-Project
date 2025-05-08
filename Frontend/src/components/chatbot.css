@@ -13,7 +13,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #2196f3;
+    background-color: rgb(200, 16, 46);
     color: white;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -27,7 +27,7 @@
   }
   
   .chatbot-toggle:hover {
-    background-color: #1976d2;
+    background-color: rgb(150, 10, 30);
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
@@ -48,7 +48,7 @@
   }
   
   .chatbot-header {
-    background-color: #4a90e2;
+    background-color: rgb(200, 16, 46);
     color: white;
     padding: 15px;
     display: flex;
@@ -120,7 +120,7 @@
   }
   
   .chatbot-input button {
-    background-color: #4a90e2;
+    background-color: rgb(200, 16, 46);
     color: white;
     border: none;
     border-radius: 20px;
@@ -173,9 +173,9 @@
   /* Add these styles to your existing chatbot.css */
 /* Update the suggestion button styles to make them more visible */
 .suggestion-btn {
-    background-color: #2196f3; /* Blue background */
+    background-color: rgb(200, 16, 46);
     color: white; /* White text */
-    border: 1px solid #1976d2; /* Darker blue border */
+    border: 1px solid rgb(150, 10, 30);
     border-radius: 16px;
     padding: 6px 12px;
     font-size: 12px;
@@ -190,8 +190,8 @@
   }
   
   .suggestion-btn:hover {
-    background-color: #1976d2; /* Darker blue on hover */
-    border-color: #0d47a1;
+    background-color: rgb(150, 10, 30); /* Darker blue on hover */
+    border-color: #a10d0d;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
   

@@ -59,3 +59,31 @@
 .faculty-list li {
   margin-bottom: 10px;
 }
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(0deg);   /* Arrow points down (▾) */
+}
+
+.arrow {
+  transform: rotate(-90deg); /* Arrow points right (▶) when collapsed */
+}
+
+.accordion {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.accordion.open {
+  max-height: 1000px; /* high enough to show all content */
+  opacity: 1;
+  visibility: visible;
+}
+
