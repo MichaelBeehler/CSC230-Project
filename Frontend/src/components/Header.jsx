@@ -26,15 +26,16 @@ function Header({ userRole, setUserRole }) {
     <nav className="header-right">
       <ul>
         <li className="dropdown">
-          <span>About Us ▾</span>
+          <span>ABOUT US ▾</span>
           <ul className="dropdown-content">
             <li><Link to="/about">About Us</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="/fellows">Fellows</Link></li>
           </ul>
         </li>
 
         <li className="dropdown">
-          <span>Resources ▾</span>
+          <span>RESOURCES ▾</span>
           <ul className="dropdown-content">
             <li>
               <a
@@ -59,7 +60,7 @@ function Header({ userRole, setUserRole }) {
 
         {userRole === "student" && (
           <li className="dropdown">
-            <span>Upload ▾</span>
+            <span>UPLOAD ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/upload-poster">Upload Poster</Link></li>
               <li><Link to="/upload-pdf">Upload Article</Link></li>
@@ -69,30 +70,30 @@ function Header({ userRole, setUserRole }) {
 
         {userRole === "faculty" && (
           <li className="dropdown">
-            <span>Research ▾</span>
+            <span>RESEARCH ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/review">Review Submissions</Link></li>
+              <li><Link to="/fellows-admin">Add Fellows</Link></li>
             </ul>
           </li>
         )}
 
         {userRole === "editor" && (
           <li className="dropdown">
-            <span>Assign & Review ▾</span>
+            <span>ASSIGN & REVIEW ▾</span>
             <ul className="dropdown-content">
               <li><Link to="/editor">Review Submissions</Link></li>
-              <li><Link to="/manage">Manage Users</Link></li>
             </ul>
           </li>
         )}
 
-        {!userRole && <li><Link to="/login">Login</Link></li>}
+        {!userRole && <li><Link to="/login">LOGIN</Link></li>}
 
         {userRole && (
           <li className="dropdown">
-            <span>My Profile ▾</span>
+            <span>MY PROFILE ▾</span>
             <ul className="dropdown-content">
-              <li><Link to="/profile">My Profile</Link></li>
+              <li><Link to="/profile">View Profile</Link></li>
               <li>
                   <span onClick={handleLogout} className="logout-button">Logout</span>
               </li>
