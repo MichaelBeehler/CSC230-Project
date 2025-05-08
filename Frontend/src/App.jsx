@@ -20,6 +20,9 @@ import Footer from "./components/Footer";
 import EditorDashboard from "./pages/EditorDashboard";
 import ResetPassword from "./pages/ResetPassword";
 import ManageUsers from "./pages/ManageUsers";
+import FellowsPage from "./pages/FellowsPage";
+import FellowsAdmin from "./pages/FellowsAdmin";
+
 
 function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
@@ -50,8 +53,11 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword/>} />
           <Route path="/reset-password/:token" element={<ResetPassword/>} />
 
-          {/* 🔍 Public search route */}
-          <Route path="/search" element={<SearchResultsPage />} /> {/* ✅ Added */}
+          {/* Public search route */}
+          <Route path="/search" element={<SearchResultsPage />} />
+
+            {/* ✅ Public Fellows page */}
+          <Route path="/fellows" element={<FellowsPage />} />
 
           {/* Student protected routes */}
           <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
@@ -71,6 +77,7 @@ function App() {
             <Route path="/editor" element={< EditorDashboard/>} />
             <Route path="/profile" element={<StudentProfilePage />} />
             <Route path="/manage" element={<ManageUsers/>} />
+            <Route path="/fellows-admin" element={<FellowsAdmin />} />
           </Route>
         </Routes>
       </main>

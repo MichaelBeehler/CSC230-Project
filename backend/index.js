@@ -7,6 +7,12 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import profilePicRoute from "./Routes/ProfilePicRoute.js";
 import chatbotRoute from "./Routes/chatbotRoute.js";
+import fellowsRoute from "./Routes/FellowsRoute.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -45,8 +51,11 @@ app.use((req, res, next) => {
 app.use("/api/profile-pic", profilePicRoute);
 app.use("/", authRoute);
 app.use("/api/pdf", pdfRoute);
+app.use("/api/fellows", fellowsRoute);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Fix the chatbot route path to match what the frontend expects
 app.use("/api/chatbot", chatbotRoute);
+
 
 // Start server
 app.listen(PORT, () => {
