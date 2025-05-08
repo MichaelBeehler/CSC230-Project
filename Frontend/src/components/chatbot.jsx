@@ -5,7 +5,7 @@ const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: 'Hello! I\'m Lord Hog. How can I help you with our research repository today?', sender: 'bot' }
+    { text: 'Hello! I\'m the CIRT chatbot! How can I help you with our research repository today?', sender: 'bot' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -140,7 +140,7 @@ const Chatbot = () => {
       {isOpen ? (
         <div className="chatbot-window">
           <div className="chatbot-header">
-            <h3>Hog Assistant</h3>
+            <h3>CIRT Assistant</h3>
             <button onClick={toggleChatbot}>×</button>
           </div>
           <div className="chatbot-messages">
