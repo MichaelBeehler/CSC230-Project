@@ -177,7 +177,16 @@
 
 .tab-button:hover {
   color: rgb(200, 16, 46);
+  text-decoration: underline;
+  text-decoration-color: rgb(200, 16, 46);
 }
+
+
+.tab-button:focus,
+.tab-button:focus-visible {
+  outline: none;
+}
+
 
 .tab-button.active {
   color: rgb(200, 16, 46);
