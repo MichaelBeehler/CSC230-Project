@@ -1,0 +1,197 @@
+/* Main Fellows Page (Public) */
+.fellows-page {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .fellows-page h2 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+  }
+  
+  .fellows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  
+  .fellow-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: all 0.3s ease;
+  }
+  
+  
+  .fellow-details {
+    flex: 1;
+    overflow-wrap: break-word;
+  }  
+  
+  .fellow-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .fellow-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f8f9fa;
+    margin-right: 20px;
+  }
+  
+  
+  .fellow-bio {
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  
+  .fellow-links ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .fellow-links li {
+    margin-bottom: 5px;
+  }
+  
+  .fellow-links a {
+    color: #6495ed;
+    text-decoration: none;
+  }
+  
+  .fellow-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Admin Panel (Faculty only) */
+  .fellows-admin-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+  
+  .fellow-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fellow-form input,
+  .fellow-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .link-fields {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .link-fields input {
+    flex: 1;
+  }
+  
+  button.primary-submit-btn {
+    padding: 10px 20px;
+    background-color: rgb(200, 16, 46);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.primary-submit-btn:hover {
+    background-color: rgb(150, 10, 30);
+  }
+  
+  button.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;        /* prevent wrapping */
+    flex-shrink: 0;             /* prevent button from shrinking */
+    margin-left: auto;          /* push to right */
+  }
+  
+  button.delete-btn:hover {
+    background-color: #c82333;
+  }
+
+  .fellows-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  .fellow-card-vertical {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: all 0.3s ease;
+
+  }
+
+  .fellow-card-vertical:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+  }
+  
+  
+  .fellow-photo-large {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #dee2e6;
+  }
+
+  .read-more {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+  }
+  
+  .read-more:hover {
+    text-decoration: underline;
+  }
+  
+  
+  

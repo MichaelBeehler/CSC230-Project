@@ -1,0 +1,117 @@
+.upload-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 30px auto;
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.upload-box {
+  border: 2px dashed #aaa;
+  padding: 25px;
+  margin: 20px 0;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+  background-color: #2b2b2b;
+  transition: all 0.3s ease;
+}
+
+.upload-box.dragging {
+  border-color: #ff5555;
+  background-color: rgba(255, 0, 0, 0.15);
+}
+
+.upload-icon {
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-label {
+  color: #ff5555;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.upload-input,
+.upload-textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+}
+
+.upload-textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+button {
+  background-color: #ff5555;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  margin-top: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.tag-container {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.tag-option {
+  background: #292929;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.upload-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.upload-item {
+  background: #292929;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.upload-item a {
+  color: #77ddff;
+  text-decoration: none;
+}

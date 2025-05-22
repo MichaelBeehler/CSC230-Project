@@ -1,0 +1,119 @@
+/* Layout container */
+.register-page {
+    display: flex;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Left side with image */
+  .register-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+  }
+  
+  .register-image {
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  
+  /* Right side with form */
+  .register-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+  }
+  
+  
+  .register-container {
+    background: #f9f9f9;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .register-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .register-form input:focus {
+    border-color: darkred;
+    outline: none;
+  }
+  
+  .register-form button {
+    padding: 12px;
+    background-color: darkred;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-form button:hover {
+    background-color: red;
+  }
+  
+  .login-link {
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+  }
+  
+  .login-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .register-page {
+      flex-direction: column;
+    }
+  
+    .register-left,
+    .register-right {
+      flex: unset;
+      width: 100%;
+    }
+  
+    .register-image {
+      width: 100%;
+      border-radius: 0;
+    }
+  
+    .register-container {
+      margin: 40px auto;
+    }
+  }

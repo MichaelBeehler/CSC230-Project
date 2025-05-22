@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CscserverApplication<cscserver>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dev.cscserver.cscserver.CscserverApplication",
+            "projectName": "cscserver",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

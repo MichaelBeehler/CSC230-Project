@@ -1,0 +1,96 @@
+.contact-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.contact-content {
+  max-width: 900px;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.contact-content h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.contact-content section {
+  margin-bottom: 30px;
+}
+
+.contact-content h4 {
+  font-size: 24px;
+  color: darkred;
+  margin-bottom: 10px;
+}
+
+.contact-content button {
+  background: none;
+  border: none;
+  color: darkred;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.contact-content button:hover {
+  text-decoration: underline;
+}
+
+.contact-content button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.contact-content a {
+  color: darkred;
+  text-decoration: none;
+}
+
+.contact-content a:hover {
+  text-decoration: underline;
+}
+
+.faculty-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin-top: 15px;
+}
+
+.faculty-list li {
+  margin-bottom: 10px;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(0deg);   /* Arrow points down (▾) */
+}
+
+.arrow {
+  transform: rotate(-90deg); /* Arrow points right (▶) when collapsed */
+}
+
+.accordion {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.accordion.open {
+  max-height: 1000px; /* high enough to show all content */
+  opacity: 1;
+  visibility: visible;
+}
+

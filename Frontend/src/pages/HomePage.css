@@ -1,0 +1,83 @@
+/* IMPORT FONTS - NOTE: call each with 'Univers LT Std', differentiate with font-weights & styles (700, 500, 300; normal, italic) */
+
+/* 67 Bold Condensed - Use for titles */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-BoldCn.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* 57 Condensed - Use for subtitles & buttons */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-Cn.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* 57 Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-CnObl.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* 47 Light Condensed - Use for body text */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCn.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* 47 Light Condensed Oblique (italic version) */
+@font-face {
+  font-family: "Univers LT Std";
+  src: url("../assets/UniversLTStd-LightCnObl.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Home.css */
+.homepage {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .background-image {
+    background-image: url('../assets/UTJPEG.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .background-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+  
+  .home-content {
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    border-radius: 10px;
+    color: #f0f0f0;
+    font-family: "Univers LT Std";
+    font-weight: 300;
+    font-style: normal;
+  }
+  
